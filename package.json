@@ -2,28 +2,15 @@
   "name": "btsgo.net",
   "version": "0.1.0",
   "description": "bitshares2.0 UI",
-  "main": "index.js",
+  "main": "main.js",
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-core": "^6.20.0",
-    "babel-loader": "^6.2.9",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "css-loader": "^0.26.1",
-    "jsx-loader": "^0.13.2",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
-    "sass-loader": "^4.0.2",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.14.0",
+    "redux-devtools": "^3.3.1",
     "webpack-dev-server": "^1.16.2"
   },
   "scripts": {
     "build": "webpack --config webpack.dev.config.js",
     "dev": "webpack-dev-server --devtool eval --progress --colors --content-base build",
-    "release":"webpack -p"
+    "release": "webpack -p"
   },
   "repository": {
     "type": "git",
@@ -38,5 +25,23 @@
   "bugs": {
     "url": "https://github.com/xiangxn/btsgo/issues"
   },
-  "homepage": "https://github.com/xiangxn/btsgo#readme"
+  "homepage": "https://github.com/xiangxn/btsgo#readme",
+  "dependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.20.0",
+    "babel-loader": "^6.2.9",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "css-loader": "^0.26.1",
+    "jsx-loader": "^0.13.2",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.14.0",
+    "react-redux": "^4.4.6",
+    "redux": "^3.6.0"
+  }
 }
