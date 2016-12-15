@@ -1,8 +1,9 @@
 /**
  * Created by xiangxn on 2016/12/11.
  */
-var path = require('path');
-var webpack = require('webpack');
+let path = require('path');
+let webpack = require('webpack');
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: ['webpack/hot/dev-server', path.resolve(__dirname, './app/main.js')],
@@ -20,17 +21,23 @@ module.exports = {
                 test: /\.js|jsx$/,
                 loaders: ['babel?presets[]=es2015,presets[]=react,presets[]=stage-0']
             },
-            {test: /\.scss$/, loader: 'style!css!sass?sourceMap'},
             {
-                test: /\.css$/,
-                loader: 'style!css?modules!postcss'
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract('style', 'css!sass')
+                //loader: 'css!sass?sourceMap'
             },
+            /*{
+                test: /\.css$/,
+                //loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+                loader: 'css?sourceMap'
+            },*/
             {
                 test: /\.(png|jpg|jpeg|gif|woff)$/,
                 loader: 'url?limit=8192'
             }]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new ExtractTextPlugin('build/style.css', {allChunks: true})
     ]
 };
