@@ -1,0 +1,19 @@
+//定义主色调
+$blueColor: #12b7f5 !default;
+$orangeRedColor: #ff8c00 !default;
+$greenColor: #228b22 !default;
+$whiteColor: #ffffff !default;
+$blackColor: #666666 !default;
+$grayColor: #cccccc !default;
+
+//定义字体大小
+$icoFontSize: 40px;
+$titleFontSize: 30px;
+$fontSize: 24px;
+$smallFontSize: 18px;
+
+//定义图标字体
+@font-face {
+  font-family: 'WebSymbols-Regular';
+  src:url('../fonts/WebSymbols-Regular.otf');
+}

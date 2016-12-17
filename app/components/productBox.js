@@ -6,8 +6,6 @@ import connectToStores from 'alt-utils/lib/connectToStores';
 import SettingsStore from '../stores/SettingsStore';
 import SettingsActions from '../actions/SettingsActions';
 
-import '../styles/main.scss';
-
 class ProductBox extends React.Component {
     static getPropsFromStores() {
         return SettingsStore.getState();
@@ -16,13 +14,15 @@ class ProductBox extends React.Component {
         return [SettingsStore];
     }
 
+    //SettingsStore.getSetting('apiServer')
+    //()=>SettingsActions.changeSetting({setting: "locale", value: "cn"})
 
     render() {
         return (
             <div className="header">
-                Hello World!xx
-                <input type="button" onClick={()=>SettingsActions.changeSetting({setting: "locale", value: "cn"})} value="添加"/>
-                {SettingsStore.getSetting('apiServer')}
+                <div className="top-back">&lt;</div>
+                <div className="top-title">Hello World!</div>
+                <div className="top-right"><div className="ico-lock">x</div><div className="ico-menu">p</div></div>
             </div>
         );
     }

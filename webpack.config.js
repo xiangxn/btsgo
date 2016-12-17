@@ -22,7 +22,7 @@ module.exports = {
                 //loader: 'css!sass?sourceMap'
             },
             {
-                test: /\.(png|jpg|jpeg|gif|woff)$/, loader: 'url?limit=8192'
+                test: /\.(png|jpg|jpeg|gif|woff|otf)$/, loader: 'url?limit=8192'
             }]
     },
     plugins: [

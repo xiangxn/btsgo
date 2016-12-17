@@ -1,0 +1,60 @@
+@import "define";
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 微软雅黑;
+  font-size: $fontSize;
+}
+
+.header {
+  width: 100%;
+  height: 88px;
+  background-color: $blueColor;
+  display: flex;
+  justify-content: center;
+  > .top-back {
+    font-family: WebSymbols-Regular;
+    margin-left: 8px;
+    width: 50px;
+    color: $whiteColor;
+    font-size: $icoFontSize;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding-bottom: 6px;
+  }
+  > .top-title {
+    font-size: $titleFontSize;
+    color: $whiteColor;
+    font-weight: 700;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  > .top-right {
+    position: fixed;
+    right: 8px;
+    display: flex;
+    > .ico-menu {
+      font-family: WebSymbols-Regular;
+      font-size: $icoFontSize;
+      color: $whiteColor;
+      height: 78px;
+      width: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 10px;
+      flex: 1;
+      cursor: pointer;
+    }
+    > .ico-lock {
+      @extend .ico-menu;
+      height: 88px;
+      padding-bottom: 0px;
+      font-size: 50px;
+    }
+  }
+}
