@@ -20,8 +20,8 @@ class ProductBox extends React.Component {
     render() {
         return (
             <div className="header">
-                <div className="top-back">&lt;</div>
                 <div className="top-title">Hello World!</div>
+                <div className="top-back">&lt;</div>
                 <div className="top-right"><div className="ico-lock">x</div><div className="ico-menu">p</div></div>
             </div>
         );

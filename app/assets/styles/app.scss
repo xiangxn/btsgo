@@ -14,9 +14,11 @@ body {
   display: flex;
   justify-content: center;
   > .top-back {
+    position: fixed;
     font-family: WebSymbols-Regular;
-    margin-left: 8px;
-    width: 50px;
+    left: 8px;
+    height: 82px;
+    width: 60px;
     color: $whiteColor;
     font-size: $icoFontSize;
     cursor: pointer;
@@ -28,7 +30,7 @@ body {
     font-size: $titleFontSize;
     color: $whiteColor;
     font-weight: 700;
-    flex: 1;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
