@@ -6,7 +6,7 @@ import connectToStores from 'alt-utils/lib/connectToStores';
 import SettingsStore from '../stores/SettingsStore';
 import SettingsActions from '../actions/SettingsActions';
 
-class ProductBox extends React.Component {
+class NavigationBar extends React.Component {
     static getPropsFromStores() {
         return SettingsStore.getState();
     }
@@ -27,4 +27,4 @@ class ProductBox extends React.Component {
         );
     }
 }
-export default connectToStores(ProductBox);
+export default connectToStores(NavigationBar);

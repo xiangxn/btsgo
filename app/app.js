@@ -4,7 +4,7 @@
 
 import React from 'react';
 import {render} from 'react-dom';
-import AppComponent from './components/productBox';
+import AppComponent from './components/NavigationBar';
 
 class App extends React.Component{
     render(){
