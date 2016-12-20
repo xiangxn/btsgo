@@ -60,3 +60,20 @@ body {
     }
   }
 }
+
+.popup-menu{
+  width: 200px;
+  z-index: 1000;
+  position: fixed;
+  height: auto;
+  >.menu-arrow{
+    color: $blackColor;
+    height: 25px;
+    width: 25px;
+    overflow: hidden;
+  }
+  >.meun-content{
+    background-color: $blackTColor;
+    height: 500px;
+  }
+}

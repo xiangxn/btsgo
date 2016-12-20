@@ -6,6 +6,8 @@ import connectToStores from 'alt-utils/lib/connectToStores';
 import SettingsStore from '../stores/SettingsStore';
 import SettingsActions from '../actions/SettingsActions';
 
+import PopupMenu from './PopupMenu';
+
 class NavigationBar extends React.Component {
     static getPropsFromStores() {
         return SettingsStore.getState();
@@ -23,6 +25,7 @@ class NavigationBar extends React.Component {
                 <div className="top-title">Hello World!</div>
                 <div className="top-back">&lt;</div>
                 <div className="top-right"><div className="ico-lock">x</div><div className="ico-menu">p</div></div>
+                <PopupMenu />
             </div>
         );
     }
