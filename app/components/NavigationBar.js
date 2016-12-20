@@ -12,8 +12,31 @@ class NavigationBar extends React.Component {
     static getPropsFromStores() {
         return SettingsStore.getState();
     }
+
     static getStores() {
         return [SettingsStore];
+    }
+
+    constructor() {
+        super();
+        this.state = {
+            menuTop: 0,
+            menuLeft: 0,
+            isShowMenu: false
+        };
+    }
+
+    showMenu() {
+        let rect = this.refs.menuBtn.getBoundingClientRect();
+        /*
+         let menu = this.refs.mainMenu;
+         menu.setState({top: rect.top + rect.height - 30, left: rect.left - 145, isShow: !menu.state.isShow});
+         */
+        this.setState({
+            menuTop: rect.top + rect.height - 30,
+            menuLeft: rect.left - 145,
+            isShowMenu: !this.state.isShowMenu
+        });
     }
 
     //SettingsStore.getSetting('apiServer')
@@ -24,8 +47,11 @@ class NavigationBar extends React.Component {
             <div className="header">
                 <div className="top-title">Hello World!</div>
                 <div className="top-back">&lt;</div>
-                <div className="top-right"><div className="ico-lock">x</div><div className="ico-menu">p</div></div>
-                <PopupMenu />
+                <div className="top-right">
+                    <div className="ico-lock">x</div>
+                    <div ref="menuBtn" className="ico-menu" onClick={this.showMenu.bind(this)}>p</div>
+                </div>
+                <PopupMenu top={this.state.menuTop} left={this.state.menuLeft} isShow={this.state.isShowMenu}/>
             </div>
         );
     }
