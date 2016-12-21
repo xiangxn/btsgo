@@ -17,8 +17,8 @@ class NavigationBar extends React.Component {
         return [SettingsStore];
     }
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             menuTop: 0,
             menuLeft: 0,
@@ -43,9 +43,10 @@ class NavigationBar extends React.Component {
     //()=>SettingsActions.changeSetting({setting: "locale", value: "cn"})
 
     render() {
+        let props = this.props;
         return (
             <div className="header">
-                <div className="top-title">Hello World!</div>
+                <div className="top-title">{props.title}</div>
                 <div className="top-back">&lt;</div>
                 <div className="top-right">
                     <div className="ico-lock">x</div>
@@ -56,4 +57,13 @@ class NavigationBar extends React.Component {
         );
     }
 }
+
+NavigationBar.PropTypes = {
+    title: React.PropTypes.string
+}
+
+NavigationBar.defaultProps = {
+    title: 'BTSGO'
+}
+
 export default connectToStores(NavigationBar);

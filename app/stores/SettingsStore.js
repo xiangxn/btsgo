@@ -53,7 +53,7 @@ class SettingsStore {
         ];
         let defaults = {
             locale: [
-                "cn",
+                "zh",
                 "en"
             ],
             apiServer: [],
