@@ -34,7 +34,8 @@ module.exports = {
             {
                 test: /\.(png|jpg|jpeg|gif|woff)$/,
                 loader: 'url?limit=8192'
-            }]
+            },
+            {test: /\.json$/,loader: 'json'}]
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),

@@ -7,14 +7,15 @@ import SettingsActions from '../actions/SettingsActions';
 import Immutable from "immutable";
 import {merge} from "lodash";
 import ls from '../../common/localStorage';
+import BaseStore,{STORAGE_KEY} from './BaseStore';
 
 const CORE_ASSET = "BTS";
-const STORAGE_KEY = "__btsgo__";
 
 let ss = new ls(STORAGE_KEY);
 
-class SettingsStore {
+class SettingsStore extends BaseStore {
     constructor() {
+        super();
         this.exportPublicMethods({getSetting: this.getSetting.bind(this)});
         this.defaultSettings = Immutable.Map({
             locale: "cn",

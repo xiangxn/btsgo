@@ -23,7 +23,8 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|jpeg|gif|woff|otf)$/, loader: 'url?limit=8192'
-            }]
+            },
+            {test: /\.json$/,loader: 'json'}]
     },
     plugins: [
         new ExtractTextPlugin('style.css', {allChunks: true})
