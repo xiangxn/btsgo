@@ -11,11 +11,12 @@ import ls from '../../common/localStorage';
 let ss = new ls(STORAGE_KEY);
 
 import {addLocaleData} from 'react-intl';
-import zh_CN from '../assets/locales/locale-zh';
-import en_US from '../assets/locales/locale-en';
+import {zh_CN} from '../assets/locales/locale-zh';
+import {en_US} from '../assets/locales/locale-en';
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
-addLocaleData([zh, en]);
+addLocaleData(zh);
+addLocaleData(en);
 
 class IntlStore extends BaseStore {
     constructor() {
@@ -23,6 +24,7 @@ class IntlStore extends BaseStore {
         this.currentLocale = ss.has("settings_v3") ? ss.get("settings_v3").locale : "zh";
 
         this.locales = ["zh"];
+        //console.debug(zh_CN);
         this.localesObject = {zh: zh_CN};
 
         this.bindListeners({

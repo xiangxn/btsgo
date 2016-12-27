@@ -27,7 +27,7 @@ class RootIntl extends React.Component {
     }
 
     render() {
-
+console.debug(this.props.localeObj);
         return (
             <IntlProvider
                 locale={this.props.locale}
