@@ -1,4 +1,4 @@
-import idb_helper from "idb-helper"
+import idb_helper from "./idb-helper"
 import {Apis} from "graphenejs-ws";
 
 const DB_VERSION_MAIN = 1

@@ -43,6 +43,7 @@
     "graphenejs-ws": "^0.1.7",
     "history": "^3.2.1",
     "immutable": "^3.8.1",
+    "indexeddbshim": "^2.2.1",
     "intl": "^1.2.5",
     "json-loader": "^0.5.4",
     "jsx-loader": "^0.13.2",

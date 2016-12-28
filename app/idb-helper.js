@@ -63,7 +63,7 @@ module.exports = idb_helper = {
                 return Promise.all([event_promise, request_promise])
             return request_promise
             
-        }(object, event_callback)//copy var references for callbacks
+        }//(object, event_callback)//copy var references for callbacks
     },
     
     /** callback may return <b>false</b> to indicate that iteration should stop */

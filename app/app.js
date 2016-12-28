@@ -11,7 +11,12 @@ import {Router, Route, IndexRoute, Redirect} from "react-router";
 import createBrowserHistory from 'history/lib/createHashHistory';
 import SettingsStore from './stores/SettingsStore';
 
+import PrivateKeyActions from './actions/PrivateKeyActions';
+
 import RootIntl from './components/RootIntl';
+import iDB from './idb-instance';
+import 'indexeddbshim';
+
 
 let btsgoHistory = createBrowserHistory();
 ChainStore.setDispatchFrequency(20);

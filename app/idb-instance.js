@@ -1,6 +1,6 @@
 import {Apis} from "graphenejs-ws";
-import idb_helper from "idb-helper"
-import iDBRoot from "idb-root"
+import idb_helper from "./idb-helper"
+import iDBRoot from "./idb-root"
 
 const DB_VERSION = 2 // Initial value was 1
 const DB_PREFIX = "graphene_v2"
@@ -8,7 +8,7 @@ const WALLET_BACKUP_STORES = [
     "wallet", "private_keys", "linked_accounts"
 ]
 
-var current_wallet_name = "default"
+var current_wallet_name = "default";
 
 var upgrade = function(db, oldVersion) {
     // DEBUG console.log('... upgrade oldVersion',oldVersion)
