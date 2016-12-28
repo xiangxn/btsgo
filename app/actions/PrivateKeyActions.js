@@ -6,11 +6,16 @@ import alt from '../../common/altObj';
 class PrivateKeyActions {
 
     addKey(private_key_object, transaction) {
-        return {private_key_object, transaction};
+        return new Promise(resolve => {
+            return {private_key_object, transaction, resolve};
+        });
     }
 
     loadDbData() {
-        return {};
+        return new Promise(resolve => {
+            return null;
+        });
     }
 
 }
+export default alt.createActions(PrivateKeyActions);

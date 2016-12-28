@@ -10,6 +10,8 @@ import {render} from 'react-dom';
 import {Router, Route, IndexRoute, Redirect} from "react-router";
 import createBrowserHistory from 'history/lib/createHashHistory';
 import SettingsStore from './stores/SettingsStore';
+import WalletDb from './stores/WalletDb';
+import WalletManagerStore from './stores/WalletManagerStore';
 
 import PrivateKeyActions from './actions/PrivateKeyActions';
 

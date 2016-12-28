@@ -49,6 +49,7 @@
     "jsx-loader": "^0.13.2",
     "lodash": "^4.17.2",
     "node-sass": "^4.0.0",
+    "numeral": "^2.0.4",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-intl": "^2.2.0",
@@ -57,7 +58,9 @@
     "redux": "^3.6.0",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
+    "tcomb": "^3.2.16",
     "url-loader": "^0.5.7",
-    "webpack": "^1.14.0"
+    "webpack": "^1.14.0",
+    "worker-loader": "^0.7.1"
   }
 }

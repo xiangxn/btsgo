@@ -27,7 +27,7 @@ class SettingsActions {
 
     //清除设置
     clearSettings() {
-        return {};
+        return null;
     }
 }
 export default alt.createActions(SettingsActions);
