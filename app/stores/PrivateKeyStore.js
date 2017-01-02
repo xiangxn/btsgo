@@ -47,7 +47,7 @@ class PrivateKeyStore extends BaseStore {
     
     /** This method may be called again should the main database change */
     onLoadDbData(resolve) {//resolve is deprecated
-        this.pendingOperation() 
+        this.pendingOperation()
         this.setState(this._getInitialState())
         var keys = Immutable.Map().asMutable()
         var p = idb_helper.cursor("private_keys", cursor => {

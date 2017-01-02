@@ -7,7 +7,7 @@ import SettingsActions from '../actions/SettingsActions';
 import Immutable from "immutable";
 import {merge} from "lodash";
 import ls from '../../common/localStorage';
-import BaseStore,{STORAGE_KEY} from './BaseStore';
+import BaseStore, {STORAGE_KEY} from './BaseStore';
 
 const CORE_ASSET = "BTS";
 
@@ -36,9 +36,10 @@ class SettingsStore extends BaseStore {
             markets.filter(a => {
                 return a !== base;
             }).forEach(market => {
-                target.push([`${market}_${base}`, {"quote": market,"base": base}]);
+                target.push([`${market}_${base}`, {"quote": market, "base": base}]);
             });
         }
+
         let defaultMarkets = [];
         this.preferredBases.forEach(base => {
             addMarkets(defaultMarkets, base, topMarkets);
@@ -47,7 +48,7 @@ class SettingsStore extends BaseStore {
             {url: "wss://bitshares.openledger.info/ws", location: "Nuremberg, Germany"},
             {url: "wss://bit.btsabc.org/ws", location: "Hong Kong"},
             {url: "wss://bts.transwiser.com/ws", location: "Hangzhou, China"},
-            {url: "wss://bitshares.dacplay.org:8089/ws", location:  "Hangzhou, China"},
+            {url: "wss://bitshares.dacplay.org:8089/ws", location: "Hangzhou, China"},
             {url: "wss://openledger.hk/ws", location: "Hong Kong"},
             {url: "wss://secure.freedomledger.com/ws", location: "Toronto, Canada"},
             {url: "wss://testnet.bitshares.eu/ws", location: "Public Testnet Server (Frankfurt, Germany)"}
@@ -73,11 +74,14 @@ class SettingsStore extends BaseStore {
             onAddWS: SettingsActions.addWS,
             onRemoveWS: SettingsActions.removeWS,
             onClearSettings: SettingsActions.clearSettings,
-            onSwitchLocale: SettingsActions.switchLocale
+            onSwitchLocale: SettingsActions.switchLocale,
+            onAddStarAccount: SettingsActions.addStarAccount,
+            onRemoveStarAccount: SettingsActions.removeStarAccount
         });
         this.settings = Immutable.Map(merge(this.defaultSettings.toJS(), ss.get("settings_v3")));
         this.marketsString = "markets";
         this.starredMarkets = Immutable.Map(ss.get(this.marketsString, defaultMarkets));
+        this.starredAccounts = Immutable.Map(ss.get("starredAccounts"));
         let savedDefaults = ss.get("defaults_v1", {});
         this.defaults = merge({}, defaults, savedDefaults);
     }
@@ -127,6 +131,20 @@ class SettingsStore extends BaseStore {
         console.log("onSwitchLocale:", locale);
 
         this.onChangeSetting({setting: "locale", value: locale});
+    }
+
+    onAddStarAccount(account) {
+        if (!this.starredAccounts.has(account)) {
+            this.starredAccounts = this.starredAccounts.set(account, {name: account});
+            ss.set("starredAccounts", this.starredAccounts.toJS());
+        } else {
+            return false;
+        }
+    }
+
+    onRemoveStarAccount(account) {
+        this.starredAccounts = this.starredAccounts.delete(account);
+        ss.set("starredAccounts", this.starredAccounts.toJS());
     }
 }
 export default alt.createStore(SettingsStore, "SettingsStore");

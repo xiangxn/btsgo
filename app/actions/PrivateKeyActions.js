@@ -11,11 +11,10 @@ class PrivateKeyActions {
         });
     }
 
-    loadDbData() {
-        return new Promise(resolve => {
-            return null;
-        });
+    loadDbData(resolve) {
+        return (dispatch)=>{
+            dispatch(resolve);
+        };
     }
-
 }
 export default alt.createActions(PrivateKeyActions);

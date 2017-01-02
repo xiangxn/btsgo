@@ -3,7 +3,6 @@
  */
 
 import React from 'react';
-import NavigationBar from './NavigationBar';
 
 class Settings extends React.Component {
     constructor(props) {
@@ -11,8 +10,11 @@ class Settings extends React.Component {
     }
 
     render() {
+        console.debug('Settings....');
         return (
-            <NavigationBar title="设置"/>
+            <div>
+                设置页面
+            </div>
         );
     }
 }

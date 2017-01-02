@@ -29,5 +29,15 @@ class SettingsActions {
     clearSettings() {
         return null;
     }
+
+    //添加初始账号
+    addStarAccount(account) {
+        return account;
+    }
+
+    //删除初始账号
+    removeStarAccount(account) {
+        return account;
+    }
 }
 export default alt.createActions(SettingsActions);

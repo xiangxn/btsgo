@@ -10,6 +10,7 @@ import {render} from 'react-dom';
 import {Router, Route, IndexRoute, Redirect} from "react-router";
 import createBrowserHistory from 'history/lib/createHashHistory';
 import SettingsStore from './stores/SettingsStore';
+import AccountRefsStore from './stores/AccountRefsStore';
 import WalletDb from './stores/WalletDb';
 import WalletManagerStore from './stores/WalletManagerStore';
 
@@ -19,11 +20,13 @@ import RootIntl from './components/RootIntl';
 import iDB from './idb-instance';
 import 'indexeddbshim';
 
+//组件
+import Settings from "./components/Settings";
+import Loading from "./components/Loading";
+
 
 let btsgoHistory = createBrowserHistory();
 ChainStore.setDispatchFrequency(20);
-
-
 
 
 let willTransitionTo = (nextState, replaceState, callback) => {
@@ -54,16 +57,19 @@ let willTransitionTo = (nextState, replaceState, callback) => {
         } catch (err) {
             console.log("db init error:", err);
         }
+        console.debug(db);
         return Promise.all([db]).then(() => {
             console.log("db init done");
             return Promise.all([
-                PrivateKeyActions.loadDbData().then(() => AccountRefsStore.loadDbData()),
+                PrivateKeyActions.loadDbData(() => {
+                    AccountRefsStore.loadDbData();
+                }),
                 WalletDb.loadDbData().then(() => {
                     if (!WalletDb.getWallet() && nextState.location.pathname !== "/create-account") {
-                        replaceState(null, "/create-account");
+                        replaceState("/create-account");
                     }
                     if (nextState.location.pathname.indexOf("/auth/") === 0) {
-                        replaceState(null, "/dashboard");
+                        replaceState("/dashboard");
                     }
                 }).catch((error) => {
                     console.error("----- WalletDb.willTransitionTo error ----->", error);
@@ -85,7 +91,11 @@ let willTransitionTo = (nextState, replaceState, callback) => {
 };
 
 let routes = (
-    <Route path='/' component={RootIntl} onEnter={willTransitionTo}/>
+    <Route path='/' component={RootIntl} onEnter={willTransitionTo}>
+        <IndexRoute component={Loading}/>
+        <Route path="create-account" component={Settings}/>
+        <Route path="init-error" component={Settings}/>
+    </Route>
 );
 
 render(<Router history={btsgoHistory} routes={routes}/>, document.getElementById('content'));

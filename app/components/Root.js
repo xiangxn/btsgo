@@ -1,5 +1,7 @@
-
 import React from 'react';
+import {ChainStore} from "graphenejs-lib";
+import {Apis} from "graphenejs-ws";
+import AccountStore from "../stores/AccountStore";
 import SettingsStore from '../stores/SettingsStore';
 import Loading from './Loading';
 import NavigationBar from './NavigationBar';
@@ -23,6 +25,22 @@ class Root extends React.Component {
     componentDidMount() {
         try {
             SettingsStore.listen(this.onSettingsChange.bind(this));
+            ChainStore.init().then(() => {
+                this.setState({synced: true});
+                Promise.all([
+                    AccountStore.loadDbData(Apis.instance().chainId)
+                ]).then(() => {
+                    AccountStore.tryToSetCurrentAccount();
+                    this.setState({loading: false, syncFail: false});
+                }).catch(error => {
+                    console.log("[Root.js] ----- ERROR ----->", error);
+                    this.setState({loading: false});
+                });
+            }).catch(error => {
+                console.log("[App.jsx] ----- ChainStore.init error ----->", error);
+                let syncFail = error.message === "ChainStore sync error, please check your system clock" ? true : false;
+                this.setState({loading: false, syncFail});
+            });
         } catch (e) {
             console.error("error:", e);
         }
@@ -49,14 +67,19 @@ class Root extends React.Component {
         } else {
             content = (
                 <div>
-                    <NavigationBar />
+                    <NavigationBar/>
                     <div>
                         {this.props.children}
                     </div>
                 </div>
             );
         }
-        return ( {content});
+        //console.debug(content);
+        return (
+            <div>
+                {content}
+            </div>
+        );
     }
 }
 

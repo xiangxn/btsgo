@@ -13,7 +13,6 @@ class Loading extends React.Component {
     }
 
     render() {
-
         let items = loadItems.map((item, i) => {
             return <span key={i}>{item}</span>
         });
