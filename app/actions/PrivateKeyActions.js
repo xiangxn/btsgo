@@ -11,9 +11,14 @@ class PrivateKeyActions {
         });
     }
 
-    loadDbData(resolve) {
-        return (dispatch)=>{
-            dispatch(resolve);
+    loadDbData(fun) {
+        return (dispatch) => {
+            let pro = new Promise(resolve => {
+                dispatch(resolve)
+            });
+            pro.then(()=> {
+                fun();
+            })
         };
     }
 }

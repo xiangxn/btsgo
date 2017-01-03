@@ -7,8 +7,8 @@ import {Apis} from "graphenejs-ws";
 
 import React from 'react';
 import {render} from 'react-dom';
-import {Router, Route, IndexRoute, Redirect} from "react-router";
-import createBrowserHistory from 'history/lib/createHashHistory';
+import {Router, Route, IndexRoute, Redirect, browserHistory, hashHistory} from "react-router";
+//import createBrowserHistory from 'history/lib/createHashHistory';
 import SettingsStore from './stores/SettingsStore';
 import AccountRefsStore from './stores/AccountRefsStore';
 import WalletDb from './stores/WalletDb';
@@ -25,7 +25,7 @@ import Settings from "./components/Settings";
 import Loading from "./components/Loading";
 
 
-let btsgoHistory = createBrowserHistory();
+//let btsgoHistory = createBrowserHistory();
 ChainStore.setDispatchFrequency(20);
 
 
@@ -50,6 +50,7 @@ let willTransitionTo = (nextState, replaceState, callback) => {
             });
 
     }
+    console.debug('Apis.instance');
     Apis.instance(connectionString, true).init_promise.then(() => {
         var db;
         try {
@@ -57,7 +58,7 @@ let willTransitionTo = (nextState, replaceState, callback) => {
         } catch (err) {
             console.log("db init error:", err);
         }
-        console.debug(db);
+        //console.debug(db);
         return Promise.all([db]).then(() => {
             console.log("db init done");
             return Promise.all([
@@ -84,7 +85,7 @@ let willTransitionTo = (nextState, replaceState, callback) => {
         if (error.name === "InvalidStateError") {
             alert("Can't access local storage.\nPlease make sure your browser is not in private/incognito mode.");
         } else {
-            replaceState(null, "/init-error");
+            replaceState("/init-error");
             callback();
         }
     });
@@ -98,4 +99,4 @@ let routes = (
     </Route>
 );
 
-render(<Router history={btsgoHistory} routes={routes}/>, document.getElementById('content'));
+render(<Router history={browserHistory} routes={routes}/>, document.getElementById('content'));
