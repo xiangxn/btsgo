@@ -1,9 +1,17 @@
 @import "define";
 
-body {
+html, body {
+  height: 100%;
+  width: 100%;
   padding: 0;
   margin: 0;
-  font-family: 微软雅黑;
+  font-family: $basefamily;
+  font-size: $fontSize;
+  background-color: $bgGrayColor;
+}
+
+input {
+  font-family: $basefamily;
   font-size: $fontSize;
 }
 
@@ -30,7 +38,6 @@ body {
     font-size: $titleFontSize;
     color: $whiteColor;
     font-weight: 700;
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,6 +46,8 @@ body {
     position: fixed;
     right: 8px;
     display: flex;
+    width: auto;
+    height: auto;
     > .ico-menu {
       font-family: WebSymbols-Regular;
       font-size: $icoFontSize;
@@ -62,6 +71,7 @@ body {
 
 .popup-menu {
   width: 200px;
+  height: auto;
   z-index: 1000;
   position: fixed;
   > .menu-arrow {
@@ -82,11 +92,71 @@ body {
         height: 50px;
         line-height: 50px;
         cursor: pointer;
-        text-align: center;
+        > div {
+          margin-left: auto;
+          margin-right: auto;
+          width: 100px;
+          text-align: justify;
+          text-justify: distribute-all-lines;
+          text-align-last: justify;
+        }
       }
       > li:not(:last-child) {
         border-bottom: 1px solid $grayColor;
       }
     }
   }
+}
+
+.content {
+  padding-top: 12px;
+  > .text-input {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    height: 60px;
+    line-height: 60px;
+    background-color: $whiteColor;
+    display: flex;
+    align-items: center;
+    > div {
+      width: 100px;
+      text-align: justify;
+      text-justify: distribute-all-lines;
+      text-align-last: justify;
+      font-weight: bold;
+      float: left;
+      margin-left: 20px;
+      margin-right: 40px;
+      color: $blackColor;
+    }
+    > input {
+      height: 40px;
+      flex: 1;
+      margin-right: 20px;
+      border: none;
+    }
+  }
+  > .operate {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > input {
+      width: 200px;
+      height: 60px;
+      background-color: $greenColor;
+      color: $whiteColor;
+      border: none;
+      font-weight: bold;
+    }
+  }
+}
+
+.message-box {
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: $whiteColor;
+  color: $orangeRedColor;
+  padding: 20px;
+  font-weight: bold;
 }

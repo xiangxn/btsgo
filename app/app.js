@@ -23,6 +23,7 @@ import 'indexeddbshim';
 //组件
 import Settings from "./components/Settings";
 import Loading from "./components/Loading";
+import CreeateAccount from "./components/wallet/CreateAccount";
 
 
 //let btsgoHistory = createBrowserHistory();
@@ -94,7 +95,7 @@ let willTransitionTo = (nextState, replaceState, callback) => {
 let routes = (
     <Route path='/' component={RootIntl} onEnter={willTransitionTo}>
         <IndexRoute component={Loading}/>
-        <Route path="create-account" component={Settings}/>
+        <Route path="create-account" component={CreeateAccount}/>
         <Route path="init-error" component={Settings}/>
     </Route>
 );

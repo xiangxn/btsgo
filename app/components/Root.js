@@ -68,18 +68,12 @@ class Root extends React.Component {
             content = (
                 <div>
                     <NavigationBar/>
-                    <div>
-                        {this.props.children}
-                    </div>
+                    {this.props.children}
                 </div>
             );
         }
         //console.debug(content);
-        return (
-            <div>
-                {content}
-            </div>
-        );
+        return content;
     }
 }
 

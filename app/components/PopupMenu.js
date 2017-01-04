@@ -26,7 +26,7 @@ class PopupMenu extends React.Component {
                     <div className="meun-content">
                         <ul>
                             {menuItems.map((item) => {
-                                return (<li key={item.name}>{item.name}</li> );
+                                return (<li key={item.name}><div>{item.name}</div></li> );
                             })}
                         </ul>
                     </div>
