@@ -6,7 +6,6 @@ html, body {
   padding: 0;
   margin: 0;
   font-family: $basefamily;
-  font-size: $fontSize;
   background-color: $bgGrayColor;
 }
 
@@ -17,22 +16,22 @@ input {
 
 .header {
   width: 100%;
-  height: 88px;
+  height: .88rem;
   background-color: $blueColor;
   display: flex;
   justify-content: center;
   > .top-back {
     position: fixed;
     font-family: WebSymbols-Regular;
-    left: 8px;
-    height: 82px;
-    width: 60px;
+    left: .08rem;
+    height: .82rem;
+    width: .6rem;
     color: $whiteColor;
     font-size: $icoFontSize;
     cursor: pointer;
     display: flex;
     align-items: center;
-    padding-bottom: 6px;
+    padding-bottom: .06rem;
   }
   > .top-title {
     font-size: $titleFontSize;
@@ -44,7 +43,7 @@ input {
   }
   > .top-right {
     position: fixed;
-    right: 8px;
+    right: .08rem;
     display: flex;
     width: auto;
     height: auto;
@@ -52,112 +51,122 @@ input {
       font-family: WebSymbols-Regular;
       font-size: $icoFontSize;
       color: $whiteColor;
-      height: 78px;
-      width: 60px;
+      height: .78rem;
+      width: .6rem;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding-bottom: 10px;
+      padding-bottom: .1rem;
       cursor: pointer;
     }
     > .ico-lock {
       @extend .ico-menu;
-      height: 88px;
-      padding-bottom: 0px;
-      font-size: 50px;
+      height: .88rem;
+      padding-bottom: 0;
+      font-size: .5rem;
     }
   }
 }
 
 .popup-menu {
-  width: 200px;
+  width: 2rem;
   height: auto;
   z-index: 1000;
   position: fixed;
   > .menu-arrow {
     color: $blackColor;
-    height: 25px;
+    height: .25rem;
     overflow: hidden;
     text-align: right;
-    margin-right: 10px;
+    margin-right: .1rem;
+    font-size: $fontSize;
   }
   > .meun-content {
     background-color: $blackTColor;
     > ul {
       margin: 0;
-      padding: 10px;
+      padding: .1rem;
       list-style: none;
       color: $whiteColor;
       > li {
-        height: 50px;
-        line-height: 50px;
+        height: .5rem;
+        line-height: .5rem;
         cursor: pointer;
         > div {
           margin-left: auto;
           margin-right: auto;
-          width: 100px;
+          width: 1rem;
           text-align: justify;
           text-justify: distribute-all-lines;
           text-align-last: justify;
+          font-size: $fontSize;
         }
       }
       > li:not(:last-child) {
-        border-bottom: 1px solid $grayColor;
+        border-bottom: .01rem solid $grayColor;
       }
     }
   }
 }
 
 .content {
-  padding-top: 12px;
+  padding-top: .12rem;
   > .text-input {
-    margin-top: 2px;
-    margin-bottom: 2px;
-    height: 60px;
-    line-height: 60px;
+    margin-top: .02rem;
+    margin-bottom: .02rem;
+    height: .6rem;
+    line-height: .6rem;
     background-color: $whiteColor;
     display: flex;
     align-items: center;
     > div {
-      width: 100px;
+      width: 1rem;
       text-align: justify;
       text-justify: distribute-all-lines;
       text-align-last: justify;
       font-weight: bold;
       float: left;
-      margin-left: 20px;
-      margin-right: 40px;
+      margin-left: .2rem;
+      margin-right: .4rem;
       color: $blackColor;
+      font-size: $fontSize;
     }
     > input {
-      height: 40px;
+      height: .4rem;
       flex: 1;
-      margin-right: 20px;
+      margin-right: .2rem;
       border: none;
     }
   }
   > .operate {
-    height: 140px;
+    height: 1.4rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    > input {
-      width: 200px;
-      height: 60px;
-      background-color: $greenColor;
-      color: $whiteColor;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
   }
 }
 
+.green-btn {
+  width: 2rem;
+  height: .6rem;
+  background-color: $greenColor;
+  color: $whiteColor;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+.orange-red-btn{
+  @extend .green-btn;
+  background-color: $orangeRedColor;
+}
+
+
 .message-box {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: .2rem;
+  margin-right: .2rem;
   background-color: $whiteColor;
   color: $orangeRedColor;
-  padding: 20px;
+  padding: .2rem;
   font-weight: bold;
+  font-size: $fontSize;
 }

@@ -22,7 +22,7 @@ class CreeateAccount extends Component {
                     <div>确认密码</div><input type="password" placeholder="确认输入密码"/>
                 </div>
                 <div className="operate">
-                    <input type="button" value="确认"/>
+                    <input className="green-btn" type="button" value="确认"/>
                 </div>
                 <div className="message-box">
                     你使用的是高级账户名。高级账户名的注册需要花费
