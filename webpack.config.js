@@ -24,9 +24,15 @@ module.exports = {
             {
                 test: /\.(png|jpg|jpeg|gif|woff|otf)$/, loader: 'url?limit=8192'
             },
-            {test: /\.json$/,loader: 'json'}]
+            {test: /\.json$/, loader: 'json'}]
     },
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin(),
         new ExtractTextPlugin('style.css', {allChunks: true})
     ]
 };

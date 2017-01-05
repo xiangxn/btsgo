@@ -32,9 +32,10 @@ class NavigationBar extends React.Component {
          let menu = this.refs.mainMenu;
          menu.setState({top: rect.top + rect.height - 30, left: rect.left - 145, isShow: !menu.state.isShow});
          */
+        console.debug(rect);
         this.setState({
-            menuTop: rect.top + rect.height - 30,
-            menuLeft: rect.left - 145,
+            menuTop: (rect.top + rect.height)/100,
+            menuLeft: (rect.left+rect.width)/100,
             isShowMenu: !this.state.isShowMenu
         });
     }

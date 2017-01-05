@@ -21,12 +21,14 @@ class PopupMenu extends React.Component {
         let props = this.props;
         if (props.isShow) {
             return (
-                <div className="popup-menu" style={{top: props.top, left: props.left}}>
+                <div className="popup-menu" style={{top:  '.6rem', right: '.12rem'}}>
                     <div className="menu-arrow">▲</div>
                     <div className="meun-content">
                         <ul>
                             {menuItems.map((item) => {
-                                return (<li key={item.name}><div>{item.name}</div></li> );
+                                return (<li key={item.name}>
+                                    <div>{item.name}</div>
+                                </li> );
                             })}
                         </ul>
                     </div>
