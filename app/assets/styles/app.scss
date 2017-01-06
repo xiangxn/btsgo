@@ -12,6 +12,7 @@ html, body {
 input {
   font-family: $basefamily;
   font-size: $fontSize;
+  -webkit-appearance: none;
 }
 
 .header {
