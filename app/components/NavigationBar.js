@@ -32,12 +32,19 @@ class NavigationBar extends React.Component {
          let menu = this.refs.mainMenu;
          menu.setState({top: rect.top + rect.height - 30, left: rect.left - 145, isShow: !menu.state.isShow});
          */
-        console.debug(rect);
+        //console.debug(rect);
         this.setState({
-            menuTop: (rect.top + rect.height) / 100,
-            menuLeft: (rect.left + rect.width) / 100,
-            isShowMenu: !this.state.isShowMenu
+            menuTop: '.6rem',//(rect.top + rect.height) / 100,
+            menuLeft: '.12rem'// (rect.left + rect.width) / 100,
         });
+        let menuState = this.refs.menu.state;
+        this.refs.menu.setState({isShow: !menuState.isShow});
+    }
+
+    onMenuClick(data) {
+        console.debug(data);
+        //this.setState({isShow: false});
+        //browserHistory.push(data.url);
     }
 
     //SettingsStore.getSetting('apiServer')
@@ -53,7 +60,8 @@ class NavigationBar extends React.Component {
                     <div className="ico-lock">x</div>
                     <div ref="menuBtn" className="ico-menu" onClick={this.showMenu.bind(this)}>p</div>
                 </div>
-                <PopupMenu top={this.state.menuTop} left={this.state.menuLeft} isShow={this.state.isShowMenu}/>
+                <PopupMenu ref="menu" top={this.state.menuTop} left={this.state.menuLeft}
+                />
             </div>
         );
     }

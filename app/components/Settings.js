@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import XNSelect from "./form/XNSelect";
 
 class Settings extends React.Component {
     constructor(props) {
@@ -12,8 +13,12 @@ class Settings extends React.Component {
     render() {
         console.debug('Settings....');
         return (
-            <div>
-                设置页面
+            <div className="content">
+                <XNSelect label="语言选择"/>
+                <XNSelect label="API服务器"/>
+                <XNSelect label="水龙头地址"/>
+                <XNSelect label="显示记账单位"/>
+                <XNSelect label="钱包自动锁定时间（秒）"/>
             </div>
         );
     }

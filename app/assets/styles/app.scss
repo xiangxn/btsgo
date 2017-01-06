@@ -139,6 +139,50 @@ input {
       border: none;
     }
   }
+  > .select-input {
+    @extend .text-input;
+    cursor: pointer;
+    position: relative;
+    > :nth-child(1) {
+      flex: 1;
+      text-align: left;
+      text-align-last: left;
+      text-justify: none;
+      > label {
+        color: $blackColor;
+        font-size: $fontSize;
+        font-weight: bold;
+      }
+      > span {
+        color: $blackColor;
+        font-size: $fontSize;
+        font-weight: bold;
+        float: right;
+      }
+    }
+    > :nth-child(2) {
+      font-family: WebSymbols-Regular;
+      font-style: normal;
+      font-size: $fontSize;
+      color: $blackColor;
+      margin-right: .2rem;
+    }
+    > :nth-child(3) {
+      text-align: left;
+      text-align-last: left;
+      text-justify: none;
+      position: absolute;
+      width: 100%;
+      height: auto;
+      top: .6rem;
+      left: -.2rem;
+      background-color: $blackTColor;
+      color: $whiteColor;
+      padding-left: .2rem;
+      padding-right: .2rem;
+      z-index: 500;
+    }
+  }
   > .operate {
     height: 1.4rem;
     display: flex;
@@ -156,11 +200,11 @@ input {
   font-weight: bold;
   cursor: pointer;
 }
-.orange-red-btn{
+
+.orange-red-btn {
   @extend .green-btn;
   background-color: $orangeRedColor;
 }
-
 
 .message-box {
   margin-left: .2rem;

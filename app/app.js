@@ -97,6 +97,7 @@ let routes = (
         <IndexRoute component={Loading}/>
         <Route path="create-account" component={CreeateAccount}/>
         <Route path="init-error" component={Settings}/>
+        <Route path="settings" component={Settings}/>
     </Route>
 );
 
