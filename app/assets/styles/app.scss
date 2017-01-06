@@ -21,7 +21,7 @@ input {
   display: flex;
   justify-content: center;
   > .top-back {
-    position: fixed;
+    position: absolute;
     font-family: WebSymbols-Regular;
     left: .08rem;
     height: .82rem;
@@ -42,7 +42,7 @@ input {
     align-items: center;
   }
   > .top-right {
-    position: fixed;
+    position: absolute;
     right: .08rem;
     display: flex;
     width: auto;
@@ -72,7 +72,7 @@ input {
   width: 2rem;
   height: auto;
   z-index: 1000;
-  position: fixed;
+  position: absolute;
   > .menu-arrow {
     color: $blackColor;
     height: .25rem;
