@@ -22,7 +22,11 @@ class XNSelect extends Component {
     onItemClick(d) {
         //event.preventDefault();
         //console.debug(d);
+        let oldVal = this.state.value;
         this.setState({value: d.text});
+        if (this.props.onChange !== null && oldVal !== d.text) {
+            this.props.onChange(d);
+        }
     }
 
     render() {
@@ -50,10 +54,12 @@ class XNSelect extends Component {
     }
 }
 XNSelect.propTypes = {
-    label: React.PropTypes.string
+    label: React.PropTypes.string,
+    onChange: React.PropTypes.func
 };
 XNSelect.defaultProps = {
-    label: "显示名称"
+    label: "显示名称",
+    onChange: null
 };
 
 export default XNSelect;

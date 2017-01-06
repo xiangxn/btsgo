@@ -10,11 +10,15 @@ class Settings extends React.Component {
         super(props);
     }
 
+    onLanguageChange(d) {
+        console.debug(d);
+    }
+
     render() {
         console.debug('Settings....');
         return (
             <div className="content">
-                <XNSelect label="语言选择"/>
+                <XNSelect label="语言选择" onChange={this.onLanguageChange.bind(this)}/>
                 <XNSelect label="API服务器"/>
                 <XNSelect label="水龙头地址"/>
                 <XNSelect label="显示记账单位"/>
