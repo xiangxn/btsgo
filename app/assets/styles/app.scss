@@ -112,6 +112,9 @@ input {
 
 .content {
   padding-top: .12rem;
+  .separate{
+    height: .12rem;
+  }
   > .text-input {
     margin-top: .02rem;
     margin-bottom: .02rem;
@@ -137,6 +140,34 @@ input {
       flex: 1;
       margin-right: .2rem;
       border: none;
+    }
+  }
+  > .switch-input {
+    @extend .text-input;
+    > label {
+      flex: 1;
+      text-align: left;
+      text-align-last: left;
+      text-justify: none;
+      color: $blackColor;
+      font-size: $fontSize;
+      font-weight: bold;
+      margin-left: .2rem;
+      margin-right: .4rem;
+    }
+    > span {
+      display: block;
+      width: .66rem;
+      height: .4rem;
+      background-size: 100%;
+      margin-right: .2rem;
+      cursor: pointer;
+    }
+    >.open{
+      background-image: url("../imgs/open.png");
+    }
+    >.close{
+      background-image: url("../imgs/close.png");
     }
   }
   > .select-input {
