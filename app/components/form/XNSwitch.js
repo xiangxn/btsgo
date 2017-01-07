@@ -10,8 +10,9 @@ export default class XNSwitch extends Component {
     }
 
     onSpanClick(e) {
-        this.setState({value: !this.state.value});
-        this.props.onChange && this.props.onChange(d);
+        let value = !this.state.value;
+        this.setState({value: value});
+        this.props.onChange && this.props.onChange(value);
     }
 
     render() {
