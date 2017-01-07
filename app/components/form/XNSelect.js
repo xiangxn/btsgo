@@ -12,16 +12,35 @@ class XNSelect extends Component {
             data: [{text: "中文简体", value: "zh"}, {text: "英文", value: "en"}],
             isShowList: false//是否弹出选择列表
         };
+        this.onDocumentClick = this.onDocumentClick.bind(this);
     }
 
-    openList() {
+    componentDidMount() {
+
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.isShowList) {
+            document.addEventListener('click', this.onDocumentClick, false);
+        } else {
+            document.removeEventListener('click', this.onDocumentClick, false);
+        }
+    }
+
+    componentWillUnmount() {
+    }
+
+    onDocumentClick(e) {
+        this.setState({isShowList: false});
+    }
+
+    openList(e) {
         let flag = !this.state.isShowList;
         this.setState({isShowList: flag});
     }
 
-    onItemClick(d) {
-        //event.preventDefault();
-        //console.debug(d);
+    onItemClick(d, e) {
+        e.nativeEvent.stopImmediatePropagation();
         let oldVal = this.state.value;
         this.setState({value: d.text});
         if (this.props.onChange !== null && oldVal !== d.text) {

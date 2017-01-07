@@ -15,7 +15,6 @@ class Settings extends React.Component {
     }
 
     render() {
-        console.debug('Settings....');
         return (
             <div className="content">
                 <XNSelect label="语言选择" onChange={this.onLanguageChange.bind(this)}/>

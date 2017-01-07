@@ -17,12 +17,25 @@ class PopupMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {isShow: false};
+        this.onDocumentClick = this.onDocumentClick.bind(this);
     }
 
-    onMenuClick(data) {
-        //console.debug(data);
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.isShow) {
+            document.addEventListener('click', this.onDocumentClick, false);
+        } else {
+            document.removeEventListener('click', this.onDocumentClick, false);
+        }
+    }
+
+    onMenuClick(data,e) {
+        e.nativeEvent.stopImmediatePropagation();
         this.setState({isShow: false});
         browserHistory.push(data.url);
+    }
+
+    onDocumentClick(e) {
+        this.setState({isShow: false});
     }
 
     render() {
@@ -30,7 +43,7 @@ class PopupMenu extends React.Component {
         //let omc = props.onItemClick || this.onMenuClick.bind(this);
         if (this.state.isShow) {
             return (
-                <div className="popup-menu" style={{top: props.top, right:props.left}}>
+                <div className="popup-menu" style={{top: props.top, right: props.left}}>
                     <div className="menu-arrow">▲</div>
                     <div className="meun-content">
                         <ul>
