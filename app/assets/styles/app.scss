@@ -1,6 +1,6 @@
 @import "define";
 
-html, body {
+html, body, #content, .full {
   height: 100%;
   width: 100%;
   padding: 0;
@@ -29,7 +29,7 @@ input {
     width: .6rem;
     color: $whiteColor;
     font-size: $icoFontSize;
-    cursor: pointer;
+    //cursor: pointer;
     display: flex;
     align-items: center;
     padding-bottom: .06rem;
@@ -58,7 +58,7 @@ input {
       justify-content: center;
       align-items: center;
       padding-bottom: .1rem;
-      cursor: pointer;
+      //cursor: pointer;
     }
     > .ico-lock {
       @extend .ico-menu;
@@ -66,6 +66,26 @@ input {
       padding-bottom: 0;
       font-size: .5rem;
     }
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: $whiteColor;
+  > div {
+    font-family: 'WebSymbols-Regular';
+    color: $whiteColor;
+    background-color: $blackTColor;
+    width: 3rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: .01rem;
+    border-radius: .1rem;
   }
 }
 
@@ -112,7 +132,7 @@ input {
 
 .content {
   padding-top: .12rem;
-  .separate{
+  .separate {
     height: .12rem;
   }
   > .text-input {
@@ -161,18 +181,18 @@ input {
       height: .4rem;
       background-size: 100%;
       margin-right: .2rem;
-      cursor: pointer;
+      //cursor: pointer;
     }
-    >.open{
+    > .open {
       background-image: url("../imgs/open.png");
     }
-    >.close{
+    > .close {
       background-image: url("../imgs/close.png");
     }
   }
   > .select-input {
     @extend .text-input;
-    cursor: pointer;
+    //cursor: pointer;
     position: relative;
     > :nth-child(1) {
       flex: 1;
@@ -220,6 +240,21 @@ input {
     align-items: center;
     justify-content: center;
   }
+  > .fullBtn {
+    margin-top: .02rem;
+    margin-bottom: .02rem;
+    height: .6rem;
+    line-height: .6rem;
+    background-color: $whiteColor;
+    width: 100%;
+    display: block;
+    font-weight: bold;
+    text-align: left;
+    padding-left: .2rem;
+    padding-right: .2rem;
+    color: $blackColor;
+    font-size: .24rem;
+  }
 }
 
 .green-btn {
@@ -229,7 +264,7 @@ input {
   color: $whiteColor;
   border: none;
   font-weight: bold;
-  cursor: pointer;
+  //cursor: pointer;
 }
 
 .orange-red-btn {

@@ -3,14 +3,15 @@
  */
 import React from 'react';
 import {browserHistory} from 'react-router'
+import {injectIntl, intlShape, FormattedMessage} from 'react-intl';
 
 const menuItems = [
-    {name: '首页', url: ''},
-    {name: '交易', url: ''},
-    {name: '近期操作', url: ''},
-    {name: '扫一扫', url: ''},
-    {name: '解锁钱包', url: ''},
-    {name: '设置', url: '/settings'}
+    {name: 'menu_index', url: '/'},
+    {name: 'menu_transaction', url: ''},
+    {name: 'menu_lastOperate', url: ''},
+    {name: 'menu_scan', url: ''},
+    {name: 'menu_unlockWallet', url: ''},
+    {name: 'menu_settings', url: '/settings'}
 ];
 
 class PopupMenu extends React.Component {
@@ -28,10 +29,11 @@ class PopupMenu extends React.Component {
         }
     }
 
-    onMenuClick(data,e) {
+    onMenuClick(data, e) {
         e.nativeEvent.stopImmediatePropagation();
         this.setState({isShow: false});
         browserHistory.push(data.url);
+        this.props.onMenuItemClick && this.props.onMenuItemClick(data);
     }
 
     onDocumentClick(e) {
@@ -49,7 +51,7 @@ class PopupMenu extends React.Component {
                         <ul>
                             {menuItems.map((item) => {
                                 return (<li key={item.name} onClick={this.onMenuClick.bind(this, item)}>
-                                    <div>{item.name}</div>
+                                    <div>{this.context.intl.formatMessage({id: item.name})}</div>
                                 </li> );
                             })}
                         </ul>
@@ -63,11 +65,16 @@ class PopupMenu extends React.Component {
 }
 PopupMenu.propTypes = {
     top: React.PropTypes.number,
-    left: React.PropTypes.number
+    left: React.PropTypes.number,
+    onMenuItemClick: React.PropTypes.func
+};
+PopupMenu.contextTypes = {
+    intl: intlShape.isRequired
 };
 PopupMenu.defaultProps = {
     top: 0,
-    left: 0
+    left: 0,
+    onMenuItemClick: null
 };
 
 

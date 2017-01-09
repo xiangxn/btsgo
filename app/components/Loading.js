@@ -4,18 +4,27 @@
 import React from 'react';
 
 
-const loadItems = [0, 1, 2, 3, 4, 5, 6, 7];
-
 class Loading extends React.Component {
     constructor(props) {
         super(props);
         this.state = {progress: 0};
     }
 
+    componentDidMount() {
+        this.timer = setInterval(() => {
+            let p = this.state.progress;
+            p += 1;
+            if (p > 7) p = 0;
+            this.setState({progress: p});
+        }, 70);
+    }
+
+    componentWillUnmount() {
+        this.timer && clearTimeout(this.timer);
+        this.timer = null;
+    }
+
     render() {
-        let items = loadItems.map((item, i) => {
-            return <span key={i}>{item}</span>
-        });
         return (
             <div className="loading">
                 <div>{this.state.progress}</div>

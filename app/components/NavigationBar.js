@@ -2,9 +2,11 @@
  * Created by xiangxn on 2016/12/10.
  */
 import React from 'react';
+import {PropTypes} from "react-router";
 import connectToStores from 'alt-utils/lib/connectToStores';
 import SettingsStore from '../stores/SettingsStore';
 import SettingsActions from '../actions/SettingsActions';
+import {injectIntl, intlShape, FormattedMessage} from 'react-intl';
 
 import PopupMenu from './PopupMenu';
 
@@ -22,7 +24,9 @@ class NavigationBar extends React.Component {
         this.state = {
             menuTop: 0,
             menuLeft: 0,
-            isShowMenu: false
+            isShowMenu: false,
+            title: "",
+            isShowBackBtn: false
         };
     }
 
@@ -47,20 +51,42 @@ class NavigationBar extends React.Component {
         //browserHistory.push(data.url);
     }
 
+    onMenuItemClick(data) {
+        //console.debug(data);
+        let s = {
+            title: this.context.intl.formatMessage({id: data.name}),
+            isShowBackBtn: false
+        };
+        if (data.url !== "/") {
+            s.isShowBackBtn = true;
+        }
+        this.setState(s);
+    }
+
+    onBackClick() {
+        window.history.back();
+    }
+
     //SettingsStore.getSetting('apiServer')
     //()=>SettingsActions.changeSetting({setting: "locale", value: "cn"})
 
     render() {
         let props = this.props;
+        //console.debug(this.context.router);
+        let backBtn = null;
+        if (this.state.isShowBackBtn && this.context.router.location.pathname !== "/") {
+            backBtn = (<div className="top-back" onClick={this.onBackClick.bind(this)}>&lt;</div>);
+        }
         return (
             <div className="header">
-                <div className="top-title">{props.title}</div>
-                <div className="top-back">&lt;</div>
+                <div className="top-title">{this.state.title}</div>
+                {backBtn}
                 <div className="top-right">
                     <div className="ico-lock">x</div>
                     <div ref="menuBtn" className="ico-menu" onClick={this.showMenu.bind(this)}>p</div>
                 </div>
                 <PopupMenu ref="menu" top={this.state.menuTop} left={this.state.menuLeft}
+                           onMenuItemClick={this.onMenuItemClick.bind(this)}
                 />
             </div>
         );
@@ -69,10 +95,14 @@ class NavigationBar extends React.Component {
 
 NavigationBar.PropTypes = {
     title: React.PropTypes.string
-}
+};
 
 NavigationBar.defaultProps = {
     title: 'BTSGO'
-}
+};
+NavigationBar.contextTypes = {
+    intl: intlShape.isRequired,
+    router: React.PropTypes.object
+};
 
 export default connectToStores(NavigationBar);

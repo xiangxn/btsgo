@@ -6,6 +6,7 @@ import SettingsStore from '../stores/SettingsStore';
 import Loading from './Loading';
 import NavigationBar from './NavigationBar';
 import Settings from './Settings';
+import {injectIntl, intlShape,FormattedMessage} from 'react-intl';
 
 class Root extends React.Component {
     constructor(props) {
@@ -56,6 +57,7 @@ class Root extends React.Component {
     }
 
     render() {
+        //console.debug(this.props);
         let {disableChat, syncFail, loading} = this.state;
         let content = null;
         if (syncFail) {
@@ -66,7 +68,7 @@ class Root extends React.Component {
             content = <Loading />;
         } else {
             content = (
-                <div>
+                <div className="full">
                     <NavigationBar/>
                     {this.props.children}
                 </div>
