@@ -5,12 +5,12 @@ import React from 'react';
 import {browserHistory} from 'react-router'
 import {injectIntl, intlShape, FormattedMessage} from 'react-intl';
 
-const menuItems = [
+export const menuItems = [
     {name: 'menu_index', url: '/'},
-    {name: 'menu_transaction', url: ''},
-    {name: 'menu_lastOperate', url: ''},
-    {name: 'menu_scan', url: ''},
-    {name: 'menu_unlockWallet', url: ''},
+    {name: 'menu_transaction', url: '/transaction'},
+    {name: 'menu_lastOperate', url: '/last-operate'},
+    {name: 'menu_scan', url: '/scan'},
+    {name: 'menu_unlockWallet', url: '/unlock'},
     {name: 'menu_settings', url: '/settings'}
 ];
 

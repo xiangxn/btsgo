@@ -14,5 +14,10 @@ export const zh_CN = {
     settings_labShowUnit: "显示记账单位",
     settings_labLockTime: "钱包自动锁定时间（秒）",
     settings_labDisableChat: "禁用聊天",
-    settings_labDefaultSetting:"恢复默认设置"
+    settings_labShowWalletManage:"钱包控制台",
+    settings_labDefaultSetting:"恢复默认设置",
+    wallet_importKey:"导入私钥",
+    wallet_backup:"备份钱包",
+    wallet_importBackup:"恢复备份",
+    wallet_modifyPassword:"修改密码"
 }

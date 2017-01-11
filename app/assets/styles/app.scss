@@ -246,14 +246,22 @@ input {
     height: .6rem;
     line-height: .6rem;
     background-color: $whiteColor;
-    width: 100%;
-    display: block;
-    font-weight: bold;
-    text-align: left;
+    display: flex;
     padding-left: .2rem;
     padding-right: .2rem;
-    color: $blackColor;
-    font-size: .24rem;
+    >label{
+      color: $blackColor;
+      font-size: .24rem;
+      flex: 1;
+      font-weight: bold;
+    }
+    > i{
+      font-family: WebSymbols-Regular;
+      font-style: normal;
+      font-size: $fontSize;
+      color: $blackColor;
+      float: right;
+    }
   }
 }
 

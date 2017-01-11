@@ -24,6 +24,7 @@ import 'indexeddbshim';
 import Settings from "./components/Settings";
 import Loading from "./components/Loading";
 import CreeateAccount from "./components/wallet/CreateAccount";
+import WalletManage from "./components/wallet/WalletManage";
 
 
 //let btsgoHistory = createBrowserHistory();
@@ -98,6 +99,7 @@ let routes = (
         <Route path="create-account" component={CreeateAccount}/>
         <Route path="init-error" component={Settings}/>
         <Route path="settings" component={Settings}/>
+        <Route path="wallet-manage" component={WalletManage}/>
     </Route>
 );
 

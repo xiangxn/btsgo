@@ -8,7 +8,7 @@ import SettingsStore from '../stores/SettingsStore';
 import SettingsActions from '../actions/SettingsActions';
 import {injectIntl, intlShape, FormattedMessage} from 'react-intl';
 
-import PopupMenu from './PopupMenu';
+import PopupMenu, {menuItems} from './PopupMenu';
 
 class NavigationBar extends React.Component {
     static getPropsFromStores() {
@@ -25,7 +25,6 @@ class NavigationBar extends React.Component {
             menuTop: 0,
             menuLeft: 0,
             isShowMenu: false,
-            title: "",
             isShowBackBtn: false
         };
     }
@@ -54,7 +53,6 @@ class NavigationBar extends React.Component {
     onMenuItemClick(data) {
         //console.debug(data);
         let s = {
-            title: this.context.intl.formatMessage({id: data.name}),
             isShowBackBtn: false
         };
         if (data.url !== "/") {
@@ -64,7 +62,19 @@ class NavigationBar extends React.Component {
     }
 
     onBackClick() {
-        window.history.back();
+        this.context.router.goBack();
+    }
+
+    getTitle() {
+        let url = this.context.router.location.pathname;
+        let menu = menuItems.find((item) => {
+            return item.url === url;
+        });
+        if (menu !== undefined) {
+            return this.context.intl.formatMessage({id: menu.name});
+        } else {
+            return null;
+        }
     }
 
     //SettingsStore.getSetting('apiServer')
@@ -79,7 +89,7 @@ class NavigationBar extends React.Component {
         }
         return (
             <div className="header">
-                <div className="top-title">{this.state.title}</div>
+                <div className="top-title">{this.getTitle()}</div>
                 {backBtn}
                 <div className="top-right">
                     <div className="ico-lock">x</div>
@@ -93,13 +103,6 @@ class NavigationBar extends React.Component {
     }
 }
 
-NavigationBar.PropTypes = {
-    title: React.PropTypes.string
-};
-
-NavigationBar.defaultProps = {
-    title: 'BTSGO'
-};
 NavigationBar.contextTypes = {
     intl: intlShape.isRequired,
     router: React.PropTypes.object
