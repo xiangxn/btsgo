@@ -19,5 +19,8 @@ export const zh_CN = {
     wallet_importKey:"导入私钥",
     wallet_backup:"备份钱包",
     wallet_importBackup:"恢复备份",
-    wallet_modifyPassword:"修改密码"
+    wallet_modifyPassword:"修改密码",
+    wallet_accountPrivateKey:"账号私钥",
+    wallet_accountPrivateKey_ph:"请输入账号私钥",
+    wallet_backupDescription:"单击下面的按钮将生成一个扩展名为.bin的备份文件。 此文件使用您的钱包密码加密，并包含您帐户的所有私钥。 它可以用于恢复您的钱包，或将其移动到不同的计算机/浏览器。"
 }

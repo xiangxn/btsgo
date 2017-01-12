@@ -26,6 +26,8 @@ import GlobalSetting from "./components/GlobalSetting";
 import Loading from "./components/Loading";
 import CreeateAccount from "./components/wallet/CreateAccount";
 import WalletManage from "./components/wallet/WalletManage";
+import ImportKey from "./components/wallet/ImportKey";
+import Backup from  "./components/wallet/Backup";
 
 
 //let btsgoHistory = createBrowserHistory();
@@ -102,6 +104,8 @@ let routes = (
         <Route path="settings" component={Settings}>
             <IndexRoute component={GlobalSetting}/>
             <Route path="wallet-manage" component={WalletManage}/>
+            <Route path="importkey" component={ImportKey}/>
+            <Route path="backup" component={Backup}/>
         </Route>
     </Route>
 );
