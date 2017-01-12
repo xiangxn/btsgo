@@ -68,7 +68,7 @@ class Root extends React.Component {
             content = <Loading />;
         } else {
             content = (
-                <div className="full">
+                <div className="full vertical-box">
                     <NavigationBar/>
                     {this.props.children}
                 </div>

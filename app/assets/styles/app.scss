@@ -9,6 +9,15 @@ html, body, #content, .full {
   background-color: $bgGrayColor;
 }
 
+.vertical-box {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-orient: vertical;
+}
+
 input {
   font-family: $basefamily;
   font-size: $fontSize;
@@ -75,6 +84,9 @@ input {
   align-items: center;
   height: 100%;
   background-color: $whiteColor;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
   > div {
     font-family: 'WebSymbols-Regular';
     color: $whiteColor;
@@ -135,7 +147,7 @@ input {
   .separate {
     height: .12rem;
   }
-  > .text-input {
+  .text-input {
     margin-top: .02rem;
     margin-bottom: .02rem;
     height: .6rem;
@@ -162,7 +174,7 @@ input {
       border: none;
     }
   }
-  > .switch-input {
+  .switch-input {
     @extend .text-input;
     > label {
       flex: 1;
@@ -190,7 +202,7 @@ input {
       background-image: url("../imgs/close.png");
     }
   }
-  > .select-input {
+  .select-input {
     @extend .text-input;
     //cursor: pointer;
     position: relative;
@@ -240,7 +252,7 @@ input {
     align-items: center;
     justify-content: center;
   }
-  > .fullBtn {
+  .fullBtn {
     margin-top: .02rem;
     margin-bottom: .02rem;
     height: .6rem;
@@ -249,13 +261,13 @@ input {
     display: flex;
     padding-left: .2rem;
     padding-right: .2rem;
-    >label{
+    > label {
       color: $blackColor;
       font-size: .24rem;
       flex: 1;
       font-weight: bold;
     }
-    > i{
+    > i {
       font-family: WebSymbols-Regular;
       font-style: normal;
       font-size: $fontSize;

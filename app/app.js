@@ -22,6 +22,7 @@ import 'indexeddbshim';
 
 //组件
 import Settings from "./components/Settings";
+import GlobalSetting from "./components/GlobalSetting";
 import Loading from "./components/Loading";
 import CreeateAccount from "./components/wallet/CreateAccount";
 import WalletManage from "./components/wallet/WalletManage";
@@ -52,7 +53,7 @@ let willTransitionTo = (nextState, replaceState, callback) => {
             });
 
     }
-    console.debug('Apis.instance');
+    //console.debug('Apis.instance');
     Apis.instance(connectionString, true).init_promise.then(() => {
         var db;
         try {
@@ -98,8 +99,10 @@ let routes = (
         <IndexRoute component={Loading}/>
         <Route path="create-account" component={CreeateAccount}/>
         <Route path="init-error" component={Settings}/>
-        <Route path="settings" component={Settings}/>
-        <Route path="wallet-manage" component={WalletManage}/>
+        <Route path="settings" component={Settings}>
+            <IndexRoute component={GlobalSetting}/>
+            <Route path="wallet-manage" component={WalletManage}/>
+        </Route>
     </Route>
 );
 

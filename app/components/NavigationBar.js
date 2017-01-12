@@ -67,8 +67,11 @@ class NavigationBar extends React.Component {
 
     getTitle() {
         let url = this.context.router.location.pathname;
+        if (url === "/")return this.context.intl.formatMessage({id: "menu_index"});
+        url = url.substring(1);
         let menu = menuItems.find((item) => {
-            return item.url === url;
+            if (item.url === "/")return false;
+            return url.startsWith(item.url.substring(1));
         });
         if (menu !== undefined) {
             return this.context.intl.formatMessage({id: menu.name});
