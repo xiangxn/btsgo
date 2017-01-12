@@ -2,25 +2,25 @@
  * Created by admin on 2016/12/17.
  */
 
+//graphene类库
 import {ChainStore} from "graphenejs-lib";
 import {Apis} from "graphenejs-ws";
-
+//react类
 import React from 'react';
 import {render} from 'react-dom';
 import {Router, Route, IndexRoute, Redirect, browserHistory, hashHistory} from "react-router";
-//import createBrowserHistory from 'history/lib/createHashHistory';
+//store类
 import SettingsStore from './stores/SettingsStore';
 import AccountRefsStore from './stores/AccountRefsStore';
 import WalletDb from './stores/WalletDb';
 import WalletManagerStore from './stores/WalletManagerStore';
-
+//action类
 import PrivateKeyActions from './actions/PrivateKeyActions';
-
-import RootIntl from './components/RootIntl';
+//数据库
 import iDB from './idb-instance';
 import 'indexeddbshim';
-
 //组件
+import RootIntl from './components/RootIntl';
 import Settings from "./components/Settings";
 import GlobalSetting from "./components/GlobalSetting";
 import Loading from "./components/Loading";
@@ -28,6 +28,9 @@ import CreeateAccount from "./components/wallet/CreateAccount";
 import WalletManage from "./components/wallet/WalletManage";
 import ImportKey from "./components/wallet/ImportKey";
 import Backup from  "./components/wallet/Backup";
+import ChangePassword from  "./components/wallet/ChangePassword";
+import ImportBackup from  "./components/wallet/ImportBackup";
+import UnlockWallet from "./components/wallet/UnlockWallet";
 
 
 //let btsgoHistory = createBrowserHistory();
@@ -104,9 +107,12 @@ let routes = (
         <Route path="settings" component={Settings}>
             <IndexRoute component={GlobalSetting}/>
             <Route path="wallet-manage" component={WalletManage}/>
-            <Route path="importkey" component={ImportKey}/>
+            <Route path="import-key" component={ImportKey}/>
             <Route path="backup" component={Backup}/>
+            <Route path="change-password" component={ChangePassword}/>
+            <Route path="import-backup"  component={ImportBackup}/>
         </Route>
+        <Route path="unlock" component={UnlockWallet}/>
     </Route>
 );
 

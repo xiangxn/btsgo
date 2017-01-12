@@ -17,7 +17,7 @@ class ImportKey extends React.Component {
                     <input type="text" placeholder={this.context.intl.formatMessage({id: 'wallet_accountPrivateKey_ph'})}/>
                 </div>
                 <div className="operate">
-                    <input className="green-btn" type="button" value="确认"/>
+                    <input className="green-btn" type="button" value={this.context.intl.formatMessage({id:'btn_ok'})}/>
                 </div>
             </div>
         );

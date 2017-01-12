@@ -12,20 +12,22 @@ class WalletManage extends React.Component {
 
     onImportKeyClick(e) {
         e.preventDefault();
-        this.context.router.push("/settings/importkey");
+        this.context.router.push("/settings/import-key");
     }
 
-    onBackupClick(e){
+    onBackupClick(e) {
         e.preventDefault();
         this.context.router.push("/settings/backup");
     }
 
-    onImportBackupClick(){
-
+    onImportBackupClick(e) {
+        e.preventDefault();
+        this.context.router.push("/settings/import-backup");
     }
 
-    onModifyPasswordClick(){
-
+    onModifyPasswordClick(e) {
+        e.preventDefault();
+        this.context.router.push("/settings/change-password");
     }
 
     render() {

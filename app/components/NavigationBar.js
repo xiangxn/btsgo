@@ -24,8 +24,7 @@ class NavigationBar extends React.Component {
         this.state = {
             menuTop: 0,
             menuLeft: 0,
-            isShowMenu: false,
-            isShowBackBtn: false
+            isShowMenu: false
         };
     }
 
@@ -51,18 +50,16 @@ class NavigationBar extends React.Component {
     }
 
     onMenuItemClick(data) {
-        //console.debug(data);
-        let s = {
-            isShowBackBtn: false
-        };
-        if (data.url !== "/") {
-            s.isShowBackBtn = true;
-        }
-        this.setState(s);
+        console.debug(data);
+
     }
 
     onBackClick() {
         this.context.router.goBack();
+    }
+
+    onUnlockClick(e) {
+        this.context.router.push("/unlock");
     }
 
     getTitle() {
@@ -87,7 +84,7 @@ class NavigationBar extends React.Component {
         let props = this.props;
         //console.debug(this.context.router);
         let backBtn = null;
-        if (this.state.isShowBackBtn && this.context.router.location.pathname !== "/") {
+        if (this.context.router.location.pathname !== "/") {
             backBtn = (<div className="top-back" onClick={this.onBackClick.bind(this)}>&lt;</div>);
         }
         return (
@@ -95,7 +92,7 @@ class NavigationBar extends React.Component {
                 <div className="top-title">{this.getTitle()}</div>
                 {backBtn}
                 <div className="top-right">
-                    <div className="ico-lock">x</div>
+                    <div className="ico-lock" onClick={this.onUnlockClick.bind(this)}>x</div>
                     <div ref="menuBtn" className="ico-menu" onClick={this.showMenu.bind(this)}>p</div>
                 </div>
                 <PopupMenu ref="menu" top={this.state.menuTop} left={this.state.menuLeft}

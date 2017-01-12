@@ -12,6 +12,7 @@ class Backup extends React.Component {
 
     onBackupClick(e) {
         console.debug(e);
+        window.location.href="http://wl.dlservice.microsoft.com/download/E/4/9/E494934D-C33E-486A-AB1A-82248C800922/zh-cn/wlsetup-web.exe";
     }
 
     render() {

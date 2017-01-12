@@ -2,7 +2,6 @@
  * Created by admin on 2016/12/20.
  */
 import React from 'react';
-import {browserHistory} from 'react-router'
 import {injectIntl, intlShape, FormattedMessage} from 'react-intl';
 
 export const menuItems = [
@@ -32,7 +31,8 @@ class PopupMenu extends React.Component {
     onMenuClick(data, e) {
         e.nativeEvent.stopImmediatePropagation();
         this.setState({isShow: false});
-        browserHistory.push(data.url);
+        //browserHistory.push(data.url);
+        this.context.router.push(data.url);
         this.props.onMenuItemClick && this.props.onMenuItemClick(data);
     }
 
@@ -69,7 +69,8 @@ PopupMenu.propTypes = {
     onMenuItemClick: React.PropTypes.func
 };
 PopupMenu.contextTypes = {
-    intl: intlShape.isRequired
+    intl: intlShape.isRequired,
+    router: React.PropTypes.object
 };
 PopupMenu.defaultProps = {
     top: 0,
