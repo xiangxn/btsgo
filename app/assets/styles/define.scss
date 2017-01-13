@@ -4,19 +4,21 @@ $orangeRedColor: #ff8c00 !default;
 $greenColor: #228b22 !default;
 $whiteColor: #ffffff !default;
 $blackColor: #666666 !default;
-$blackTColor:rgba(102,102,102,0.9);
+$blackTColor: rgba(102, 102, 102, 0.9);
 $grayColor: #cccccc !default;
-$bgGrayColor:#dddddd !default;
+$bgGrayColor: #dddddd !default;
 
 //定义字体大小
 $icoFontSize: .4rem;
 $titleFontSize: .3rem;
 $fontSize: .24rem;
+$middleSize: .2rem;
 $smallFontSize: .18rem;
 
 //定义图标字体
 @font-face {
   font-family: 'WebSymbols-Regular';
-  src:url('../fonts/WebSymbols-Regular.otf');
+  src: url('../fonts/WebSymbols-Regular.otf');
 }
+
 $basefamily: 微软雅黑;

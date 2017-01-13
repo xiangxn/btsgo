@@ -18,6 +18,12 @@ html, body, #content, .full {
   box-orient: vertical;
 }
 
+.vertical-flex {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+}
+
 input {
   font-family: $basefamily;
   font-size: $fontSize;
@@ -311,12 +317,14 @@ input {
 .clear-toppadding {
   padding-top: 0;
 }
-.assets-list{
+
+.assets-list {
   padding-left: .2rem;
   padding-right: .2rem;
   background-color: $whiteColor;
   display: flex;
 }
+
 .assets-item {
   flex: 1;
   height: 1.2rem;
@@ -346,5 +354,63 @@ input {
       @extend .def-label;
       color: $orangeRedColor;
     }
+  }
+}
+
+.search-bar {
+  height: .7rem;
+  background-color: $blueColor;
+  font-size: $fontSize;
+  color: $whiteColor;
+  display: flex;
+  align-items: center;
+  padding-left: .2rem;
+  padding-right: .2rem;
+  > label {
+    margin-right: .2rem;
+  }
+  > input {
+    height: .55rem;
+    border: none;
+    flex: 1;
+    color: $blackColor;
+  }
+}
+
+.account-list-head {
+  height: .5rem;
+  background-color: $whiteColor;
+  color: $blackColor;
+  font-size: $fontSize;
+  display: flex;
+  align-items: center;
+  padding: 0 .2rem 0 .2rem;
+  > label {
+    flex: 1;
+    text-align: right;
+    font-weight: bold;
+  }
+  > :nth-child(1) {
+    text-align: left;
+  }
+}
+
+.account-list-separate {
+  width: 100%;
+  height: .02rem;
+  background-color: $blackColor;
+}
+
+.account-list {
+  background-color: $whiteColor;
+  .account-list-row {
+    @extend .account-list-head;
+    font-size: $middleSize;
+    > :nth-child(4) {
+      color: $orangeRedColor;
+    }
+  }
+  > :nth-of-type(even) {
+    background-color: $bgGrayColor;
   }
 }

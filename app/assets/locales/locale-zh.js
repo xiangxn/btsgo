@@ -38,5 +38,10 @@ export const zh_CN = {
     wallet_confirmPassword_ph:"请输入确认密码",
     wallet_password:"钱包密码",
     wallet_password_ph:"请输入钱包密码",
-    wallet_selectFile:"选择钱包文件"
+    wallet_selectFile:"选择钱包文件",
+    index_account:"账户",
+    index_account_ph:"请输入账户名筛选",
+    index_order:"委单",
+    index_debt:"债仓",
+    index_marketValue:"市值"
 }
