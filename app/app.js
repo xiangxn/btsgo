@@ -21,6 +21,7 @@ import iDB from './idb-instance';
 import 'indexeddbshim';
 //组件
 import RootIntl from './components/RootIntl';
+import Dashboard from "./components/dashboard/Dashboard";
 import Settings from "./components/Settings";
 import GlobalSetting from "./components/GlobalSetting";
 import Loading from "./components/Loading";
@@ -101,7 +102,7 @@ let willTransitionTo = (nextState, replaceState, callback) => {
 
 let routes = (
     <Route path='/' component={RootIntl} onEnter={willTransitionTo}>
-        <IndexRoute component={Loading}/>
+        <IndexRoute component={Dashboard}/>
         <Route path="create-account" component={CreeateAccount}/>
         <Route path="init-error" component={Settings}/>
         <Route path="settings" component={Settings}>

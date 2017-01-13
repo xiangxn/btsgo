@@ -64,7 +64,9 @@ class NavigationBar extends React.Component {
 
     getTitle() {
         let url = this.context.router.location.pathname;
-        if (url === "/")return this.context.intl.formatMessage({id: "menu_index"});
+        if (url === "/") {
+            return this.context.intl.formatMessage({id: "menu_index"});
+        }
         url = url.substring(1);
         let menu = menuItems.find((item) => {
             if (item.url === "/")return false;
@@ -84,12 +86,15 @@ class NavigationBar extends React.Component {
         let props = this.props;
         //console.debug(this.context.router);
         let backBtn = null;
+        let titleClass = "top-title";
         if (this.context.router.location.pathname !== "/") {
             backBtn = (<div className="top-back" onClick={this.onBackClick.bind(this)}>&lt;</div>);
+        } else {
+            titleClass = "top-left-title";
         }
         return (
             <div className="header">
-                <div className="top-title">{this.getTitle()}</div>
+                <div className={titleClass}>{this.getTitle()}</div>
                 {backBtn}
                 <div className="top-right">
                     <div className="ico-lock" onClick={this.onUnlockClick.bind(this)}>x</div>

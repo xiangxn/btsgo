@@ -51,6 +51,12 @@ input {
     justify-content: center;
     align-items: center;
   }
+  > .top-left-title {
+    @extend .top-title;
+    justify-content: flex-start;
+    width: 100%;
+    padding-left: .2rem;
+  }
   > .top-right {
     position: absolute;
     right: .08rem;
@@ -300,4 +306,45 @@ input {
   padding: .2rem;
   font-weight: bold;
   font-size: $fontSize;
+}
+
+.clear-toppadding {
+  padding-top: 0;
+}
+.assets-list{
+  padding-left: .2rem;
+  padding-right: .2rem;
+  background-color: $whiteColor;
+  display: flex;
+}
+.assets-item {
+  flex: 1;
+  height: 1.2rem;
+  display: flex;
+  font-size: $smallFontSize;
+  color: $blackColor;
+  background-color: $whiteColor;
+  align-items: center;
+  > :nth-child(1) {
+    > img {
+      width: .8rem;
+      height: .8rem;
+    }
+  }
+  > :nth-child(2) {
+    > .def-label {
+      display: block;
+      width: 100%;
+      height: .3rem;
+      font-weight: bold;
+    }
+    > .green-label {
+      @extend .def-label;
+      color: $greenColor;
+    }
+    > .orange-label {
+      @extend .def-label;
+      color: $orangeRedColor;
+    }
+  }
 }
