@@ -52,5 +52,10 @@ export const zh_CN = {
     transaction_currentBalance:"当前{symbol}余额",
     transaction_canBuy:"可买{symbol}",
     transaction_canSell:"可卖{symbol}",
-    transaction_marketPrice:"市价单"
+    transaction_marketPrice:"市价单",
+    transaction_price:"价格 {symbol}",
+    transaction_amount:"金额 {symbol}",
+    transaction_turnover:"成交额 {symbol}",
+    transaction_charge:"手续费 {symbol}",
+    transaction_confirmSell:"立即售出"
 }

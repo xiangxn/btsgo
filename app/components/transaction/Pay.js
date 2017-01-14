@@ -26,26 +26,27 @@ class Pay extends BaseComponent {
                 <div className="separate2"></div>
                 <div className="transaction-operate vertical-flex">
                     <div>
-                        <p><label><input type="checkbox"
-                                         checked="checked"/> {this.formatMessage("transaction_marketPrice")}</label></p>
+                        <p><label><input type="checkbox"/> {this.formatMessage("transaction_marketPrice")}</label></p>
                         <p>
-                            价格 BTS<br/>
+                            {this.formatMessage("transaction_price", {symbol: bSymbol})}<br/>
                             <input type="text"/>
                         </p>
                         <p>
-                            <label className="green">金额 bitCNY</label><br/>
+                            <label
+                                className="green">{this.formatMessage("transaction_amount", {symbol: aSymbol})}</label><br/>
                             <input type="text"/>
                         </p>
                         <p>
-                            成交额 BTS<br/>
+                            {this.formatMessage("transaction_turnover", {symbol: bSymbol})}<br/>
                             <input type="text"/>
                         </p>
                         <p>
-                            手续费 BTS<br/>
+                            {this.formatMessage("transaction_charge", {symbol: bSymbol})}<br/>
                             <input type="text"/>
                         </p>
                         <p>
-                            <input type="button" className="green-btn" value="立即售出"/>
+                            <input type="button" className="green-btn"
+                                   value={this.formatMessage("transaction_confirmSell")}/>
                         </p>
                     </div>
                     <div>bbbbbb</div>
