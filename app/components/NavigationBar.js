@@ -50,7 +50,7 @@ class NavigationBar extends React.Component {
     }
 
     onMenuItemClick(data) {
-        console.debug(data);
+        //console.debug(data);
 
     }
 

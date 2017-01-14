@@ -43,5 +43,14 @@ export const zh_CN = {
     index_account_ph:"请输入账户名筛选",
     index_order:"委单",
     index_debt:"债仓",
-    index_marketValue:"市值"
+    index_marketValue:"市值",
+    transaction_latest:"最新价",
+    transaction_volume:"成交量",
+    transaction_pay:"买入",
+    transaction_sell:"卖出",
+    transaction_orders:"委托管理",
+    transaction_currentBalance:"当前{symbol}余额",
+    transaction_canBuy:"可买{symbol}",
+    transaction_canSell:"可卖{symbol}",
+    transaction_marketPrice:"市价单"
 }

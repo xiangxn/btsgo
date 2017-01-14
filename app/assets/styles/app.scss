@@ -160,6 +160,10 @@ input {
   .separate {
     height: .12rem;
   }
+  .separate2 {
+    height: .02rem;
+    background-color: $grayColor;
+  }
   .text-input {
     margin-top: .02rem;
     margin-bottom: .02rem;
@@ -414,5 +418,107 @@ input {
   }
   > :nth-of-type(even) {
     background-color: $bgGrayColor;
+  }
+}
+
+.last-price {
+  background-color: $whiteColor;
+  height: .88rem;
+  color: $blueColor;
+  font-size: $fontSize;
+  font-weight: bold;
+  line-height: .88rem;
+  padding: 0 .2rem 0 .2rem;
+  :nth-child(1) {
+    float: left;
+    margin-right: .1rem;
+  }
+  :nth-child(2) {
+    float: right;
+    > div {
+      > div {
+        clear: both;
+        height: .44rem;
+        line-height: .44rem;
+      }
+    }
+  }
+}
+
+.tabpage {
+  .tabpage-title {
+    font-size: $titleFontSize;
+    color: $whiteColor;
+    font-weight: bold;
+    .tabpage-title-items {
+      height: .78rem;
+      display: flex;
+      > div {
+        flex: 1;
+        text-align: center;
+        height: .78rem;
+        line-height: .78rem;
+      }
+      .active {
+        background-color: $blueColor;
+      }
+      .normal {
+        background-color: $bgGrayColor;
+      }
+    }
+    .tabpage-title-separate {
+      height: .1rem;
+      background-color: $blueColor;
+    }
+  }
+  .tabpage-content {
+    font-size: $fontSize;
+    color: $blackColor;
+    padding: 0 .2rem 0 .2rem;
+    background-color: $whiteColor;
+    .orangeRed {
+      color: $orangeRedColor;
+    }
+    .green {
+      color: $greenColor;
+    }
+    .current-balance {
+      height: 1rem;
+      display: flex;
+      font-weight: bold;
+      > :nth-child(1) {
+        flex: 1;
+        > p {
+          height: .5rem;
+          line-height: .5rem;
+          margin: 0;
+        }
+      }
+      > :nth-child(2) {
+        width: 1rem;
+      }
+    }
+    .transaction-operate {
+      display: flex;
+      > :nth-child(1) {
+        width: 2.16rem;
+        font-weight: bold;
+      }
+      > :nth-child(2) {
+        flex: 1;
+      }
+      input[type="checkbox"] {
+        margin: 0;
+        width: .24rem;
+        height: .24rem;
+        -webkit-appearance: checkbox;
+        vertical-align: -.03rem;
+      }
+      input[type="text"]{
+        width: 100%;
+        height: .32rem;
+        border: solid .02rem $grayColor;
+      }
+    }
   }
 }
