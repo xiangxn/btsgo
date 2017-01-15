@@ -57,5 +57,7 @@ export const zh_CN = {
     transaction_amount:"金额 {symbol}",
     transaction_turnover:"成交额 {symbol}",
     transaction_charge:"手续费 {symbol}",
-    transaction_confirmSell:"立即售出"
+    transaction_confirmSell:"立即售出",
+    transaction_confirmPay:"立即买入",
+    transaction_depthPrice:"价格"
 }

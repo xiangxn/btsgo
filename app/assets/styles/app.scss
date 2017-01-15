@@ -505,6 +505,7 @@ input {
       > :nth-child(1) {
         width: 2.16rem;
         font-weight: bold;
+        padding-right: .06rem;
       }
       > :nth-child(2) {
         flex: 1;
@@ -516,10 +517,50 @@ input {
         -webkit-appearance: checkbox;
         vertical-align: -.03rem;
       }
-      input[type="text"] {
-        width: 100%;
+      input[type="number"] {
+        width: 1.96rem;
         height: .32rem;
         border: solid .02rem $grayColor;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.depth-list {
+  padding-top: .1rem;
+  .depth-list-header {
+    display: flex;
+    > div {
+      flex: 1;
+      font-weight: bold;
+    }
+    > :nth-child(3) {
+      text-align: right;
+    }
+  }
+  .depth-list-pay {
+    .depth-list-pay-row {
+      display: flex;
+      font-size: $smallFontSize;
+      font-weight: bold;
+      height: .4rem;
+      line-height: .4rem;
+      > span {
+        display: block;
+        flex: 1;
+      }
+      > :nth-child(3) {
+        color: $greenColor;
+        text-align: right;
+      }
+    }
+  }
+  .depth-list-sell {
+    @extend .depth-list-pay;
+    .depth-list-pay-row {
+      > :nth-child(3) {
+        color: $orangeRedColor;
       }
     }
   }

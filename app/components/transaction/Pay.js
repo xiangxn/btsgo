@@ -29,27 +29,73 @@ class Pay extends BaseComponent {
                         <p><label><input type="checkbox"/> {this.formatMessage("transaction_marketPrice")}</label></p>
                         <p>
                             {this.formatMessage("transaction_price", {symbol: bSymbol})}<br/>
-                            <input type="text"/>
+                            <input type="number"/>
                         </p>
                         <p>
                             <label
                                 className="green">{this.formatMessage("transaction_amount", {symbol: aSymbol})}</label><br/>
-                            <input type="text"/>
+                            <input type="number"/>
                         </p>
                         <p>
                             {this.formatMessage("transaction_turnover", {symbol: bSymbol})}<br/>
-                            <input type="text"/>
+                            <input type="number"/>
                         </p>
                         <p>
                             {this.formatMessage("transaction_charge", {symbol: bSymbol})}<br/>
-                            <input type="text"/>
+                            <input type="number"/>
                         </p>
                         <p>
                             <input type="button" className="green-btn"
-                                   value={this.formatMessage("transaction_confirmSell")}/>
+                                   value={this.formatMessage("transaction_confirmPay")}/>
                         </p>
                     </div>
-                    <div>bbbbbb</div>
+                    <div className="depth-list">
+                        <div className="depth-list-header">
+                            <div>{bSymbol}</div>
+                            <div>{aSymbol}</div>
+                            <div>{this.formatMessage("transaction_depthPrice")}</div>
+                        </div>
+                        <div className="depth-list-pay">
+                            <div className="depth-list-pay-row">
+                                <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
+                            </div>
+                            <div className="depth-list-pay-row">
+                                <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
+                            </div>
+                            <div className="depth-list-pay-row">
+                                <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
+                            </div>
+                            <div className="depth-list-pay-row">
+                                <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
+                            </div>
+                            <div className="depth-list-pay-row">
+                                <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
+                            </div>
+                            <div className="depth-list-pay-row">
+                                <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
+                            </div>
+                        </div>
+                        <div className="depth-list-sell">
+                            <div className="depth-list-pay-row">
+                                <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
+                            </div>
+                            <div className="depth-list-pay-row">
+                                <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
+                            </div>
+                            <div className="depth-list-pay-row">
+                                <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
+                            </div>
+                            <div className="depth-list-pay-row">
+                                <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
+                            </div>
+                            <div className="depth-list-pay-row">
+                                <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
+                            </div>
+                            <div className="depth-list-pay-row">
+                                <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
