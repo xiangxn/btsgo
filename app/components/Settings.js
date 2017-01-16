@@ -10,7 +10,7 @@ class Settings extends React.Component {
     }
     render() {
         return (
-            <div className="content">
+            <div className="content vertical-flex vertical-box">
                 {this.props.children}
             </div>
         );

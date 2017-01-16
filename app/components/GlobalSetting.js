@@ -48,7 +48,7 @@ class GlobalSetting extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="vertical-flex scroll">
                 <XNSelect label={this.context.intl.formatMessage({id: 'settings_labLanguage'})}
                           onChange={this.onLanguageChange.bind(this)}/>
                 <div className="separate"></div>

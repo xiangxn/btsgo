@@ -11,14 +11,26 @@ class Sell extends BaseComponent {
     }
 
     onSetPriceClick(e) {
-        this.refs.operationCtrl.setState({price: e.target.innerText});
+        let operationCtrl = this.refs.operationCtrl;
+        if (operationCtrl.state.orderType === 0) {
+            let spans = e.target.parentNode.childNodes;
+            operationCtrl.setState({
+                price: spans[2].innerText,
+                amount: spans[1].innerText,
+                turnover: spans[0].innerText
+            });
+        }
+    }
+
+    onConfirmSub(data) {
+        console.debug(data);
     }
 
     render() {
         let aSymbol = "bitCNY";
         let bSymbol = "BTS";
         return (
-            <div className="vertical-flex vertical-box">
+            <div className="vertical-flex vertical-box scroll">
                 <div className="current-balance">
                     <div>
                         <p>{this.formatMessage("transaction_currentBalance", {symbol: aSymbol})}: <label
@@ -30,8 +42,9 @@ class Sell extends BaseComponent {
                 </div>
                 <div className="separate2"></div>
                 <div className="transaction-operate vertical-flex">
-                    <TransactionOperation btnText={this.formatMessage("transaction_confirmSell")}
-                                          btnClass="orange-red-btn" amountClass="orangeRed"/>
+                    <TransactionOperation ref="operationCtrl" btnText={this.formatMessage("transaction_confirmSell")}
+                                          btnClass="orange-red-btn" amountClass="orangeRed"
+                                          onConfirmSub={this.onConfirmSub}/>
                     <div className="depth-list">
                         <div className="depth-list-header">
                             <div>{bSymbol}</div>
@@ -39,8 +52,8 @@ class Sell extends BaseComponent {
                             <div>{this.formatMessage("transaction_depthPrice")}</div>
                         </div>
                         <div className="depth-list-sell">
-                            <div className="depth-list-pay-row">
-                                <span>83372.64039</span><span>83372.64039</span><span onClick={this.onSetPriceClick.bind(this)}>83372.64039</span>
+                            <div className="depth-list-pay-row" onClick={this.onSetPriceClick.bind(this)}>
+                                <span>1</span><span>2</span><span>83372.64039</span>
                             </div>
                             <div className="depth-list-pay-row">
                                 <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
@@ -58,6 +71,7 @@ class Sell extends BaseComponent {
                                 <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
                             </div>
                         </div>
+                        <div className="separate2"></div>
                         <div className="depth-list-pay">
                             <div className="depth-list-pay-row">
                                 <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>

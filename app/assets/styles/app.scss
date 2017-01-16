@@ -1,5 +1,14 @@
 @import "define";
 
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 html, body, #content, .full {
   height: 100%;
   width: 100%;
@@ -163,6 +172,9 @@ input {
   .separate2 {
     height: .02rem;
     background-color: $grayColor;
+  }
+  .scroll {
+    overflow-y: auto;
   }
   .text-input {
     margin-top: .02rem;
@@ -476,7 +488,7 @@ input {
   .tabpage-content {
     font-size: $fontSize;
     color: $blackColor;
-    padding: 0 .2rem 0 .2rem;
+    //padding: 0 .2rem 0 .2rem;
     background-color: $whiteColor;
     .orangeRed {
       color: $orangeRedColor;
@@ -488,6 +500,7 @@ input {
       height: 1rem;
       display: flex;
       font-weight: bold;
+      padding: 0 .2rem;
       > :nth-child(1) {
         flex: 1;
         > p {
@@ -501,6 +514,7 @@ input {
       }
     }
     .transaction-operate {
+      padding: 0 .2rem;
       display: flex;
       > :nth-child(1) {
         width: 2.16rem;
@@ -576,8 +590,60 @@ input {
     flex: 1;
     text-align: center;
   }
-  >.active{
+  > .active {
     background-color: $blueColor;
     color: $whiteColor;
   }
+}
+
+.order-list {
+  .order-list-header {
+    display: flex;
+    height: .6rem;
+    line-height: .6rem;
+    padding: 0 .2rem;
+    > span {
+      flex: 1;
+      font-weight: bold;
+    }
+  }
+  .order-list-rows {
+    > div:nth-of-type(even) {
+      background-color: $bgGrayColor;
+    }
+    > .order-list-row {
+      padding: 0 .2rem;
+      height: .6rem;
+      line-height: .6rem;
+      display: flex;
+      > span {
+        flex: 1;
+        font-size: $middleSize;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  width: .06rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 .03rem rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: .04rem;
+  border-radius: .04rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: .04rem;
+  border-radius: .04rem;
+  background: $blackTColor;
+  -webkit-box-shadow: inset 0 0 .03rem rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: $blackTColor;
 }

@@ -30,7 +30,9 @@ class TransactionOperation extends BaseComponent {
         super(props);
         this.state = {
             orderType: props.orderType,     //当前交易单类型
-            price: null//价格初始由外部传入
+            price: null,//价格初始由外部传入
+            amount:null,//金额初始由外部传入
+            turnover:null//成交额初始由外部传入
         }
     }
 
@@ -52,6 +54,30 @@ class TransactionOperation extends BaseComponent {
             form.chargefee = this.refs.chargefee.value;
         }
         this.props.onConfirmSub && this.props.onConfirmSub(form);
+    }
+
+    //金额输入变化，改变成交额
+    onAmountChange(e) {
+        let amount = e.target.value;
+        let price = this.refs.price.value;
+        if (amount !== "" && price !== "" && !isNaN(amount) && !isNaN(price)) {
+            let val = parseFloat(price) * parseFloat(amount);
+            this.refs.turnover.value = val;
+        }
+    }
+
+    //成交额输入变化，改变金额
+    onTurnoverChange(e) {
+
+        let turnover = e.target.value;
+        let price = this.refs.price.value;
+        if (turnover !== "" && price !== "" && !isNaN(turnover) && !isNaN(price)) {
+            let p = parseFloat(price);
+            if (p > 0) {
+                let val = parseFloat(turnover) / p;
+                this.refs.amount.value = val;
+            }
+        }
     }
 
     render() {
@@ -86,7 +112,7 @@ class TransactionOperation extends BaseComponent {
                     <p>
                         <label
                             className={this.props.amountClass}>{this.formatMessage("transaction_amount", {symbol: aSymbol})}</label><br/>
-                        <input ref="amount" type="number"/>
+                        <input ref="amount" type="number" value={this.state.amount} onChange={this.onAmountChange.bind(this)}/>
                     </p>
                     :
                     <p>
@@ -99,7 +125,7 @@ class TransactionOperation extends BaseComponent {
                 {(this.state.orderType !== 0) ? null :
                     <p>
                         {this.formatMessage("transaction_turnover", {symbol: bSymbol})}<br/>
-                        <input ref="turnover" type="number"/>
+                        <input ref="turnover" type="number" value={this.state.turnover} onChange={this.onTurnoverChange.bind(this)}/>
                     </p>
                 }
                 < p >
