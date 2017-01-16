@@ -53,10 +53,12 @@ export const zh_CN = {
     transaction_canBuy:"可买{symbol}",
     transaction_canSell:"可卖{symbol}",
     transaction_marketPrice:"市价单",
+    transaction_limitPrice:"限价单",
     transaction_price:"价格 {symbol}",
     transaction_amount:"金额 {symbol}",
+    transaction_count:"数量 {symbol}",
     transaction_turnover:"成交额 {symbol}",
-    transaction_charge:"手续费 {symbol}",
+    transaction_chargefee:"手续费 {symbol}",
     transaction_confirmSell:"立即售出",
     transaction_confirmPay:"立即买入",
     transaction_depthPrice:"价格"

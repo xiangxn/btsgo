@@ -3,10 +3,15 @@
  */
 import React from "react";
 import BaseComponent from "../BaseComponent";
+import TransactionOperation from "./TransactionOperation";
 
 class Sell extends BaseComponent {
     constructor(props) {
         super(props);
+    }
+
+    onSetPriceClick(e) {
+        this.refs.operationCtrl.setState({price: e.target.innerText});
     }
 
     render() {
@@ -25,30 +30,8 @@ class Sell extends BaseComponent {
                 </div>
                 <div className="separate2"></div>
                 <div className="transaction-operate vertical-flex">
-                    <div>
-                        <p><label><input type="checkbox"/> {this.formatMessage("transaction_marketPrice")}</label></p>
-                        <p>
-                            {this.formatMessage("transaction_price", {symbol: bSymbol})}<br/>
-                            <input type="number"/>
-                        </p>
-                        <p>
-                            <label
-                                className="orangeRed">{this.formatMessage("transaction_amount", {symbol: aSymbol})}</label><br/>
-                            <input type="number"/>
-                        </p>
-                        <p>
-                            {this.formatMessage("transaction_turnover", {symbol: bSymbol})}<br/>
-                            <input type="number"/>
-                        </p>
-                        <p>
-                            {this.formatMessage("transaction_charge", {symbol: bSymbol})}<br/>
-                            <input type="number"/>
-                        </p>
-                        <p>
-                            <input type="button" className="orange-red-btn"
-                                   value={this.formatMessage("transaction_confirmSell")}/>
-                        </p>
-                    </div>
+                    <TransactionOperation btnText={this.formatMessage("transaction_confirmSell")}
+                                          btnClass="orange-red-btn" amountClass="orangeRed"/>
                     <div className="depth-list">
                         <div className="depth-list-header">
                             <div>{bSymbol}</div>
@@ -57,7 +40,7 @@ class Sell extends BaseComponent {
                         </div>
                         <div className="depth-list-sell">
                             <div className="depth-list-pay-row">
-                                <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
+                                <span>83372.64039</span><span>83372.64039</span><span onClick={this.onSetPriceClick.bind(this)}>83372.64039</span>
                             </div>
                             <div className="depth-list-pay-row">
                                 <span>83372.64039</span><span>83372.64039</span><span>83372.64039</span>
