@@ -625,6 +625,41 @@ input {
   }
 }
 
+.last-operation {
+  background-color: $whiteColor;
+  font-size: $fontSize;
+  font-weight: bold;
+  color: $blackColor;
+  .last-operation-header {
+    padding: 0 .2rem;
+    height: .6rem;
+    line-height: .6rem;
+    display: flex;
+    >:nth-child(1){
+      width: 2rem;
+    }
+    >:nth-child(2){
+      flex: 1;
+    }
+  }
+  .last-operation-body{
+    font-size: $middleSize;
+    > div:nth-of-type(even) {
+      background-color: $bgGrayColor;
+    }
+    >.last-operation-row{
+      display: flex;
+      padding: .06rem .2rem;
+      >span{
+        width: 1.6rem;
+      }
+      >div{
+        flex: 1;
+      }
+    }
+  }
+}
+
 ::-webkit-scrollbar {
   width: .06rem;
 }

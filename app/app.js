@@ -36,6 +36,7 @@ import Transaction from "./components/transaction/Transaction";
 import Pay from "./components/transaction/Pay";
 import Sell from "./components/transaction/Sell";
 import Orders from "./components/transaction/Orders";
+import LastOperation from "./components/LastOperation";
 
 
 //let btsgoHistory = createBrowserHistory();
@@ -115,15 +116,16 @@ let routes = (
             <Route path="import-key" component={ImportKey}/>
             <Route path="backup" component={Backup}/>
             <Route path="change-password" component={ChangePassword}/>
-            <Route path="import-backup"  component={ImportBackup}/>
+            <Route path="import-backup" component={ImportBackup}/>
         </Route>
         <Route path="unlock" component={UnlockWallet}/>
-        <Route  path="transaction" component={Transaction}>
+        <Route path="transaction" component={Transaction}>
             <IndexRoute component={Pay}/>
             <Route path="pay" component={Pay}/>
             <Route path="sell" component={Sell}/>
             <Route path="orders" component={Orders}/>
         </Route>
+        <Route path="last-operate" component={LastOperation}/>
     </Route>
 );
 

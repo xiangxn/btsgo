@@ -61,5 +61,13 @@ export const zh_CN = {
     transaction_chargefee:"手续费 {symbol}",
     transaction_confirmSell:"立即售出",
     transaction_confirmPay:"立即买入",
-    transaction_depthPrice:"价格"
+    transaction_depthPrice:"价格",
+    lastOperation_operation:"操作",
+    lastOperation_info:"信息",
+    lastOperation_createAccount:"创建账户",
+    lastOperation_registerAccount:"注册了账户",
+    lastOperation_transfer:"转账",
+    lastOperation_limitOrders:"限价单",
+    lastOperation_sendTo:"发送 {amount} 到",
+    lastOperation_submitOrder:"提交买单，以 {price} 的价格买入 {amount}"
 }
