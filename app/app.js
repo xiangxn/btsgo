@@ -37,6 +37,7 @@ import Pay from "./components/transaction/Pay";
 import Sell from "./components/transaction/Sell";
 import Orders from "./components/transaction/Orders";
 import LastOperation from "./components/LastOperation";
+import Scan from "./components/scanit/Scan";
 
 
 //let btsgoHistory = createBrowserHistory();
@@ -126,6 +127,7 @@ let routes = (
             <Route path="orders" component={Orders}/>
         </Route>
         <Route path="last-operate" component={LastOperation}/>
+        <Route path="scan" component={Scan}/>
     </Route>
 );
 
