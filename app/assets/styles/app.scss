@@ -637,28 +637,50 @@ input {
     height: .6rem;
     line-height: .6rem;
     display: flex;
-    >:nth-child(1){
+    > :nth-child(1) {
       width: 2rem;
     }
-    >:nth-child(2){
+    > :nth-child(2) {
       flex: 1;
     }
   }
-  .last-operation-body{
+  .last-operation-body {
     font-size: $middleSize;
     > div:nth-of-type(even) {
       background-color: $bgGrayColor;
     }
-    >.last-operation-row{
+    > .last-operation-row {
       display: flex;
       padding: .06rem .2rem;
-      >span{
+      > span {
         width: 1.6rem;
       }
-      >div{
+      > div {
         flex: 1;
       }
     }
+  }
+}
+
+.scan {
+  position: relative;
+  > video {
+    width: 6.4rem;
+  }
+  > div {
+    border: dashed .04rem $orangeRedColor;
+    width: 3.2rem;
+    height: 3.2rem;
+    position: absolute;
+    left: 1.6rem;
+    top:.8rem;
+  }
+  >canvas{
+    width: 3.2rem;
+    height: 3.2rem;
+    position: absolute;
+    left: 1.64rem;
+    top:.84rem;
   }
 }
 

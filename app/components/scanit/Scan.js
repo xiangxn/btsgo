@@ -12,6 +12,10 @@ class Scan extends BaseComonent {
             hasCamera: false,
             cameras: []//存储设备源ID
         };
+        this.qrcode = new QrCode();
+        this.mStream = null;
+        this.scan = this.scan.bind(this);
+        this.qrcodeSuccess = this.qrcodeSuccess.bind(this);
     }
 
     userBrowser() {
@@ -31,12 +35,49 @@ class Scan extends BaseComonent {
         }
     }
 
-    componentWillMount() {
-
+    componentWillUnmount() {
+        clearInterval(this.timer);
+        this.mStream.getVideoTracks().forEach(function (videoTrack) {
+            videoTrack.stop();
+        });
     }
 
     componentDidMount() {
         this.initCamera();
+    }
+
+    qrcodeSuccess(data) {
+        console.debug(data);
+        if (data !== undefined) {
+            clearInterval(this.timer);
+        }
+    }
+
+    scan() {
+        if (this.mStream) {
+            //console.debug(this.mStream)
+            let video = this.refs.video;
+            video.width = video.clientWidth;
+            video.height = video.clientHeight;
+            let canvas = this.refs.qrCanvas;
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+            let scale = 640 / video.width;
+            let left = scale * canvas.offsetLeft;
+            let top = scale * canvas.offsetTop;
+            let w = scale * canvas.clientWidth;
+            let h = scale * canvas.clientHeight;
+            let context = canvas.getContext('2d');
+            context.drawImage(video, left, top, w, h, 0, 0, canvas.clientWidth, canvas.clientHeight);
+            try {
+                let data = context.getImageData(0, 0, canvas.clientWidth, canvas.clientHeight);
+                //console.debug(data)
+                this.qrcode.decode(data);
+                context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+            } catch (e) {
+                console.error('scan', e);
+            }
+        }
     }
 
     initCamera() {
@@ -62,38 +103,41 @@ class Scan extends BaseComonent {
     }
 
     openCamera(cArray) {
+        let _this = this;
         if (navigator.mediaDevices === undefined) {
             navigator.mediaDevices = {};
         }
         if (navigator.mediaDevices.getUserMedia === undefined) {
             navigator.mediaDevices.getUserMedia = function (constraints) {
-
-                var getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
-
+                let getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
                 if (!getUserMedia) {
                     return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
                 }
-
                 return new Promise(function (resolve, reject) {
                     getUserMedia.call(navigator, constraints, resolve, reject);
                 });
             }
         }
         window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
-        //let constraints = { video: { frameRate: { ideal: 10, max: 15 } } };
-        let constraints = {video: true};
+        let video = this.refs.video;
+        let constraints = {video: {width: video.clientWidth, height: video.clientHeight}};
+        //let constraints = {video: true};
         if (navigator.mediaDevices.getUserMedia) {
             //console.debug(navigator.mediaDevices.getUserMedia);
             navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-                let video = this.refs.video;
                 if (video.mozSrcObject !== undefined) {
                     video.mozSrcObject = stream;
                 }
                 else {
                     video.src = window.URL && window.URL.createObjectURL(stream) || stream;
                 }
+                _this.mStream = stream;
                 video.onloadedmetadata = function (e) {
                     video.play();
+                    _this.timer = setInterval(_this.scan, 2000);
+                };
+                _this.qrcode.callback = (result) => {
+                    _this.qrcodeSuccess(result);
                 };
             }).catch((e) => {
                 console.error('openCamera', e);
@@ -105,7 +149,13 @@ class Scan extends BaseComonent {
         let browserName = this.userBrowser();
         let content = null;
         if (this.state.hasCamera) {
-            content = <video ref="video" style={{width: "6.4rem"}}></video>;
+            content = (
+                <div className="scan">
+                    <video ref="video"></video>
+                    <div></div>
+                    <canvas ref="qrCanvas"/>
+                </div>
+            );
         } else {
             content = <div>未发现摄像头</div>;
         }
@@ -113,7 +163,7 @@ class Scan extends BaseComonent {
 
         return (
 
-            <div className="content">
+            <div className="content clear-toppadding">
                 {content}
             </div>
         )
