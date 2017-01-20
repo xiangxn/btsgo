@@ -27,15 +27,15 @@ module.exports = {
                 //loader: 'css!sass?sourceMap'
             },
             /*{
-                test: /\.css$/,
-                //loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
-                loader: 'css?sourceMap'
-            },*/
+             test: /\.css$/,
+             //loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+             loader: 'css?sourceMap'
+             },*/
             {
                 test: /\.(png|jpg|jpeg|gif|woff)$/,
                 loader: 'url?limit=8192'
             },
-            {test: /\.json$/,loader: 'json'}]
+            {test: /\.json$/, loader: 'json'}]
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),

@@ -4,6 +4,7 @@
 import React from "react";
 import BaseComonent from "../BaseComponent";
 import QrCode from "qrcode-reader";
+import EXIF from "exif-js";
 
 class Scan extends BaseComonent {
     constructor(props) {
@@ -51,8 +52,11 @@ class Scan extends BaseComonent {
         this.initCamera();
     }
 
-    qrcodeSuccess(data) {
+    qrcodeSuccess(data, err) {
         console.debug(data);
+        if (err !== undefined) {
+            alert(err);
+        }
         alert(data);
         if (data !== undefined && this.timer) {
             clearInterval(this.timer);
@@ -164,8 +168,8 @@ class Scan extends BaseComonent {
     onFileChange() {
         let _this = this;
         window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
-        this.qrcode.callback = (result) => {
-            this.qrcodeSuccess(result);
+        this.qrcode.callback = (result, err) => {
+            this.qrcodeSuccess(result, err);
         };
         //初始化文件选择来打开摄像头
         let qrCanvas = this.refs.qrCanvas;
@@ -177,16 +181,26 @@ class Scan extends BaseComonent {
                 console.info('File type not valid');
                 return;
             }
+            let Orientation = null;
+            EXIF.getData(file, () => {
+                EXIF.getAllTags(this);
+                Orientation = EXIF.getTag(this, 'Orientation');
+            });
 
             let img = this.refs.videoImg;
             img.onload = () => {
+                alert('Orientation: ' + Orientation);
                 img.width = img.clientWidth;
                 img.height = img.clientHeight;
                 qrCanvas.width = img.naturalWidth;
                 qrCanvas.height = img.naturalHeight;
                 let context = qrCanvas.getContext('2d');
                 context.drawImage(img, 0, 0);
-                _this.qrcode.decode();
+                try {
+                    _this.qrcode.decode();
+                } catch (e) {
+                    alert(e);
+                }
             };
             let fdata = window.URL.createObjectURL(file);
             img.src = fdata;
@@ -209,7 +223,7 @@ class Scan extends BaseComonent {
                 content = (
                     <div className="scan">
                         <div className="video"><img ref="videoImg"/>
-                            <canvas ref="qrCanvas" id="qr-canvas" style={{display: 'none'}}></canvas>
+                            <canvas ref="qrCanvas" id="qr-canvas"></canvas>
                         </div>
 
                         <input type="button" className="green-btn" value="选择图片"
