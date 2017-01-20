@@ -664,23 +664,32 @@ input {
 
 .scan {
   position: relative;
+  text-align: center;
   > video {
     width: 6.4rem;
   }
-  > div {
+  > .video {
+    width: 6.4rem;
+    height: 4.8rem;
+    >img,canvas{
+      width: 100%;
+      //float: left;
+    }
+  }
+  > .picture-frame {
     border: dashed .04rem $orangeRedColor;
     width: 3.2rem;
     height: 3.2rem;
     position: absolute;
     left: 1.6rem;
-    top:.8rem;
+    top: .8rem;
   }
-  >canvas{
+  > canvas {
     width: 3.2rem;
     height: 3.2rem;
     position: absolute;
     left: 1.64rem;
-    top:.84rem;
+    top: .84rem;
   }
 }
 

@@ -35,6 +35,11 @@ class Scan extends BaseComonent {
         }
     }
 
+    isIphone() {
+        let agent = navigator.userAgent.toLowerCase();
+        return /iphone/i.test(agent);
+    }
+
     componentWillUnmount() {
         clearInterval(this.timer);
         this.mStream.getVideoTracks().forEach(function (videoTrack) {
@@ -48,8 +53,10 @@ class Scan extends BaseComonent {
 
     qrcodeSuccess(data) {
         console.debug(data);
-        if (data !== undefined) {
+        alert(data);
+        if (data !== undefined && this.timer) {
             clearInterval(this.timer);
+            this.timer = null;
         }
     }
 
@@ -72,7 +79,8 @@ class Scan extends BaseComonent {
             try {
                 let data = context.getImageData(0, 0, canvas.clientWidth, canvas.clientHeight);
                 //console.debug(data)
-                this.qrcode.decode(data);
+                //this.qrcode.decode(data);
+                this.qrcode.decode();
                 context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
             } catch (e) {
                 console.error('scan', e);
@@ -82,24 +90,28 @@ class Scan extends BaseComonent {
 
     initCamera() {
         let _this = this;
-        navigator.mediaDevices.enumerateDevices().then((devices) => {
-            //console.debug("devices:", devices);
-            let cArray = [];
-            let flag = false;
-            for (var i = 0; i != devices.length; ++i) {
-                var device = devices[i];
-                //这里会遍历audio,video，所以要加以区分
-                if (device.kind === 'videoinput') {
-                    cArray.push(device.deviceId);
-                    console.info('cameraID:', device.deviceId);
-                    flag = true;
+        if (navigator.mediaDevices) {
+            navigator.mediaDevices.enumerateDevices().then((devices) => {
+                //console.debug("devices:", devices);
+                let cArray = [];
+                let flag = false;
+                for (var i = 0; i != devices.length; ++i) {
+                    var device = devices[i];
+                    //这里会遍历audio,video，所以要加以区分
+                    if (device.kind === 'videoinput') {
+                        cArray.push(device.deviceId);
+                        console.info('cameraID:', device.deviceId);
+                        flag = true;
+                    }
                 }
-            }
-            if (flag) {
-                _this.setState({hasCamera: true, cameras: cArray});
-                _this.openCamera(cArray);
-            }
-        });
+                if (flag) {
+                    _this.setState({hasCamera: true, cameras: cArray});
+                    _this.openCamera(cArray);
+                }
+            });
+        } else {
+            this.refs.file.click();
+        }
     }
 
     openCamera(cArray) {
@@ -145,6 +157,42 @@ class Scan extends BaseComonent {
         }
     }
 
+    onSelectPicClick() {
+        this.refs.file.click();
+    }
+
+    onFileChange() {
+        let _this = this;
+        window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+        this.qrcode.callback = (result) => {
+            this.qrcodeSuccess(result);
+        };
+        //初始化文件选择来打开摄像头
+        let qrCanvas = this.refs.qrCanvas;
+        let fileElm = this.refs.file;
+        if (fileElm.files.length > 0) {
+            let file = fileElm.files[0];
+            let imageType = /^image\//;
+            if (!imageType.test(file.type)) {
+                console.info('File type not valid');
+                return;
+            }
+
+            let img = this.refs.videoImg;
+            img.onload = () => {
+                img.width = img.clientWidth;
+                img.height = img.clientHeight;
+                qrCanvas.width = img.naturalWidth;
+                qrCanvas.height = img.naturalHeight;
+                let context = qrCanvas.getContext('2d');
+                context.drawImage(img, 0, 0);
+                _this.qrcode.decode();
+            };
+            let fdata = window.URL.createObjectURL(file);
+            img.src = fdata;
+        }
+    }
+
     render() {
         let browserName = this.userBrowser();
         let content = null;
@@ -152,12 +200,31 @@ class Scan extends BaseComonent {
             content = (
                 <div className="scan">
                     <video ref="video"></video>
-                    <div></div>
-                    <canvas ref="qrCanvas"/>
+                    <div className="picture-frame"></div>
+                    <canvas ref="qrCanvas" id="qr-canvas"/>
                 </div>
             );
         } else {
-            content = <div>未发现摄像头</div>;
+            if (this.isIphone()) {
+                content = (
+                    <div className="scan">
+                        <div className="video"><img ref="videoImg"/>
+                            <canvas ref="qrCanvas" id="qr-canvas" style={{display: 'none'}}></canvas>
+                        </div>
+
+                        <input type="button" className="green-btn" value="选择图片"
+                               onClick={this.onSelectPicClick.bind(this)}/>
+                        <input ref="file" type="file" accept="image/*" style={{display: 'none'}}
+                               onChange={this.onFileChange.bind(this)}/>
+                    </div>
+                );
+            } else {
+                content = (
+                    <div className="scan">
+                        <div className="video">未发现摄像头</div>
+                    </div>
+                );
+            }
         }
 
 
