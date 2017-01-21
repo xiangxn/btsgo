@@ -2,9 +2,11 @@
  * Created by necklace on 2017/1/18.
  */
 import React from "react";
+import ReactDOM from "react-dom";
 import BaseComonent from "../BaseComponent";
 import QrCode from "qrcode-reader";
-import EXIF from "exif-js";
+//import EXIF from "exif-js";
+import pica from "pica/dist/pica";
 
 class Scan extends BaseComonent {
     constructor(props) {
@@ -43,9 +45,11 @@ class Scan extends BaseComonent {
 
     componentWillUnmount() {
         clearInterval(this.timer);
-        this.mStream.getVideoTracks().forEach(function (videoTrack) {
-            videoTrack.stop();
-        });
+        if (this.mStream) {
+            this.mStream.getVideoTracks().forEach(function (videoTrack) {
+                videoTrack.stop();
+            });
+        }
     }
 
     componentDidMount() {
@@ -55,9 +59,16 @@ class Scan extends BaseComonent {
     qrcodeSuccess(data, err) {
         console.debug(data);
         if (err !== undefined) {
-            alert(err);
+            console.error('qrcode:', err);
         }
-        alert(data);
+        if(this.refs.msgBox) {
+            if (data === undefined) {
+                this.refs.msgBox.innerText = this.formatMessage('scan_noQrcode');
+            } else {
+                this.refs.msgBox.innerText = this.formatMessage('scan_yesQrcode');
+            }
+        }
+
         if (data !== undefined && this.timer) {
             clearInterval(this.timer);
             this.timer = null;
@@ -171,7 +182,9 @@ class Scan extends BaseComonent {
         this.qrcode.callback = (result, err) => {
             this.qrcodeSuccess(result, err);
         };
-        //初始化文件选择来打开摄像头
+
+        pica.WEBGL = true;
+
         let qrCanvas = this.refs.qrCanvas;
         let fileElm = this.refs.file;
         if (fileElm.files.length > 0) {
@@ -181,27 +194,53 @@ class Scan extends BaseComonent {
                 console.info('File type not valid');
                 return;
             }
-            let Orientation = null;
-            EXIF.getData(file, () => {
-                EXIF.getAllTags(this);
-                Orientation = EXIF.getTag(this, 'Orientation');
-            });
+            /*
+             let Orientation = null;
+             EXIF.getData(file, function () {
+             console.debug('exif:', EXIF.pretty(this));
+             Orientation = EXIF.getTag(this, 'Orientation');
+             });
+             */
 
-            let img = this.refs.videoImg;
-            img.onload = () => {
-                alert('Orientation: ' + Orientation);
-                img.width = img.clientWidth;
-                img.height = img.clientHeight;
-                qrCanvas.width = img.naturalWidth;
-                qrCanvas.height = img.naturalHeight;
-                let context = qrCanvas.getContext('2d');
-                context.drawImage(img, 0, 0);
-                try {
+
+            let img = new Image();
+            let tmpCvs = document.createElement("canvas");
+            let tmpCtx = null;
+            img.onload = function () {
+
+                //alert('Orientation:' + Orientation);
+
+                let sw = img.width, sh = img.height;
+                let scale = sw / sh;
+                let tw = _this.refs.videoImg.clientWidth;
+                let th = parseInt(tw / scale);
+
+                tmpCvs.width = sw;
+                tmpCvs.height = sh;
+                tmpCtx = tmpCvs.getContext("2d");
+                tmpCtx.drawImage(img, 0, 0);
+
+                qrCanvas.width = tw;
+                qrCanvas.height = th;
+
+                //console.debug('st:', sw, sh, tw, th);
+
+                pica.resizeCanvas(tmpCvs, qrCanvas, {
+                    quality: 3,
+                    alpha: false,
+                    unsharpAmount: 80,
+                    unsharpRadius: 0.6,
+                    unsharpThreshold: 2,
+                    transferable: true
+                }, (err) => {
+                    if (err !== undefined) {
+                        console.error('resizeCanvas:', err);
+                        return;
+                    }
                     _this.qrcode.decode();
-                } catch (e) {
-                    alert(e);
-                }
-            };
+                });
+
+            }.bind(img);
             let fdata = window.URL.createObjectURL(file);
             img.src = fdata;
         }
@@ -222,20 +261,26 @@ class Scan extends BaseComonent {
             if (this.isIphone()) {
                 content = (
                     <div className="scan">
-                        <div className="video"><img ref="videoImg"/>
-                            <canvas ref="qrCanvas" id="qr-canvas"></canvas>
+                        <div className="video" ref="videoImg">
+                            <canvas ref="qrCanvas" id="qr-canvas" style={{display: 'none'}}></canvas>
                         </div>
-
-                        <input type="button" className="green-btn" value="选择图片"
-                               onClick={this.onSelectPicClick.bind(this)}/>
-                        <input ref="file" type="file" accept="image/*" style={{display: 'none'}}
-                               onChange={this.onFileChange.bind(this)}/>
+                        <br/>
+                        <div className="message-box" ref="msgBox">
+                            {this.formatMessage('scan_defaultMsg')}
+                        </div>
+                        <br/>
+                        <div className="operate">
+                            <input type="button" className="green-btn" value={this.formatMessage('scan_selectImg')}
+                                   onClick={this.onSelectPicClick.bind(this)}/>
+                            <input ref="file" type="file" accept="image/*" style={{display: 'none'}}
+                                   onChange={this.onFileChange.bind(this)}/>
+                        </div>
                     </div>
                 );
             } else {
                 content = (
                     <div className="scan">
-                        <div className="video">未发现摄像头</div>
+                        <div className="video">{this.formatMessage('scan_noCamera')}</div>
                     </div>
                 );
             }

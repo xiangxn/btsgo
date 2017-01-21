@@ -40,5 +40,8 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new ExtractTextPlugin('build/style.css', {allChunks: true})
-    ]
+    ],
+    node: {
+        fs: "empty"
+    }
 };
