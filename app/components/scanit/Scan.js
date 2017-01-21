@@ -61,7 +61,7 @@ class Scan extends BaseComonent {
         if (err !== undefined) {
             console.error('qrcode:', err);
         }
-        if(this.refs.msgBox) {
+        if (this.refs.msgBox) {
             if (data === undefined) {
                 this.refs.msgBox.innerText = this.formatMessage('scan_noQrcode');
             } else {
@@ -286,14 +286,11 @@ class Scan extends BaseComonent {
             }
         }
 
-
         return (
-
             <div className="content clear-toppadding">
                 {content}
             </div>
-        )
-            ;
+        );
     }
 }
 
