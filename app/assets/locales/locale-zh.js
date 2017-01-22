@@ -70,7 +70,7 @@ export const zh_CN = {
     lastOperation_limitOrders: "限价单",
     lastOperation_sendTo: "发送 {amount} 到",
     lastOperation_submitOrder: "提交买单，以 {price} 的价格买入 {amount}",
-    scan_defaultMsg: "IOS不支持直接摄像头识别，请选择照相或图片",
+    scan_defaultMsg: "系统不支持直接摄像头识别，请选择照相或图片",
     scan_selectImg: "选择图片",
     scan_noCamera: "未发现摄像头",
     scan_noQrcode: "未能识别二维码，请重新选择图片",
