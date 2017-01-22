@@ -6,6 +6,7 @@ export const zh_CN = {
     navigation_setting: "设置",
     menu_index: "首页",
     menu_transaction: "交易",
+    menu_transfer:"转账",
     menu_lastOperate: "近期操作",
     menu_scan: "扫一扫",
     menu_unlockWallet: "解锁钱包",
@@ -74,5 +75,18 @@ export const zh_CN = {
     scan_selectImg: "选择图片",
     scan_noCamera: "未发现摄像头",
     scan_noQrcode: "未能识别二维码，请重新选择图片",
-    scan_yesQrcode: "识别到二维码"
+    scan_yesQrcode: "识别到二维码",
+    transfer_from:"来自",
+    transfer_from_ph:"请输入支付的账户名",
+    transfer_to:"发往",
+    transfer_to_ph:"请输入收款的账户名",
+    transfer_permanent:"终身会员 #{id}",
+    transfer_ordinary:"普通会员 #{id}",
+    transfer_amount:"金额",
+    transfer_amount_ph:"请输入转账金额",
+    transfer_balance:"可用余额",
+    transfer_memo:"备注消息",
+    transfer_memo_ph:"可输入备注消息",
+    transfer_chargefee:"手续费",
+    transfer_send:"发送"
 }

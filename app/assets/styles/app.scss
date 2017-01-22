@@ -18,6 +18,14 @@ html, body, #content, .full {
   background-color: $bgGrayColor;
 }
 
+.orangeRed {
+  color: $orangeRedColor;
+}
+
+.green {
+  color: $greenColor;
+}
+
 .vertical-box {
   display: -webkit-box;
   display: -moz-box;
@@ -306,6 +314,71 @@ input {
       float: right;
     }
   }
+
+  .text-img-input {
+    display: flex;
+    background-color: $whiteColor;
+    color: $blackColor;
+    margin-top: .02rem;
+    margin-bottom: .02rem;
+    padding-left: .2rem;
+    padding-right: .2rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    .icon {
+      position: relative;
+      > span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-family: 'WebSymbols-Regular';
+        font-size: .8rem;
+        width: 1.2rem;
+        height: 1.2rem;
+        background-color: $bgGrayColor;
+        text-align: center;
+      }
+      > img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1.2rem;
+        height: 1.2rem;
+        border: none;
+      }
+    }
+    .placeholder {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+
+    .text-box {
+      flex: 1;
+      padding-left: .2rem;
+      > .label {
+        height: .6rem;
+        line-height: .6rem;
+        display: flex;
+        font-weight: bold;
+        > :nth-child(2) {
+          flex: 1;
+          text-align: right;
+        }
+      }
+      > .input {
+        height: .6rem;
+        line-height: .6rem;
+        display: flex;
+        > input[type='text'] {
+          border: 0;
+          flex: 1;
+        }
+        > label {
+          color: $grayColor;
+        }
+      }
+    }
+  }
 }
 
 .green-btn {
@@ -315,6 +388,7 @@ input {
   color: $whiteColor;
   border: none;
   font-weight: bold;
+  text-align: center;
   //cursor: pointer;
 }
 
@@ -334,7 +408,14 @@ input {
 }
 
 .clear-toppadding {
-  padding-top: 0;
+  padding-top: 0 !important;
+}
+
+.clear-leftpadding {
+  padding-left: 0 !important;
+}
+.underline{
+  text-decoration: underline !important;
 }
 
 .assets-list {
@@ -492,12 +573,7 @@ input {
     color: $blackColor;
     //padding: 0 .2rem 0 .2rem;
     background-color: $whiteColor;
-    .orangeRed {
-      color: $orangeRedColor;
-    }
-    .green {
-      color: $greenColor;
-    }
+
     .current-balance {
       height: 1rem;
       display: flex;
@@ -671,7 +747,7 @@ input {
   > .video {
     width: 6.4rem;
     //height: 4.8rem;
-    >img,canvas{
+    > img, canvas {
       width: 100%;
       //float: left;
     }

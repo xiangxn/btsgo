@@ -38,6 +38,7 @@ import Sell from "./components/transaction/Sell";
 import Orders from "./components/transaction/Orders";
 import LastOperation from "./components/LastOperation";
 import Scan from "./components/scanit/Scan";
+import Transfer from "./components/wallet/Transfer";
 
 
 //let btsgoHistory = createBrowserHistory();
@@ -128,6 +129,7 @@ let routes = (
         </Route>
         <Route path="last-operate" component={LastOperation}/>
         <Route path="scan" component={Scan}/>
+        <Route path="transfer" component={Transfer}/>
     </Route>
 );
 
