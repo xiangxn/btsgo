@@ -1,5 +1,5 @@
 /**
- * Created by admin on 2016/12/20.
+ * Created by necklace on 2016/12/20.
  */
 import React from 'react';
 import {injectIntl, intlShape, FormattedMessage} from 'react-intl';

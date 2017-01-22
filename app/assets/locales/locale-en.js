@@ -1,5 +1,5 @@
 /**
- * Created by admin on 2016/12/27.
+ * Created by necklace on 2016/12/27.
  */
 export const en_US = {
     languages: {

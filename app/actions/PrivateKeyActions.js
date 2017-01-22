@@ -1,5 +1,5 @@
 /**
- * Created by admin on 2016/12/28.
+ * Created by necklace on 2016/12/28.
  */
 import alt from '../../common/altObj';
 

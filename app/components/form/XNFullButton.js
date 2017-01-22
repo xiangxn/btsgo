@@ -1,5 +1,5 @@
 /**
- * Created by admin on 2017/1/11.
+ * Created by necklace on 2017/1/11.
  */
 import React from "react";
 import {intlShape, FormattedMessage} from 'react-intl';

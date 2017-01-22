@@ -1,5 +1,5 @@
 /**
- * Created by admin on 2017/1/7.
+ * Created by necklace on 2017/1/7.
  */
 import React, {Component} from "react";
 
