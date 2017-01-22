@@ -1,4 +1,4 @@
-Copyright (C) 2017 necklace
+Copyright (C) 2017 necklace,and contributors.
 
 The MIT License
 
