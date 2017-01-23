@@ -53,20 +53,20 @@ class Dashboard extends React.Component {
                         <label>188.505 BTS</label>
                         <label>188.505 BTS</label>
                     </div>
-                    <div className="account-list-row">
+                    <div className="account-list-row" onClick={this.onItemClick.bind(this)}>
                         <label>necklace</label>
                         <label>188.505 BTS</label>
                         <label>188.505 BTS</label>
                         <label>188.505 BTS</label>
                     </div>
-                    <div className="account-list-row">
-                        <label>XIANGXN</label>
+                    <div className="account-list-row" onClick={this.onItemClick.bind(this)}>
+                        <label>XIANGXN1</label>
                         <label>188.505 BTS</label>
                         <label>188.505 BTS</label>
                         <label>188.505 BTS</label>
                     </div>
-                    <div className="account-list-row">
-                        <label>XIANGXN</label>
+                    <div className="account-list-row" onClick={this.onItemClick.bind(this)}>
+                        <label>XIANGXN2</label>
                         <label>188.505 BTS</label>
                         <label>188.505 BTS</label>
                         <label>188.505 BTS</label>
