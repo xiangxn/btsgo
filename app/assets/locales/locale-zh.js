@@ -88,5 +88,7 @@ export const zh_CN = {
     transfer_memo:"备注消息",
     transfer_memo_ph:"可输入备注消息",
     transfer_chargefee:"手续费",
-    transfer_send:"发送"
+    transfer_send:"发送",
+    balance_assets:"资产",
+    balance_conversion:"换算值"
 }

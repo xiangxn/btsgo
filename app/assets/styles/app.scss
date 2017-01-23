@@ -414,7 +414,8 @@ input {
 .clear-leftpadding {
   padding-left: 0 !important;
 }
-.underline{
+
+.underline {
   text-decoration: underline !important;
 }
 
@@ -507,6 +508,9 @@ input {
   .account-list-row {
     @extend .account-list-head;
     font-size: $middleSize;
+    > :nth-child(1) {
+      text-transform: uppercase;
+    }
     > :nth-child(4) {
       color: $orangeRedColor;
     }
@@ -733,6 +737,53 @@ input {
       }
       > div {
         flex: 1;
+      }
+    }
+  }
+}
+
+.balance {
+  background-color: $whiteColor;
+  font-size: $fontSize;
+  font-weight: bold;
+  color: $blackColor;
+  .balance-account{
+    padding: 0 .2rem;
+    height: .6rem;
+    line-height: .6rem;
+    background-color: $whiteColor;
+    >:nth-child(2){
+      color: $blueColor;
+    }
+  }
+  .balance-header {
+    background-color: $whiteColor;
+    padding: 0 .2rem;
+    height: .6rem;
+    line-height: .6rem;
+    display: flex;
+    > :nth-child(1) {
+      flex: 1;
+    }
+    > :nth-child(2) {
+      flex: 1;
+    }
+  }
+  .balance-body {
+    > div:nth-of-type(even) {
+      background-color: $bgGrayColor;
+    }
+    > .balance-row {
+      display: flex;
+      padding: .06rem .2rem;
+      > span {
+        flex: 1;
+        color: $greenColor;
+      }
+      > div {
+        flex: 1;
+        text-align: right;
+        color: $orangeRedColor;
       }
     }
   }

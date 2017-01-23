@@ -17,6 +17,11 @@ class Dashboard extends React.Component {
         super(props);
     }
 
+    onItemClick(e) {
+        let acc = e.target.parentNode.childNodes[0].innerHTML;
+        this.context.router.push({pathname: '/balance', state: {account: acc}});
+    }
+
     render() {
         return (
             <div className="content clear-toppadding vertical-box vertical-flex">
@@ -42,14 +47,14 @@ class Dashboard extends React.Component {
                 </div>
                 <div className="account-list-separate"></div>
                 <div className="account-list vertical-flex">
-                    <div className="account-list-row">
-                        <label>XIANGXN</label>
+                    <div className="account-list-row" onClick={this.onItemClick.bind(this)}>
+                        <label>xiangxn</label>
                         <label>188.505 BTS</label>
                         <label>188.505 BTS</label>
                         <label>188.505 BTS</label>
                     </div>
                     <div className="account-list-row">
-                        <label>XIANGXN</label>
+                        <label>necklace</label>
                         <label>188.505 BTS</label>
                         <label>188.505 BTS</label>
                         <label>188.505 BTS</label>
