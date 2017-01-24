@@ -23,7 +23,7 @@ import 'indexeddbshim';
 import RootIntl from './components/RootIntl';
 import Dashboard from "./components/dashboard/Dashboard";
 import Settings from "./components/Settings";
-import GlobalSetting from "./components/GlobalSetting";
+import GlobalSettingContainer from "./components/containers/GlobalSettingContainer";
 import CreeateAccount from "./components/wallet/CreateAccount";
 import WalletManage from "./components/wallet/WalletManage";
 import ImportKey from "./components/wallet/ImportKey";
@@ -113,7 +113,7 @@ let routes = (
         <Route path="create-account" component={CreeateAccount}/>
         <Route path="init-error" component={Settings}/>
         <Route path="settings" component={Settings}>
-            <IndexRoute component={GlobalSetting}/>
+            <IndexRoute component={GlobalSettingContainer}/>
             <Route path="wallet-manage" component={WalletManage}/>
             <Route path="import-key" component={ImportKey}/>
             <Route path="backup" component={Backup}/>

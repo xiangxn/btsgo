@@ -8,9 +8,8 @@ class XNSelect extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
-            value: "请选择",
-            selcted: null,
-            data: [{text: "中文简体", value: "zh"}, {text: "英文", value: "en"}],
+            value: props.value,
+            data: props.data,//[{text: "中文简体", value: "zh"}, {text: "英文", value: "en"}],
             isShowList: false//是否弹出选择列表
         };
         this.onDocumentClick = this.onDocumentClick.bind(this);
@@ -119,14 +118,18 @@ XNSelect.propTypes = {
     onChange: React.PropTypes.func,
     onDeleteItem: React.PropTypes.func,
     onAddItem: React.PropTypes.func,
-    isEdit: React.PropTypes.bool
+    isEdit: React.PropTypes.bool,
+    data:React.PropTypes.array,
+    value:React.PropTypes.string
 };
 XNSelect.defaultProps = {
     label: "显示名称",
     onChange: null,
     onDeleteItem: null,
     onAddItem: null,
-    isEdit: false
+    isEdit: false,
+    data:[],
+    value:""
 };
 
 export default XNSelect;

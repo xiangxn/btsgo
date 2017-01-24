@@ -45,13 +45,13 @@ class SettingsStore extends BaseStore {
             addMarkets(defaultMarkets, base, topMarkets);
         });
         let apiServer = [
-            {url: "wss://bitshares.openledger.info/ws", location: "Nuremberg, Germany"},
-            {url: "wss://bit.btsabc.org/ws", location: "Hong Kong"},
-            {url: "wss://bts.transwiser.com/ws", location: "Hangzhou, China"},
-            {url: "wss://bitshares.dacplay.org:8089/ws", location: "Hangzhou, China"},
-            {url: "wss://openledger.hk/ws", location: "Hong Kong"},
-            {url: "wss://secure.freedomledger.com/ws", location: "Toronto, Canada"},
-            {url: "wss://testnet.bitshares.eu/ws", location: "Public Testnet Server (Frankfurt, Germany)"}
+            {value: "wss://bitshares.openledger.info/ws", text: "Nuremberg, Germany"},
+            {value: "wss://bit.btsabc.org/ws", text: "Hong Kong"},
+            {value: "wss://bts.transwiser.com/ws", text: "Hangzhou, China"},
+            {value: "wss://bitshares.dacplay.org:8089/ws", text: "Hangzhou, China"},
+            {value: "wss://openledger.hk/ws", text: "Hong Kong"},
+            {value: "wss://secure.freedomledger.com/ws", text: "Toronto, Canada"},
+            {value: "wss://testnet.bitshares.eu/ws", text: "Public Testnet Server (Frankfurt, Germany)"}
         ];
         let defaults = {
             locale: [
@@ -84,6 +84,49 @@ class SettingsStore extends BaseStore {
         this.starredAccounts = Immutable.Map(ss.get("starredAccounts"));
         let savedDefaults = ss.get("defaults_v1", {});
         this.defaults = merge({}, defaults, savedDefaults);
+        (savedDefaults.connection || []).forEach(api => {
+            let hasApi = false;
+            if (typeof api === "string") {
+                api = {value: api, text: api};
+            }
+            apiServer.forEach(server => {
+                if (server.value === api.value) {
+                    hasApi = true;
+                }
+            });
+
+            if (!hasApi) {
+                this.defaults.apiServer.push(api);
+            }
+        });
+
+        (savedDefaults.apiServer || []).forEach(api => {
+            let hasApi = false;
+            if (typeof api === "string") {
+                api = {value: api, text: api};
+            }
+            this.defaults.apiServer.forEach(server => {
+                if (server.value === api.value) {
+                    hasApi = true;
+                }
+            });
+
+            if (!hasApi) {
+                this.defaults.apiServer.push(api);
+            }
+        });
+
+        for (let i = apiServer.length - 1; i >= 0; i--) {
+            let hasApi = false;
+            this.defaults.apiServer.forEach(api => {
+                if (api.value === apiServer[i].value) {
+                    hasApi = true;
+                }
+            });
+            if (!hasApi) {
+                this.defaults.apiServer.unshift(apiServer[i]);
+            }
+        }
     }
 
     getSetting(setting) {
@@ -103,7 +146,7 @@ class SettingsStore extends BaseStore {
 
     onAddWS(ws) {
         if (typeof ws === "string") {
-            ws = {url: ws, location: null};
+            ws = {value: ws, text: ws};
         }
         this.defaults.apiServer.push(ws);
         ss.set("defaults_v1", this.defaults);
