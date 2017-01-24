@@ -14,15 +14,15 @@ class CreeateAccount extends Component {
         return (
             <div className="content">
                 <div className="text-input">
-                    <div>{this.context.intl.formatMessage({id: "wallet_accountName"})}</div>
+                    <div className="text-label">{this.context.intl.formatMessage({id: "wallet_accountName"})}</div>
                     <input type="text" placeholder={this.context.intl.formatMessage({id: "wallet_accountName_ph"})}/>
                 </div>
                 <div className="text-input">
-                    <div>{this.context.intl.formatMessage({id:"wallet_password"})}</div>
+                    <div className="text-label">{this.context.intl.formatMessage({id:"wallet_password"})}</div>
                     <input type="password" placeholder={this.context.intl.formatMessage({id:"wallet_password_ph"})}/>
                 </div>
                 <div className="text-input">
-                    <div>{this.context.intl.formatMessage({id:"wallet_confirmPassword"})}</div>
+                    <div className="text-label">{this.context.intl.formatMessage({id:"wallet_confirmPassword"})}</div>
                     <input type="password" placeholder={this.context.intl.formatMessage({id:"wallet_confirmPassword_ph"})}/>
                 </div>
                 <div className="operate">

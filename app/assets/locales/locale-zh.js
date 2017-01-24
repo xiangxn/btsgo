@@ -19,6 +19,7 @@ export const zh_CN = {
     settings_labDisableChat: "禁用聊天",
     settings_labShowWalletManage: "钱包控制台",
     settings_labDefaultSetting: "恢复默认设置",
+    settings_add:"添加",
     wallet_accountName: "账户名",
     wallet_accountName_ph: "请输入账户名",
     wallet_createErrMsg: "你使用的是高级账户名。高级账户名的注册需要花费更多，因为无法通过免费水龙头服务进行注册。请选择其他名字，包含至少一个横杠、数字或者不含元音字母",

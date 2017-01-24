@@ -9,6 +9,15 @@
   user-select: none;
 }
 
+input:enabled {
+  -webkit-touch-callout: default;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
 html, body, #content, .full {
   height: 100%;
   width: 100%;
@@ -194,7 +203,7 @@ input {
     background-color: $whiteColor;
     display: flex;
     align-items: center;
-    > div {
+    > .text-label {
       width: 1rem;
       text-align: justify;
       text-justify: distribute-all-lines;
@@ -243,13 +252,12 @@ input {
   }
   .select-input {
     @extend .text-input;
-    //cursor: pointer;
     position: relative;
     > :nth-child(1) {
       flex: 1;
-      text-align: left;
-      text-align-last: left;
-      text-justify: none;
+      width: 1rem;
+      margin-left: .2rem;
+      margin-right: .4rem;
       > label {
         color: $blackColor;
         font-size: $fontSize;
@@ -270,19 +278,46 @@ input {
       margin-right: .2rem;
     }
     > :nth-child(3) {
-      text-align: left;
-      text-align-last: left;
-      text-justify: none;
       position: absolute;
       width: 100%;
       height: auto;
       top: .6rem;
-      left: -.2rem;
       background-color: $blackTColor;
       color: $whiteColor;
-      padding-left: .2rem;
-      padding-right: .2rem;
       z-index: 500;
+      > ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        > li {
+          padding-left: .2rem;
+          display: flex;
+          > :nth-child(1) {
+            flex: 1;
+          }
+          > :nth-child(2) {
+            font-family: 'WebSymbols-Regular';
+            width: .6rem;
+            text-align: center;
+          }
+        }
+      }
+      > div {
+        border-top: solid .02rem $grayColor;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        > input {
+          margin-left: .2rem;
+          margin-right: .2rem;
+          border: none;
+          flex: 1;
+          height: .5rem;
+        }
+        > span {
+          margin-right: .2rem;
+        }
+      }
     }
   }
   > .operate {
@@ -747,12 +782,12 @@ input {
   font-size: $fontSize;
   font-weight: bold;
   color: $blackColor;
-  .balance-account{
+  .balance-account {
     padding: 0 .2rem;
     height: .6rem;
     line-height: .6rem;
     background-color: $whiteColor;
-    >:nth-child(2){
+    > :nth-child(2) {
       color: $blueColor;
     }
   }

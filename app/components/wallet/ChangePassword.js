@@ -13,15 +13,15 @@ class ChangePassword extends React.Component{
         return (
             <div className="content">
                 <div className="text-input">
-                    <div>{this.context.intl.formatMessage({id: 'wallet_oldPassword'})}</div>
+                    <div className="text-label">{this.context.intl.formatMessage({id: 'wallet_oldPassword'})}</div>
                     <input type="text" placeholder={this.context.intl.formatMessage({id: 'wallet_oldPassword_ph'})}/>
                 </div>
                 <div className="text-input">
-                    <div>{this.context.intl.formatMessage({id: 'wallet_newPassword'})}</div>
+                    <div className="text-label">{this.context.intl.formatMessage({id: 'wallet_newPassword'})}</div>
                     <input type="text" placeholder={this.context.intl.formatMessage({id: 'wallet_newPassword_ph'})}/>
                 </div>
                 <div className="text-input">
-                    <div>{this.context.intl.formatMessage({id: 'wallet_confirmPassword'})}</div>
+                    <div className="text-label">{this.context.intl.formatMessage({id: 'wallet_confirmPassword'})}</div>
                     <input type="text" placeholder={this.context.intl.formatMessage({id: 'wallet_confirmPassword_ph'})}/>
                 </div>
                 <div className="operate">

@@ -24,7 +24,6 @@ import RootIntl from './components/RootIntl';
 import Dashboard from "./components/dashboard/Dashboard";
 import Settings from "./components/Settings";
 import GlobalSetting from "./components/GlobalSetting";
-import Loading from "./components/Loading";
 import CreeateAccount from "./components/wallet/CreateAccount";
 import WalletManage from "./components/wallet/WalletManage";
 import ImportKey from "./components/wallet/ImportKey";

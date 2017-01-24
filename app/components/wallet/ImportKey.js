@@ -13,7 +13,7 @@ class ImportKey extends React.Component {
         return (
             <div className="content">
                 <div className="text-input">
-                    <div>{this.context.intl.formatMessage({id: 'wallet_accountPrivateKey'})}</div>
+                    <div className="text-label">{this.context.intl.formatMessage({id: 'wallet_accountPrivateKey'})}</div>
                     <input type="text" placeholder={this.context.intl.formatMessage({id: 'wallet_accountPrivateKey_ph'})}/>
                 </div>
                 <div className="operate">

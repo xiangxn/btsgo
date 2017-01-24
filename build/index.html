@@ -23,10 +23,21 @@
             win.addEventListener(resizeEvt, recalc, false);
         })(document, window);
     </script>
+    <style>
+        .defLoading {
+            position: absolute;background-color: #12b7f5;
+            border-radius: .1rem;
+            top: 50%;left: 50%;margin-left: -2rem;margin-top: -.5rem;
+            width: 4rem;height: 1rem;line-height: 1rem;text-align: center;
+            color: #ffffff;font-size: .4rem;font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <script src="/webpack-dev-server.js"></script>
-<div id="content"></div>
+<div id="content">
+    <div class="defLoading">Loading...</div>
+</div>
 <script src="/bundle.js"></script>
 </body>
 </html>

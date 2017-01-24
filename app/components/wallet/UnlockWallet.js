@@ -14,7 +14,7 @@ class UnlockWallet extends React.Component{
         return(
             <div className="content">
                 <div className="text-input">
-                    <div>{this.context.intl.formatMessage({id: 'wallet_password'})}</div>
+                    <div className="text-label">{this.context.intl.formatMessage({id: 'wallet_password'})}</div>
                     <input type="text" placeholder={this.context.intl.formatMessage({id: 'wallet_password_ph'})}/>
                 </div>
                 <div className="operate">

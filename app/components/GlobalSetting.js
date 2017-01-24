@@ -53,7 +53,7 @@ class GlobalSetting extends React.Component {
                           onChange={this.onLanguageChange.bind(this)}/>
                 <div className="separate"></div>
                 <XNSelect label={this.context.intl.formatMessage({id: 'settings_labAPI'})}
-                          onChange={this.onAPIChange.bind(this)}/>
+                          onChange={this.onAPIChange.bind(this)} isEdit={true}/>
                 <XNSelect label={this.context.intl.formatMessage({id: 'settings_labFaucet'})}
                           onChange={this.onFaucetChange.bind(this)}/>
                 <div className="separate"></div>
