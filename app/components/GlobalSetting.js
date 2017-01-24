@@ -61,7 +61,8 @@ class GlobalSetting extends BaseComponent {
         return (
             <div className="vertical-flex scroll">
                 <XNSelect label={this.formatMessage('settings_labLanguage')}
-                          onChange={this.onLanguageChange.bind(this)} data={locales}
+                          onChange={this.onLanguageChange.bind(this)}
+                          data={locales}
                           value={this.formatMessage('languages_' + this.props.settings.get('locale'))}/>
                 <div className="separate"></div>
                 <XNSelect label={this.formatMessage('settings_labAPI')}
