@@ -2,7 +2,6 @@
  * Created by necklace on 2017/1/11.
  */
 import React from "react";
-import {intlShape, FormattedMessage} from 'react-intl';
 
 export default class XNFullButton extends React.Component {
     constructor(props) {

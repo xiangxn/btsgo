@@ -166,7 +166,7 @@ class SettingsStore extends BaseStore {
         ss.set("settings_v3", this.settings.toJS());
 
         if (window && window.location) {
-            // window.location.reload();
+            window.location.reload();
         }
     }
 

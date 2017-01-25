@@ -25,6 +25,12 @@ class XNSelect extends BaseComponent {
 
     }
 
+    componentWillUpdate(nextProps, nextState) {
+        if (nextProps.value !== this.state.value && nextProps.data !== this.state.data) {
+            this.setState({value: nextProps.value, data: nextProps.data});
+        }
+    }
+
     componentDidUpdate(prevProps, prevState) {
         if (this.state.isShowList) {
             document.addEventListener('click', this.onDocumentClick, false);
@@ -42,7 +48,7 @@ class XNSelect extends BaseComponent {
     }
 
     openList(e) {
-        console.debug('openList')
+        //console.debug('openList')
         let flag = !this.state.isShowList;
         this.setState({isShowList: flag});
     }
@@ -52,7 +58,7 @@ class XNSelect extends BaseComponent {
         e.nativeEvent.stopImmediatePropagation();
         let oldVal = this.state.value;
         this.setState({value: d.text});
-        if (this.props.onChange !== null && oldVal !== d.text) {
+        if (this.props.onChange !== null && oldVal !== d.value) {
             this.props.onChange(d);
         }
     }
@@ -119,8 +125,8 @@ XNSelect.propTypes = {
     onDeleteItem: React.PropTypes.func,
     onAddItem: React.PropTypes.func,
     isEdit: React.PropTypes.bool,
-    data:React.PropTypes.array,
-    value:React.PropTypes.string
+    data: React.PropTypes.array,
+    value: React.PropTypes.string
 };
 XNSelect.defaultProps = {
     label: "显示名称",
@@ -128,8 +134,8 @@ XNSelect.defaultProps = {
     onDeleteItem: null,
     onAddItem: null,
     isEdit: false,
-    data:[],
-    value:""
+    data: [],
+    value: ""
 };
 
 export default XNSelect;

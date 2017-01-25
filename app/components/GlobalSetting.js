@@ -2,23 +2,36 @@
  * Created by necklace on 2017/1/12.
  */
 import React from "react";
+import BaseComponent from "./BaseComponent";
+
+//actions
+import SettingsActions from "../actions/SettingsActions";
+import IntlActions from "../actions/IntlActions";
+
 import XNSelect from "./form/XNSelect";
 import XNSwitch from "./form/XNSwitch";
 import XNFullButton from "./form/XNFullButton";
+import XNFullText from "./form/XNFullText";
 
-import BaseComponent from "./BaseComponent";
 
 class GlobalSetting extends BaseComponent {
     constructor(props) {
         super(props);
     }
 
+    //修改语言
     onLanguageChange(d) {
-        console.debug(d);
+        //console.debug(d);
+        IntlActions.switchLocale(d.value);
+        SettingsActions.changeSetting({setting: "locale", value: d.value});
     }
 
+    //修改wsapi服务器地址
     onAPIChange(d) {
-        console.debug(d);
+        SettingsActions.changeSetting({setting: "apiServer", value: d.value});
+        setTimeout(() => {
+            window.location.reload();
+        }, 250);
     }
 
     onFaucetChange(d) {
@@ -26,15 +39,18 @@ class GlobalSetting extends BaseComponent {
     }
 
     onUnitChange(d) {
-        console.debug(d);
+        SettingsActions.changeSetting({setting: "unit", value: d.value});
     }
 
     onLockTimeChange(d) {
-        console.debug(d);
+        let newValue = parseInt(d, 10);
+        if (newValue && !isNaN(newValue) && typeof newValue === "number") {
+            SettingsActions.changeSetting({setting: "walletLockTimeout", value: d});
+        }
     }
 
     onSwitchIMChange(d) {
-        console.debug(d);
+        SettingsActions.changeSetting({setting: "disableChat", value: d });
     }
 
     onShowWalletManageClick(e) {
@@ -43,7 +59,7 @@ class GlobalSetting extends BaseComponent {
     }
 
     onSetDefaultClick(e) {
-        console.debug(e);
+        SettingsActions.clearSettings();
     }
 
     render() {
@@ -58,6 +74,19 @@ class GlobalSetting extends BaseComponent {
             if (a.value === saveApi)return a;
         });
 
+        let faucet_address = this.props.settings.get('faucet_address');
+        let faucets = [{value: faucet_address, text: faucet_address}];
+
+        let units = [];
+        let unit = this.props.settings.get('unit');
+        this.props.defaults.unit.map((item, i) => {
+            units.push({value: item, text: item});
+        });
+
+        let walletLockTimeout = this.props.settings.get("walletLockTimeout");
+
+        let disableChat = this.props.settings.get("disableChat");
+
         return (
             <div className="vertical-flex scroll">
                 <XNSelect label={this.formatMessage('settings_labLanguage')}
@@ -70,14 +99,15 @@ class GlobalSetting extends BaseComponent {
                           data={this.props.defaults.apiServer}
                           value={api.text}/>
                 <XNSelect label={this.formatMessage('settings_labFaucet')}
-                          onChange={this.onFaucetChange.bind(this)}/>
+                          onChange={this.onFaucetChange.bind(this)} value={faucet_address}
+                          data={faucets}/>
                 <div className="separate"></div>
                 <XNSelect label={this.formatMessage('settings_labShowUnit')}
-                          onChange={this.onUnitChange.bind(this)}/>
-                <XNSelect label={this.formatMessage('settings_labLockTime')}
-                          onChange={this.onLockTimeChange.bind(this)}/>
+                          onChange={this.onUnitChange.bind(this)} value={unit} data={units}/>
+                <XNFullText label={this.formatMessage('settings_labLockTime')} type="number"
+                            onChange={this.onLockTimeChange.bind(this)} value={walletLockTimeout}/>
                 <XNSwitch label={this.formatMessage('settings_labDisableChat')}
-                          onChange={this.onSwitchIMChange.bind(this)}/>
+                          onChange={this.onSwitchIMChange.bind(this)} value={disableChat}/>
                 <XNFullButton label={this.formatMessage('settings_labShowWalletManage')}
                               onClick={this.onShowWalletManageClick.bind(this)}/>
                 <XNFullButton isShowIcon={false}

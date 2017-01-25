@@ -20,7 +20,7 @@ class Root extends React.Component {
     }
 
     componentWillUnmount() {
-        SettingsStore.unlisten(this._onSettingsChange);
+        SettingsStore.unlisten(this.onSettingsChange);
     }
 
     componentDidMount() {

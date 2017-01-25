@@ -7,7 +7,7 @@ export const zh_CN = {
     menu_index: "首页",
     menu_transaction: "交易",
     menu_transfer:"转账",
-    menu_lastOperate: "近期操作",
+    menu_lastOperate: "近期活动",
     menu_scan: "扫一扫",
     menu_unlockWallet: "解锁钱包",
     menu_settings: "设置",

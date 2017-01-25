@@ -6,7 +6,7 @@ import React, {Component} from "react";
 export default class XNSwitch extends Component {
     constructor(props) {
         super(props);
-        this.state = {value: false};
+        this.state = {value: props.value};
     }
 
     onSpanClick(e) {
@@ -28,9 +28,11 @@ export default class XNSwitch extends Component {
 
 XNSwitch.propTypes = {
     label: React.PropTypes.string,
+    value: React.PropTypes.bool,
     onChange: React.PropTypes.func
 };
 XNSwitch.defaultProps = {
     label: "显示名称",
+    value: false,
     onChange: null
 };

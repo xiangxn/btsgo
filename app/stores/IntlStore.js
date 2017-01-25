@@ -3,7 +3,7 @@
  */
 
 import alt from '../../common/altObj';
-import BaseStore,{STORAGE_KEY} from './BaseStore';
+import BaseStore, {STORAGE_KEY} from './BaseStore';
 import IntlActions from '../actions/IntlActions';
 import SettingsActions from '../actions/SettingsActions';
 import ls from '../../common/localStorage';
@@ -23,9 +23,9 @@ class IntlStore extends BaseStore {
         super();
         this.currentLocale = ss.has("settings_v3") ? ss.get("settings_v3").locale : "zh";
 
-        this.locales = ["zh"];
+        this.locales = ["zh", "en"];
         //console.debug(zh_CN);
-        this.localesObject = {zh: zh_CN};
+        this.localesObject = {zh: zh_CN, en: en_US};
 
         this.bindListeners({
             onSwitchLocale: IntlActions.switchLocale,

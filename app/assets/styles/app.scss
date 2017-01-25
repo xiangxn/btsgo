@@ -257,7 +257,7 @@ input {
       flex: 1;
       width: 1rem;
       margin-left: .2rem;
-      margin-right: .4rem;
+      margin-right: .2rem;
       > label {
         color: $blackColor;
         font-size: $fontSize;
@@ -347,6 +347,27 @@ input {
       font-size: $fontSize;
       color: $blackColor;
       float: right;
+    }
+  }
+  .fullText{
+    margin-top: .02rem;
+    margin-bottom: .02rem;
+    height: .6rem;
+    line-height: .6rem;
+    background-color: $whiteColor;
+    display: flex;
+    padding-left: .2rem;
+    padding-right: .2rem;
+    > label {
+      color: $blackColor;
+      font-size: .24rem;
+      flex: 1;
+      font-weight: bold;
+    }
+    >input{
+      border: none;
+      text-align: right;
+      width: 1.6rem;
     }
   }
 
