@@ -49,25 +49,25 @@ class WalletManagerStore extends BaseStore {
         should a <b>create_wallet_password</b> be provided.
     */
     onSetWallet({wallet_name = "default", create_wallet_password, brnkey, resolve}) {
+
         var p = new Promise( resolve => {
-            
             if( /[^a-z0-9_-]/.test(wallet_name) || wallet_name === "" )
                 throw new Error("Invalid wallet name")
-            
+
             if(this.state.current_wallet === wallet_name) {
                 resolve()
                 return
             }
-            
+
             var add
             if( ! this.state.wallet_names.has(wallet_name) ) {
                 var wallet_names = this.state.wallet_names.add(wallet_name)
                 add = iDB.root.setProperty("wallet_names", wallet_names)
                 this.setState({wallet_names})
             }
-            
+
             var current = iDB.root.setProperty("current_wallet", wallet_name)
-            
+
             resolve( Promise.all([ add, current ]).then(()=>{
                 // The database must be closed and re-opened first before the current
                 // application code can initialize its new state.
@@ -76,19 +76,19 @@ class WalletManagerStore extends BaseStore {
                 BalanceClaimActiveStore.reset()
                 // Stores may reset when loadDbData is called
                 return iDB.init_instance().init_promise.then(()=>{
-                    // Make sure the database is ready when calling CachedPropertyStore.reset() 
-                    CachedPropertyStore.reset() 
+                    // Make sure the database is ready when calling CachedPropertyStore.reset()
+                    CachedPropertyStore.reset()
                     return Promise.all([
                         WalletDb.loadDbData().then(()=>AccountStore.loadDbData()),
                         PrivateKeyActions.loadDbData().then(()=>AccountRefsStore.loadDbData())
                     ]).then(()=>{
                         // Update state here again to make sure listeners re-render
-                        
+
                         if( ! create_wallet_password) {
                             this.setState({current_wallet: wallet_name})
                             return
                         }
-                        
+
                         return WalletDb.onCreateWallet(
                             create_wallet_password,
                             brnkey, //brainkey,

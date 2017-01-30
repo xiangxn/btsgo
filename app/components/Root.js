@@ -1,10 +1,19 @@
 import React from 'react';
-import {ChainStore} from "graphenejs-lib";
-import {Apis} from "graphenejs-ws";
+
+//stores
 import AccountStore from "../stores/AccountStore";
 import SettingsStore from '../stores/SettingsStore';
+import NotificationStore from "../stores/NotificationStore";
+
+import {ChainStore} from "graphenejs-lib";
+import {Apis} from "graphenejs-ws";
+
+//组件
 import Loading from './Loading';
 import NavigationBar from './NavigationBar';
+import NotificationSystem from "react-notification-system";
+import TransactionConfirm from "./TransactionConfirm";
+import UnlockWallet from "./wallet/UnlockWallet";
 import Settings from './Settings';
 import {injectIntl, intlShape,FormattedMessage} from 'react-intl';
 
@@ -19,12 +28,22 @@ class Root extends React.Component {
         };
     }
 
+    onNotificationChange() {
+        let notification = NotificationStore.getState().notification;
+        if (notification.autoDismiss === void 0) {
+            notification.autoDismiss = 10;
+        }
+        if (this.refs.notificationSystem) this.refs.notificationSystem.addNotification(notification);
+    }
+
     componentWillUnmount() {
+        NotificationStore.unlisten(this.onNotificationChange);
         SettingsStore.unlisten(this.onSettingsChange);
     }
 
     componentDidMount() {
         try {
+            NotificationStore.listen(this.onNotificationChange.bind(this));
             SettingsStore.listen(this.onSettingsChange.bind(this));
             ChainStore.init().then(() => {
                 this.setState({synced: true});
@@ -71,6 +90,9 @@ class Root extends React.Component {
                 <div className="full vertical-box">
                     <NavigationBar/>
                     {this.props.children}
+                    <NotificationSystem ref="notificationSystem" allowHTML={true}/>
+                    <TransactionConfirm/>
+                    <UnlockWallet/>
                 </div>
             );
         }

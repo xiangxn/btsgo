@@ -25,7 +25,7 @@ class XNSelect extends BaseComponent {
 
     }
 
-    componentWillUpdate(nextProps, nextState) {
+    componentWillReceiveProps(nextProps) {
         if (nextProps.value !== this.state.value && nextProps.data !== this.state.data) {
             this.setState({value: nextProps.value, data: nextProps.data});
         }
@@ -84,7 +84,7 @@ class XNSelect extends BaseComponent {
 
     render() {
         let list = this.state.isShowList === false ? null : (
-                <div>
+                <div className="select-input-popup">
                     <ul>
                         {this.state.data.map((item, i) => {
                             return (<li key={i}>

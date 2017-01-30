@@ -4,5 +4,8 @@
     "react",
     "stage-0"
   ],
+  "ignore": [
+    "./common/dictionary_en.json"
+  ],
   "plugins": []
 }

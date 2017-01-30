@@ -8,30 +8,32 @@ class WalletUnlockActions {
         @return nothing .. Just test for resolve() or reject() 
     */
     unlock() {
-        return new Promise( (resolve, reject) => {
-            return {resolve, reject};
-        }).then( was_unlocked => {
-            //DEBUG  console.log('... WalletUnlockStore\tmodal unlock')
-            if(was_unlocked)
-                WrappedWalletUnlockActions.change()
-        })
+        return (dispatch) => {
+            return new Promise( (resolve, reject) => {
+                dispatch({resolve, reject});
+            }).then( was_unlocked => {
+                //console.log('... WalletUnlockStore\tmodal unlock')
+                if(was_unlocked) WrappedWalletUnlockActions.change();
+            });
+        };
     }
     
     lock() {
-        return new Promise( resolve => {
-            return {resolve};
-        }).then( was_unlocked => {
-            if(was_unlocked)
-                WrappedWalletUnlockActions.change()
-        })
+        return (dispatch) => {
+            return new Promise( resolve => {
+                dispatch({resolve});
+            }).then( was_unlocked => {
+                if(was_unlocked) WrappedWalletUnlockActions.change();
+            });
+        };
     }
     
     cancel() {
-        return null;
+        return true;
     }
     
     change() {
-        return null;
+        return true;
     }
     
 }

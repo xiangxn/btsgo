@@ -50,7 +50,7 @@ class GlobalSetting extends BaseComponent {
     }
 
     onSwitchIMChange(d) {
-        SettingsActions.changeSetting({setting: "disableChat", value: d });
+        SettingsActions.changeSetting({setting: "disableChat", value: d});
     }
 
     onShowWalletManageClick(e) {

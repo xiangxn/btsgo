@@ -5,8 +5,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import BaseComonent from "../BaseComponent";
 import QrCode from "qrcode-reader";
-//import EXIF from "exif-js";
 import pica from "pica/dist/pica";
+
+//import EXIF from "exif-js";
+
 
 class Scan extends BaseComonent {
     constructor(props) {
@@ -57,7 +59,7 @@ class Scan extends BaseComonent {
     }
 
     qrcodeSuccess(data, err) {
-        console.debug(data);
+        console.debug('qrcodeSuccess:', data);
         if (err !== undefined) {
             console.error('qrcode:', err);
         }
@@ -69,9 +71,19 @@ class Scan extends BaseComonent {
             }
         }
 
-        if (data !== undefined && this.timer) {
-            clearInterval(this.timer);
-            this.timer = null;
+        if (data !== undefined) {
+            if (this.timer) {
+                clearInterval(this.timer);
+                this.timer = null;
+            }
+            //TODO:完成后续的数据传递逻辑
+            let sUrl = (this.context.router.location && this.context.router.location.state) ? this.context.router.location.state.url : null;
+            if (sUrl) {
+                //sUrl += "?qrcode=" + data;
+                this.context.router.push({pathname: sUrl, state: {cqcode: data}});
+            } else {
+                alert(data);
+            }
         }
     }
 
@@ -147,7 +159,21 @@ class Scan extends BaseComonent {
         }
         window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
         let video = this.refs.video;
-        let constraints = {video: {width: video.clientWidth, height: video.clientHeight}};
+
+        let constraints = {
+            video: {
+                facingMode: "user",
+                deviceId: undefined,
+                width: video.clientWidth,
+                height: video.clientHeight
+            }
+        };
+        if (this.state.cameras.length > 0) {
+            constraints.video.deviceId = this.state.cameras.length > 1 ? this.state.cameras[1] : this.state.cameras[0];
+        } else {
+            constraints.video.facingMode = {exact: "environment"};
+        }
+
         //let constraints = {video: true};
         if (navigator.mediaDevices.getUserMedia) {
             //console.debug(navigator.mediaDevices.getUserMedia);

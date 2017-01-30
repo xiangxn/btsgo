@@ -28,11 +28,15 @@ html, body, #content, .full {
 }
 
 .orangeRed {
-  color: $orangeRedColor;
+  color: $orangeRedColor !important;
 }
 
 .green {
-  color: $greenColor;
+  color: $greenColor !important;
+}
+
+.blue {
+  color: $blueColor !important;
 }
 
 .vertical-box {
@@ -277,48 +281,6 @@ input {
       color: $blackColor;
       margin-right: .2rem;
     }
-    > :nth-child(3) {
-      position: absolute;
-      width: 100%;
-      height: auto;
-      top: .6rem;
-      background-color: $blackTColor;
-      color: $whiteColor;
-      z-index: 500;
-      > ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        > li {
-          padding-left: .2rem;
-          display: flex;
-          > :nth-child(1) {
-            flex: 1;
-          }
-          > :nth-child(2) {
-            font-family: 'WebSymbols-Regular';
-            width: .6rem;
-            text-align: center;
-          }
-        }
-      }
-      > div {
-        border-top: solid .02rem $grayColor;
-        display: flex;
-        width: 100%;
-        align-items: center;
-        > input {
-          margin-left: .2rem;
-          margin-right: .2rem;
-          border: none;
-          flex: 1;
-          height: .5rem;
-        }
-        > span {
-          margin-right: .2rem;
-        }
-      }
-    }
   }
   > .operate {
     height: 1.4rem;
@@ -326,6 +288,49 @@ input {
     align-items: center;
     justify-content: center;
   }
+  .select-input-popup {
+    width: 100%;
+    top: .6rem;
+    left: 0;
+    background-color: $blackTColor;
+    color: $whiteColor;
+    z-index: 500;
+    position: absolute;
+    > ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      > li {
+        padding-left: .2rem;
+        display: flex;
+        > :nth-child(1) {
+          flex: 1;
+        }
+        > :nth-child(2) {
+          font-family: 'WebSymbols-Regular';
+          width: .6rem;
+          text-align: center;
+        }
+      }
+    }
+    > div {
+      border-top: solid .02rem $grayColor;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      > input {
+        margin-left: .2rem;
+        margin-right: .2rem;
+        border: none;
+        flex: 1;
+        height: .5rem;
+      }
+      > span {
+        margin-right: .2rem;
+      }
+    }
+  }
+
   .fullBtn {
     margin-top: .02rem;
     margin-bottom: .02rem;
@@ -349,7 +354,8 @@ input {
       float: right;
     }
   }
-  .fullText{
+
+  .fullText {
     margin-top: .02rem;
     margin-bottom: .02rem;
     height: .6rem;
@@ -364,7 +370,7 @@ input {
       flex: 1;
       font-weight: bold;
     }
-    >input{
+    > input {
       border: none;
       text-align: right;
       width: 1.6rem;
@@ -435,6 +441,7 @@ input {
       }
     }
   }
+
 }
 
 .green-btn {
@@ -461,6 +468,12 @@ input {
   padding: .2rem;
   font-weight: bold;
   font-size: $fontSize;
+  .smallFontSize {
+    font-size: $smallFontSize;
+  }
+  .middleSize {
+    font-size: $middleSize;
+  }
 }
 
 .clear-toppadding {
@@ -897,4 +910,61 @@ input {
 
 ::-webkit-scrollbar-thumb:window-inactive {
   background: $blackTColor;
+}
+
+//加载模态窗口样式
+@import "modal";
+
+//弹出窗口
+.popup-window {
+  font-size: $fontSize;
+  color: $blackColor;
+  font-weight: bold;
+  .title {
+    font-size: $titleFontSize;
+    width: 100%;
+    height: .6rem;
+    line-height: .6rem;
+    text-align: center;
+    border-bottom: solid .02rem $grayColor;
+  }
+  .body {
+    .input-row {
+      padding: .1rem 0 .1rem 0;
+      height: .4rem;
+      line-height: .4rem;
+      display: flex;
+      > .label {
+
+      }
+      > .input {
+        flex: 3;
+        border: none;
+        border-bottom: solid .02rem $grayColor;
+        text-align: right;
+      }
+    }
+    .list {
+      > :nth-child(even) {
+        background-color: $bgGrayColor;
+      }
+      .row {
+        height: .4rem;
+        line-height: .4rem;
+        display: flex;
+        > :nth-child(1) {
+          flex: 1;
+        }
+        > :nth-child(2) {
+          flex: 1;
+          text-align: right;
+          color: $greenColor;
+        }
+      }
+    }
+  }
+  .buttons {
+    padding: .2rem;
+    text-align: center;
+  }
 }

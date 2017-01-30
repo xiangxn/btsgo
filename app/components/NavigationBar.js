@@ -2,22 +2,16 @@
  * Created by xiangxn on 2016/12/10.
  */
 import React from 'react';
-import {PropTypes} from "react-router";
-import connectToStores from 'alt-utils/lib/connectToStores';
-import SettingsStore from '../stores/SettingsStore';
-import SettingsActions from '../actions/SettingsActions';
-import {injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import BaseComponent from "./BaseComponent";
+import AltContainer from "alt-container";
+import WalletUnlockStore from "../stores/WalletUnlockStore";
+import WalletDb from "../stores/WalletDb";
 
+//actions
+import WalletUnlockActions from "../actions/WalletUnlockActions";
 import PopupMenu, {menuItems} from './PopupMenu';
 
-class NavigationBar extends React.Component {
-    static getPropsFromStores() {
-        return SettingsStore.getState();
-    }
-
-    static getStores() {
-        return [SettingsStore];
-    }
+class NavigationBar extends BaseComponent {
 
     constructor(props) {
         super(props);
@@ -59,7 +53,14 @@ class NavigationBar extends React.Component {
     }
 
     onUnlockClick(e) {
-        this.context.router.push("/unlock");
+        e.preventDefault();
+        let wallet = WalletDb.getWallet();
+        if (!wallet) {
+            this.context.router.push('/create-account');
+            return;
+        }
+        if (WalletDb.isLocked()) WalletUnlockActions.unlock();
+        else WalletUnlockActions.lock();
     }
 
     getTitle() {
@@ -97,7 +98,9 @@ class NavigationBar extends React.Component {
                 <div className={titleClass}>{this.getTitle()}</div>
                 {backBtn}
                 <div className="top-right">
-                    <div className="ico-lock" onClick={this.onUnlockClick.bind(this)}>x</div>
+                    <div ref="lockBtn" className="ico-lock" onClick={this.onUnlockClick.bind(this)}>
+                        {this.props.locked ? 'x' : 'w'}
+                    </div>
                     <div ref="menuBtn" className="ico-menu" onClick={this.showMenu.bind(this)}>p</div>
                 </div>
                 <PopupMenu ref="menu" top={this.state.menuTop} left={this.state.menuLeft}
@@ -108,9 +111,13 @@ class NavigationBar extends React.Component {
     }
 }
 
-NavigationBar.contextTypes = {
-    intl: intlShape.isRequired,
-    router: React.PropTypes.object
-};
-
-export default connectToStores(NavigationBar);
+class NavigationBarContainer extends React.Component {
+    render() {
+        return (
+            <AltContainer store={WalletUnlockStore}>
+                <NavigationBar/>
+            </AltContainer>
+        )
+    }
+}
+export default NavigationBarContainer

@@ -175,11 +175,12 @@ class WalletDb extends BaseStore {
                    unlock = false,
                    public_name = "default") {
         let walletCreateFct = (dictionary) => {
+            //console.debug('---------------------',dictionary);
             return new Promise((resolve, reject) => {
                 if (typeof password_plaintext !== 'string')
                     throw new Error("password string is required")
 
-                var brainkey_backup_date
+                let brainkey_backup_date
                 if (brainkey_plaintext) {
                     if (typeof brainkey_plaintext !== "string")
                         throw new Error("Brainkey must be a string")
@@ -194,24 +195,24 @@ class WalletDb extends BaseStore {
                     // bugging them to back it up again.
                     brainkey_backup_date = new Date()
                 }
-                var password_aes = Aes.fromSeed(password_plaintext)
+                let password_aes = Aes.fromSeed(password_plaintext)
 
-                var encryption_buffer = key.get_random_key().toBuffer()
+                let encryption_buffer = key.get_random_key().toBuffer()
                 // encryption_key is the global encryption key (does not change even if the passsword changes)
-                var encryption_key = password_aes.encryptToHex(encryption_buffer)
+                let encryption_key = password_aes.encryptToHex(encryption_buffer)
                 // If unlocking, local_aes_private will become the global aes_private object
-                var local_aes_private = Aes.fromSeed(encryption_buffer)
+                let local_aes_private = Aes.fromSeed(encryption_buffer)
 
                 if (!brainkey_plaintext)
                     brainkey_plaintext = key.suggest_brain_key(dictionary.en)
                 else
                     brainkey_plaintext = key.normalize_brainKey(brainkey_plaintext)
-                var brainkey_private = this.getBrainKeyPrivate(brainkey_plaintext)
-                var brainkey_pubkey = brainkey_private.toPublicKey().toPublicKeyString()
-                var encrypted_brainkey = local_aes_private.encryptToHex(brainkey_plaintext)
+                let brainkey_private = this.getBrainKeyPrivate(brainkey_plaintext)
+                let brainkey_pubkey = brainkey_private.toPublicKey().toPublicKeyString()
+                let encrypted_brainkey = local_aes_private.encryptToHex(brainkey_plaintext)
 
-                var password_private = PrivateKey.fromSeed(password_plaintext)
-                var password_pubkey = password_private.toPublicKey().toPublicKeyString()
+                let password_private = PrivateKey.fromSeed(password_plaintext)
+                let password_pubkey = password_private.toPublicKey().toPublicKeyString()
 
                 let wallet = {
                     public_name,
@@ -226,23 +227,26 @@ class WalletDb extends BaseStore {
                     chain_id: Apis.instance().chain_id
                 }
                 WalletTcomb(wallet) // validation
-                var transaction = this.transaction_update()
-                var add = idb_helper.add(transaction.objectStore("wallet"), wallet)
-                var end = idb_helper.on_transaction_end(transaction).then(() => {
+                let transaction = this.transaction_update()
+                let add = idb_helper.add(transaction.objectStore("wallet"), wallet)
+                let end = idb_helper.on_transaction_end(transaction).then(() => {
                     this.state.wallet = wallet
                     this.setState({wallet})
                     if (unlock) aes_private = local_aes_private
                 })
+                console.debug('---------------------')
                 resolve(Promise.all([add, end]))
             })
         };
 
-        let dictionaryPromise = brainkey_plaintext ? null : fetch("dictionary.json");
+        let dictionaryPromise = brainkey_plaintext ? null : fetch(`${__BASE_URL__}/dictionary.json`);
         return Promise.all([
             dictionaryPromise
         ]).then(res => {
             return brainkey_plaintext ? walletCreateFct(null) :
                 res[0].json().then(walletCreateFct);
+        }).catch(err => {
+            console.error("unable to fetch dictionary.json", err);
         });
     }
 

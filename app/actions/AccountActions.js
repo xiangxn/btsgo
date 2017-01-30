@@ -28,14 +28,16 @@ class AccountActions {
      */
     accountSearch(start_symbol, limit = 50) {
         let uid = `${start_symbol}_${limit}}`;
-        if (!accountSearch[uid]) {
-            accountSearch[uid] = true;
-            return AccountApi.lookupAccounts(start_symbol, limit)
-                .then(result => {
-                    accountSearch[uid] = false;
-                    return {accounts: result, searchTerm: start_symbol};
-                });
-        }
+        return (dispatch) => {
+            if (!accountSearch[uid]) {
+                accountSearch[uid] = true;
+                return AccountApi.lookupAccounts(start_symbol, limit)
+                    .then(result => {
+                        accountSearch[uid] = false;
+                        dispatch({accounts: result, searchTerm: start_symbol});
+                    });
+            }
+        };
     }
 
     /**
@@ -49,17 +51,18 @@ class AccountActions {
      *  TODO:  This is a function of teh wallet_api and has no business being part of AccountActions
      */
     transfer(from_account, to_account, amount, asset, memo, propose_account = null, fee_asset_id = "1.3.0") {
-
         // Set the fee asset to use
         fee_asset_id = accountUtils.getFinalFeeAsset(propose_account || from_account, "transfer", fee_asset_id);
-
         try {
-            return application_api.transfer({
-                from_account, to_account, amount, asset, memo, propose_account, fee_asset_id
-            }).then(result => {
-                // console.log( "transfer result: ", result )
-                return result;
-            });
+            return (dispatch) => {
+                return application_api.transfer({
+                    from_account, to_account, amount, asset, memo, propose_account, fee_asset_id
+                }).then(result => {
+                    // console.log( "transfer result: ", result )
+
+                    dispatch(result);
+                });
+            };
         } catch (error) {
             console.log("[AccountActions.js:90] ----- transfer error ----->", error);
             return new Promise((resolve, reject) => {
@@ -79,15 +82,18 @@ class AccountActions {
         referrer_percent,
         refcode
     ) {
-        return WalletActions.createAccount(
-            account_name,
-            registrar,
-            referrer,
-            referrer_percent,
-            refcode
-        ).then( () => {
-            return account_name;
-        });
+        return (dispatch) => {
+            return WalletActions.createAccount(
+                account_name,
+                registrar,
+                referrer,
+                referrer_percent,
+                refcode
+            ).then( () => {
+                dispatch(account_name);
+                return account_name;
+            });
+        };
     }
 
     /**

@@ -6,19 +6,18 @@ import alt from '../../common/altObj';
 class PrivateKeyActions {
 
     addKey(private_key_object, transaction) {
-        return new Promise(resolve => {
-            return {private_key_object, transaction, resolve};
-        });
+        return (dispatch) => {
+            return new Promise( resolve => {
+                dispatch({private_key_object, transaction, resolve});
+            });
+        };
     }
 
-    loadDbData(fun) {
+    loadDbData() {
         return (dispatch) => {
-            let pro = new Promise(resolve => {
-                dispatch(resolve)
+            return new Promise( resolve => {
+                dispatch(resolve);
             });
-            pro.then(()=> {
-                fun();
-            })
         };
     }
 }
