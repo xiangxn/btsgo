@@ -9,7 +9,7 @@ import connectToStores from 'alt-utils/lib/connectToStores';
 import AccountNameInput from "./AccountNameInput";
 import PasswordInput from "./PasswordInput";
 
-import {ChainValidation, FetchChain, ChainStore} from "graphenejs-lib"
+import {ChainValidation, FetchChain, ChainStore} from "graphenejs-lib";
 
 //stores
 import WalletDb from "../../stores/WalletDb";

@@ -11,6 +11,7 @@ class TransactionConfirm extends BaseComponent {
         this.state = {visible: false};
         //this.show = this.show.bind(this);
         //this.hide = this.hide.bind(this);
+        //TODO:交易确认未完成
     }
 
     show() {

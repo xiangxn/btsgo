@@ -95,7 +95,7 @@ class GlobalSetting extends BaseComponent {
                           value={this.formatMessage('languages_' + this.props.settings.get('locale'))}/>
                 <div className="separate"></div>
                 <XNSelect label={this.formatMessage('settings_labAPI')}
-                          onChange={this.onAPIChange.bind(this)} isEdit={true}
+                          onChange={this.onAPIChange.bind(this)} isDelete={true} isAdd={true}
                           data={this.props.defaults.apiServer}
                           value={api.text}/>
                 <XNSelect label={this.formatMessage('settings_labFaucet')}

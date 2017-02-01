@@ -26,7 +26,7 @@ class XNSelect extends BaseComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value && nextProps.data !== this.state.data) {
+        if (nextProps.value !== this.state.value || nextProps.data !== this.state.data) {
             this.setState({value: nextProps.value, data: nextProps.data});
         }
     }
@@ -84,29 +84,29 @@ class XNSelect extends BaseComponent {
 
     render() {
         let list = this.state.isShowList === false ? null : (
-                <div className="select-input-popup">
-                    <ul>
-                        {this.state.data.map((item, i) => {
-                            return (<li key={i}>
-                                <span onClick={this.onItemClick.bind(this, item)}>{item.text}</span>
-                                {
-                                    this.props.isEdit === false ? null : (
-                                            <span onClick={this.onDelItemClick.bind(this, item)}>'</span>
-                                        )
-                                }
-                            </li> );
-                        })}
-                    </ul>
-                    {
-                        this.props.isEdit === false ? null : (
-                                <div>
-                                    <input ref="newItem" type="text" onClick={this.onInputClick.bind(this)}/><span
-                                    onClick={this.onAddClick.bind(this)}>{this.formatMessage('settings_add')}</span>
-                                </div>
-                            )
-                    }
-                </div>
-            );
+            <div className="select-input-popup">
+                <ul>
+                    {this.state.data.map((item, i) => {
+                        return (<li key={i}>
+                            <span onClick={this.onItemClick.bind(this, item)}>{item.text}</span>
+                            {
+                                this.props.isDelete === false ? null : (
+                                    <span onClick={this.onDelItemClick.bind(this, item)}>'</span>
+                                )
+                            }
+                        </li> );
+                    })}
+                </ul>
+                {
+                    this.props.isAdd === false ? null : (
+                        <div>
+                            <input ref="newItem" type="text" onClick={this.onInputClick.bind(this)}/><span
+                            onClick={this.onAddClick.bind(this)}>{this.formatMessage('settings_add')}</span>
+                        </div>
+                    )
+                }
+            </div>
+        );
         return (
             <div className="select-input" onClick={this.openList.bind(this)}>
                 <div>
@@ -124,7 +124,8 @@ XNSelect.propTypes = {
     onChange: React.PropTypes.func,
     onDeleteItem: React.PropTypes.func,
     onAddItem: React.PropTypes.func,
-    isEdit: React.PropTypes.bool,
+    isAdd: React.PropTypes.bool,
+    isDelete: React.PropTypes.bool,
     data: React.PropTypes.array,
     value: React.PropTypes.string
 };
@@ -133,7 +134,8 @@ XNSelect.defaultProps = {
     onChange: null,
     onDeleteItem: null,
     onAddItem: null,
-    isEdit: false,
+    isAdd: false,
+    isDelete: false,
     data: [],
     value: ""
 };
