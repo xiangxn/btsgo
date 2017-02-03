@@ -35,6 +35,7 @@ export const zh_CN = {
     wallet_nameNotFound:"账户未找到",
     wallet_passworkErrMsg: "你输入的密码不正确",
     wallet_importKey: "导入私钥",
+    wallet_importKey_imported:"此私钥已导入过钱包",
     wallet_backup: "备份钱包",
     wallet_backup_err:"警告！您的浏览器不支持还原备份所需的一些文件操作，我们建议您使用Chrome或Firefox浏览器还原您的备份。",
     wallet_backup_download:"下载",

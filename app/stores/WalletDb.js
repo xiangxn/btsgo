@@ -360,7 +360,7 @@ class WalletDb extends BaseStore {
             var private_plainhex_array = []
             for (let private_key_obj of private_key_objs)
                 private_plainhex_array.push(private_key_obj.private_plainhex)
-            var AesWorker = require("worker!../workers/AesWorker")
+            var AesWorker = require("worker?name=/[hash].js!../workers/AesWorker")
             var worker = new AesWorker
             worker.postMessage({
                 private_plainhex_array,

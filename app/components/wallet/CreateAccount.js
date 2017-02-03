@@ -8,6 +8,7 @@ import XNSelect from "../form/XNSelect";
 import connectToStores from 'alt-utils/lib/connectToStores';
 import AccountNameInput from "./AccountNameInput";
 import PasswordInput from "./PasswordInput";
+import TextLoading from "../TextLoading";
 
 import {ChainValidation, FetchChain, ChainStore} from "graphenejs-lib";
 
@@ -174,9 +175,10 @@ class CreeateAccount extends BaseComponent {
     //创建钱包和账户
     onSubmit(e) {
         e.preventDefault();
+        this.setState({loading: true});
         if (!this.isValid()) return;
         let account_name = this.refs.accountName.refs.nameInput.getValue();
-        let reg_account_name=this.state.registrar_account;
+        let reg_account_name = this.state.registrar_account;
         if (WalletDb.getWallet()) {
             ChainStore.getAccount(reg_account_name);
             TransactionConfirmActions.proposeFeePayingAccount(reg_account_name);
@@ -229,8 +231,10 @@ class CreeateAccount extends BaseComponent {
                     />
                 }
                 <div className="operate">
-                    <input className="green-btn" type="button" value={this.formatMessage('btn_ok')}
-                           onClick={this.onSubmit.bind(this)}/>
+                    {this.state.loading ? <TextLoading/> :
+                        <input className="green-btn" type="button" value={this.formatMessage('btn_ok')}
+                               onClick={this.onSubmit.bind(this)}/>
+                    }
                 </div>
                 {this.state.error_message === null ? null :
                     <div className="message-box">

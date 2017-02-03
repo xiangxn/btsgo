@@ -38,6 +38,7 @@ export const en_US = {
     wallet_passworkErrMsg: "你输入的密码不正确",
     wallet_nameNotFound:"账户未找到",
     wallet_importKey: "Import the private key",
+    wallet_importKey_imported:"This wallet has already been imported",
     wallet_backup: "Backup",
     wallet_backup_err:"Warning! You browser doesn't support some some file operations required to restore backup, we recommend you to use Chrome or Firefox browsers to restore your backup.",
     wallet_backup_download:"Download",

@@ -4,6 +4,7 @@
 import React from "react";
 import BaseComponent from '../BaseComponent';
 import connectToStores from 'alt-utils/lib/connectToStores';
+import TextLoading from "../TextLoading";
 
 //stores
 import ImportKeysStore from "../../stores/ImportKeysStore";
@@ -50,6 +51,21 @@ class ImportKey extends BaseComponent {
         };
     }
 
+    onCancel(e) {
+        if (e) e.preventDefault();
+        this.setState(this.getInitialState());
+    }
+
+    updateOnChange() {
+        BalanceClaimActiveActions.setPubkeys(Object.keys(this.state.imported_keys_public));
+    }
+
+    reset(e, keep_file_name) {
+        if (e) e.preventDefault();
+        let state = this.getInitialState(keep_file_name);
+        this.setState(state, () => this.updateOnChange());
+    }
+
     onImportClick(e) {
         let value = this.refs.wifInput.value;
         let count = this.addByPattern(value);
@@ -67,7 +83,8 @@ class ImportKey extends BaseComponent {
             dups[public_key_string] = true
         }
         if (Object.keys(this.state.imported_keys_public).length === 0) {
-            NotificationActions.error("This wallet has already been imported")
+            NotificationActions.error(this.formatMessage('wallet_importKey_imported'));
+            this.onCancel();
             return
         }
         var keys_to_account = this.state.keys_to_account
@@ -129,7 +146,7 @@ class ImportKey extends BaseComponent {
                 }
                 count++
             } catch (e) {
-                console.error('addByPattern:',e);
+                console.error('addByPattern:', e);
                 invalid_count++
             }
         }
@@ -149,7 +166,6 @@ class ImportKey extends BaseComponent {
     }
 
     render() {
-        //console.debug('importKey', this.props);
         return (
             <div className="content">
                 <div className="text-input">
@@ -157,8 +173,10 @@ class ImportKey extends BaseComponent {
                     <input ref="wifInput" type="text" placeholder={this.formatMessage('wallet_accountPrivateKey_ph')}/>
                 </div>
                 <div className="operate">
-                    <input className="green-btn" type="button" value={this.formatMessage('btn_ok')}
-                           onClick={this.onImportClick.bind(this)}/>
+                    {this.props.importing ? <TextLoading/> :
+                        <input className="green-btn" type="button" value={this.formatMessage('btn_ok')}
+                               onClick={this.onImportClick.bind(this)}/>
+                    }
                 </div>
                 {this.state.key_text_message === null ? null :
                     <div className="message-box">
