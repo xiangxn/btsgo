@@ -76,6 +76,7 @@ class SettingsStore extends BaseStore {
             onClearSettings: SettingsActions.clearSettings,
             onSwitchLocale: SettingsActions.switchLocale,
             onAddStarAccount: SettingsActions.addStarAccount,
+            onChangeMarketDirection: SettingsActions.changeMarketDirection,
             onRemoveStarAccount: SettingsActions.removeStarAccount
         });
         this.settings = Immutable.Map(merge(this.defaultSettings.toJS(), ss.get("settings_v3")));
@@ -127,6 +128,7 @@ class SettingsStore extends BaseStore {
                 this.defaults.apiServer.unshift(apiServer[i]);
             }
         }
+        this.marketDirections = Immutable.Map(ss.get("marketDirections"));
     }
 
     getSetting(setting) {
@@ -188,6 +190,14 @@ class SettingsStore extends BaseStore {
     onRemoveStarAccount(account) {
         this.starredAccounts = this.starredAccounts.delete(account);
         ss.set("starredAccounts", this.starredAccounts.toJS());
+    }
+
+    onChangeMarketDirection(payload) {
+        for (let key in payload) {
+            this.marketDirections = this.marketDirections.set(key, payload[key]);
+        }
+
+        ss.set("marketDirections", this.marketDirections.toJS());
     }
 }
 export default alt.createStore(SettingsStore, "SettingsStore");

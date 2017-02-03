@@ -39,5 +39,10 @@ class SettingsActions {
     removeStarAccount(account) {
         return account;
     }
+
+    //改变资产方向
+    changeMarketDirection(value) {
+        return value;
+    }
 }
 export default alt.createActions(SettingsActions);
