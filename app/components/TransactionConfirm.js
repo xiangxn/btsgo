@@ -4,14 +4,34 @@
 import React from "react";
 import BaseComponent from "./BaseComponent";
 import Modal from "./layout/Modal";
+import Transaction from "./Blockchain/Transaction";
+import TextLoading from "./TextLoading";
+import AltContainer from "alt-container";
+
+import {ChainStore} from "graphenejs-lib";
+
+//actions
+import TransactionConfirmActions from "../actions/TransactionConfirmActions";
+
+//ChainStores
+import WalletDb from "../stores/WalletDb";
+import TransactionConfirmStore from "../stores/TransactionConfirmStore";
 
 class TransactionConfirm extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {visible: false};
-        //this.show = this.show.bind(this);
-        //this.hide = this.hide.bind(this);
-        //TODO:交易确认未完成
+        this.show = this.show.bind(this);
+        this.hide = this.hide.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.closed!==this.props.closed){
+            if(!nextProps.closed){
+                this.show();
+            }else{
+                this.hide(true);
+            }
+        }
     }
 
     show() {
@@ -20,43 +40,103 @@ class TransactionConfirm extends BaseComponent {
 
     hide(ok) {
         this.setState({visible: false});
-        console.debug('hide', ok)
+    }
+    onConfirmClick(e) {
+        e.preventDefault();
+        if(this.props.propose) {
+            TransactionConfirmActions.close();
+            const propose_options = {
+                fee_paying_account: ChainStore.getAccount(this.props.fee_paying_account).get("id")
+            };
+            this.props.transaction.update_head_block().then(() => {
+                WalletDb.process_transaction(this.props.transaction.propose(propose_options), null, true);
+            });
+        } else
+            TransactionConfirmActions.broadcast(this.props.transaction);
+    }
+    onCloseClick(e) {
+        e.preventDefault();
+        TransactionConfirmActions.close();
     }
 
     render() {
+        let {broadcast, broadcasting} = this.props;
+        if (!this.props.transaction || this.props.closed) {
+            return null;
+        }
+
+        let title = null;
+        let button = (
+            <div className="buttons">
+                <input type="button" className="green-btn" value={this.formatMessage('btn_ok')}
+                       onClick={this.onConfirmClick.bind(this)}/>
+            </div>
+        );
+        if (this.props.error || this.props.included) {
+            if (this.props.error) {
+                title = (
+                    <div className="title">
+                        {this.formatMessage('transaction_broadcast_fail')}<br/>
+                        <span>{this.props.error}</span>
+                    </div>
+                );//transaction_broadcast_fail transaction_confirm
+            } else {
+                title = (
+                    <div className="title">
+                        {this.formatMessage('transaction_confirm')}<br/>
+                        <span>#{this.props.trx_id}@{this.props.trx_block_num}</span>
+                    </div>
+                );
+            }
+        }else if (broadcast) {
+            title = (
+                <div className="title">
+                    {this.formatMessage('transaction_broadcast_success')}<br/>
+                    <span>{this.formatMessage('transaction_waiting')}</span>
+                </div>
+            );
+        } else if (broadcasting) {
+            title = (
+                <div className="title">
+                    {this.formatMessage('transaction_broadcasting')}<br/>
+                    <span><TextLoading/></span>
+                </div>
+            );
+        }else{
+            title = (
+                <div className="title">
+                    {this.formatMessage('transaction_confirm')}
+                </div>
+            );
+            button = (
+                <div className="buttons">
+                    <input type="button" className="green-btn" value={this.formatMessage('btn_ok')}
+                           onClick={this.onConfirmClick.bind(this)}/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" className="green-btn" value={this.formatMessage('btn_cancel')}
+                           onClick={this.onCloseClick.bind(this)}/>
+                </div>
+            );
+        }
         return (
             <div className="popup-window">
                 <Modal visible={this.state.visible} onClose={this.hide.bind(this)}>
-                    <div className="title">{this.formatMessage('transaction_confirm')}</div>
-                    <div className="body">
-                        <div className="list">
-                            <div className="row">
-                                <span className="blue">{this.formatMessage('lastOperation_createAccount')}</span>
-                            </div>
-                            <div className="row">
-                                <span>{this.formatMessage('transaction_confirm_accountName')}</span>
-                                <span>mmm000</span>
-                            </div>
-                            <div className="row">
-                                <span>{this.formatMessage('transaction_confirm_registerName')}</span>
-                                <span>xiangxn</span>
-                            </div>
-                            <div className="row">
-                                <span>{this.formatMessage('transaction_confirm_recommender')}</span>
-                                <span>xiangxn</span>
-                            </div>
-                            <div className="row">
-                                <span>{this.formatMessage('transfer_chargefee')}</span>
-                                <span className="orangeRed">14.82281 BTS</span></div>
-                        </div>
-                    </div>
-                    <div className="buttons">
-                        <input type="button" className="green-btn" value={this.formatMessage('btn_ok')}
-                               onClick={this.hide.bind(this, true)}/>
-                    </div>
+                    {title}
+                    <Transaction key={Date.now()} trx={this.props.transaction.serialize()}/>
+                    {button}
                 </Modal>
             </div>
         );
     }
 }
-export default TransactionConfirm;
+
+class TransactionConfirmContainer extends React.Component {
+    render() {
+        return (
+            <AltContainer store={TransactionConfirmStore}>
+                <TransactionConfirm/>
+            </AltContainer>
+        )
+    }
+}
+export default TransactionConfirmContainer
