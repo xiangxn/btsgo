@@ -1,6 +1,6 @@
 @keyframes modal-flip-enter {
   from {
-    transform: perspective(4rem) rotate3d(1, 0, 0, 60deg);
+    transform: perspective(4rem) rotate3d(1, 0, 0, 80deg);
   }
   70% {
     transform: perspective(4rem) rotate3d(1, 0, 0, -15deg);
@@ -21,7 +21,7 @@
     transform: perspective(4rem) rotate3d(1, 0, 0, -15deg);
   }
   to {
-    transform: perspective(4rem) rotate3d(1, 0, 0, 45deg);
+    transform: perspective(4rem) rotate3d(1, 0, 0, 80deg);
   }
 }
 .modal-flip-leave {

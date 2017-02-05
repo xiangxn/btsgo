@@ -15,7 +15,7 @@ import NotificationSystem from "react-notification-system";
 import TransactionConfirm from "./TransactionConfirm";
 import UnlockWallet from "./wallet/UnlockWallet";
 import Settings from './Settings';
-import {injectIntl, intlShape,FormattedMessage} from 'react-intl';
+import {injectIntl, intlShape, FormattedMessage} from 'react-intl';
 
 class Root extends React.Component {
     constructor(props) {
@@ -48,7 +48,7 @@ class Root extends React.Component {
             ChainStore.init().then(() => {
                 this.setState({synced: true});
                 Promise.all([
-                    AccountStore.loadDbData(Apis.instance().chainId)
+                    AccountStore.loadDbData()
                 ]).then(() => {
                     AccountStore.tryToSetCurrentAccount();
                     this.setState({loading: false, syncFail: false});
@@ -61,6 +61,7 @@ class Root extends React.Component {
                 let syncFail = error.message === "ChainStore sync error, please check your system clock" ? true : false;
                 this.setState({loading: false, syncFail});
             });
+
         } catch (e) {
             console.error("error:", e);
         }
