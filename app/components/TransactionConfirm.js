@@ -24,11 +24,12 @@ class TransactionConfirm extends BaseComponent {
         this.show = this.show.bind(this);
         this.hide = this.hide.bind(this);
     }
+
     componentWillReceiveProps(nextProps) {
-        if(nextProps.closed!==this.props.closed){
-            if(!nextProps.closed){
+        if (nextProps.closed !== this.props.closed) {
+            if (!nextProps.closed) {
                 this.show();
-            }else{
+            } else {
                 this.hide(true);
             }
         }
@@ -41,9 +42,10 @@ class TransactionConfirm extends BaseComponent {
     hide(ok) {
         this.setState({visible: false});
     }
+
     onConfirmClick(e) {
         e.preventDefault();
-        if(this.props.propose) {
+        if (this.props.propose) {
             TransactionConfirmActions.close();
             const propose_options = {
                 fee_paying_account: ChainStore.getAccount(this.props.fee_paying_account).get("id")
@@ -54,6 +56,7 @@ class TransactionConfirm extends BaseComponent {
         } else
             TransactionConfirmActions.broadcast(this.props.transaction);
     }
+
     onCloseClick(e) {
         e.preventDefault();
         TransactionConfirmActions.close();
@@ -69,7 +72,7 @@ class TransactionConfirm extends BaseComponent {
         let button = (
             <div className="buttons">
                 <input type="button" className="green-btn" value={this.formatMessage('btn_ok')}
-                       onClick={this.onConfirmClick.bind(this)}/>
+                       onClick={this.onCloseClick.bind(this)}/>
             </div>
         );
         if (this.props.error || this.props.included) {
@@ -77,18 +80,18 @@ class TransactionConfirm extends BaseComponent {
                 title = (
                     <div className="title">
                         {this.formatMessage('transaction_broadcast_fail')}<br/>
-                        <span>{this.props.error}</span>
+                        <span className="smallFontSize">{this.props.error}</span>
                     </div>
                 );//transaction_broadcast_fail transaction_confirm
             } else {
                 title = (
                     <div className="title">
                         {this.formatMessage('transaction_confirm')}<br/>
-                        <span>#{this.props.trx_id}@{this.props.trx_block_num}</span>
+                        <span className="smallFontSize">#{this.props.trx_id}@{this.props.trx_block_num}</span>
                     </div>
                 );
             }
-        }else if (broadcast) {
+        } else if (broadcast) {
             title = (
                 <div className="title">
                     {this.formatMessage('transaction_broadcast_success')}<br/>
@@ -102,7 +105,8 @@ class TransactionConfirm extends BaseComponent {
                     <span><TextLoading/></span>
                 </div>
             );
-        }else{
+            button = null;
+        } else {
             title = (
                 <div className="title">
                     {this.formatMessage('transaction_confirm')}
@@ -120,7 +124,8 @@ class TransactionConfirm extends BaseComponent {
         }
         return (
             <div className="popup-window">
-                <Modal visible={this.state.visible} onClose={this.hide.bind(this)}>
+                <Modal customStyles={{height:'auto'}} visible={this.state.visible} showCloseButton={!broadcasting}
+                       onClose={this.onCloseClick.bind(this)}>
                     {title}
                     <Transaction key={Date.now()} trx={this.props.transaction.serialize()}/>
                     {button}
