@@ -7,7 +7,7 @@ export const en_US = {
     btn_ok: "OK",
     btn_cancel: "Cancel",
     navigation_setting: "Setting",
-    menu_index: "Index",
+    menu_index: "Home",
     menu_transaction: "Transaction",
     menu_transfer:"Transfer",
     menu_lastOperate: "Recent",

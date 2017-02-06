@@ -29,6 +29,12 @@ class AccountList extends BaseComponent {
     onFilter(e) {
         this.setState({dashboardFilter: e.target.value.toLowerCase()});
     }
+    setSort(field) {
+        let inverse =  !this.state.inverseSort;
+        this.setState({
+            inverseSort: inverse
+        });
+    }
 
     render() {
         let {dashboardFilter, inverseSort} = this.state;
@@ -103,7 +109,7 @@ class AccountList extends BaseComponent {
                     <input onChange={this.onFilter.bind(this)} type="text" placeholder={this.formatMessage("index_account_ph")}/>
                 </div>
                 <div className="account-list-head">
-                    <label>{this.formatMessage("index_account")}</label>
+                    <label onClick={this.setSort.bind(this)}>{this.formatMessage("index_account")}</label>
                     <label>{this.formatMessage("index_order")}</label>
                     <label>{this.formatMessage("index_debt")}</label>
                     <label>{this.formatMessage("index_marketValue")}</label>
