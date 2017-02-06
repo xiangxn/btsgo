@@ -3,6 +3,8 @@
  */
 import React from "react";
 import BindToChainState from "./BindToChainState";
+import ChainTypes from "./ChainTypes";
+import utils from "../../../common/utils";
 
 class AssetName extends React.Component {
     static propTypes = {

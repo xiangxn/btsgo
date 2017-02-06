@@ -2,27 +2,39 @@
  * Created by necklace on 2017/1/13.
  */
 import React from "react";
-import {intlShape} from 'react-intl';
+import BaseComponent from "../BaseComponent";
+import utils from "../../../common/utils";
+import Immutable from "immutable";
+import connectToStores from 'alt-utils/lib/connectToStores';
 
 //组件
 import AssetsItem from "./AssetsItem";
+import AccountList from "./AccountList";
 
-class Dashboard extends React.Component {
-    static contextTypes = {
-        intl: intlShape.isRequired,
-        router: React.PropTypes.object
-    };
+//strores
+import {ChainStore} from "graphenejs-lib";
+import AccountStore from "../../stores/AccountStore";
+
+class Dashboard extends BaseComponent {
+    static getPropsFromStores() {
+        return {linkedAccounts: AccountStore.getState().linkedAccounts};
+    }
+
+    static getStores() {
+        return [AccountStore];
+    }
 
     constructor(props) {
         super(props);
+
     }
 
-    onItemClick(e) {
-        let acc = e.target.parentNode.childNodes[0].innerHTML;
-        this.context.router.push({pathname: '/balance', state: {account: acc}});
-    }
+
 
     render() {
+        let {linkedAccounts} = this.props;
+        let names = linkedAccounts.toArray().sort();
+
         return (
             <div className="content clear-toppadding vertical-box vertical-flex">
                 <div className="assets-list">
@@ -35,46 +47,10 @@ class Dashboard extends React.Component {
                     <AssetsItem/>
                     <AssetsItem/>
                 </div>
-                <div className="search-bar">
-                    <label>{this.context.intl.formatMessage({id: "index_account"})}</label>
-                    <input type="text" placeholder={this.context.intl.formatMessage({id: "index_account_ph"})}/>
-                </div>
-                <div className="account-list-head">
-                    <label>{this.context.intl.formatMessage({id: "index_account"})}</label>
-                    <label>{this.context.intl.formatMessage({id: "index_order"})}</label>
-                    <label>{this.context.intl.formatMessage({id: "index_debt"})}</label>
-                    <label>{this.context.intl.formatMessage({id: "index_marketValue"})}</label>
-                </div>
-                <div className="account-list-separate"></div>
-                <div className="account-list vertical-flex">
-                    <div className="account-list-row" onClick={this.onItemClick.bind(this)}>
-                        <label>xiangxn</label>
-                        <label>188.505 BTS</label>
-                        <label>188.505 BTS</label>
-                        <label>188.505 BTS</label>
-                    </div>
-                    <div className="account-list-row" onClick={this.onItemClick.bind(this)}>
-                        <label>necklace</label>
-                        <label>188.505 BTS</label>
-                        <label>188.505 BTS</label>
-                        <label>188.505 BTS</label>
-                    </div>
-                    <div className="account-list-row" onClick={this.onItemClick.bind(this)}>
-                        <label>XIANGXN1</label>
-                        <label>188.505 BTS</label>
-                        <label>188.505 BTS</label>
-                        <label>188.505 BTS</label>
-                    </div>
-                    <div className="account-list-row" onClick={this.onItemClick.bind(this)}>
-                        <label>XIANGXN2</label>
-                        <label>188.505 BTS</label>
-                        <label>188.505 BTS</label>
-                        <label>188.505 BTS</label>
-                    </div>
-                </div>
+                <AccountList accounts={Immutable.List(names)}/>
             </div>
         );
     }
 }
 
-export default Dashboard;
+export default connectToStores(Dashboard);

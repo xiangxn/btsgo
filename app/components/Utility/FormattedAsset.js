@@ -6,6 +6,7 @@ import {FormattedNumber} from "react-intl";
 import ChainTypes from "./ChainTypes";
 import utils from "../../../common/utils";
 import BindToChainState from "./BindToChainState";
+import AssetName from "./AssetName";
 
 
 class FormattedAsset extends React.Component {
@@ -22,6 +23,7 @@ class FormattedAsset extends React.Component {
 
     render() {
         let {amount, decimalOffset, asset} = this.props;
+        if( asset && asset.toJS ) asset = asset.toJS();
         let decimals = Math.max(0, asset.precision - decimalOffset);
         let precision = utils.get_asset_precision(asset.precision);
         return (
