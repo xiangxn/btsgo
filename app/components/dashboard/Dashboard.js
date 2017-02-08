@@ -3,7 +3,6 @@
  */
 import React from "react";
 import BaseComponent from "../BaseComponent";
-import utils from "../../../common/utils";
 import Immutable from "immutable";
 import connectToStores from 'alt-utils/lib/connectToStores';
 

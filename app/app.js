@@ -38,7 +38,7 @@ import Orders from "./components/transaction/Orders";
 import LastOperation from "./components/LastOperation";
 import Scan from "./components/scanit/Scan";
 import Transfer from "./components/wallet/Transfer";
-import Balance from "./components/dashboard/Balance";
+import BalanceWrapper from "./components/dashboard/Balance";
 
 
 //let btsgoHistory = createBrowserHistory();
@@ -128,7 +128,7 @@ let routes = (
         <Route path="last-operate" component={LastOperation}/>
         <Route path="scan" component={Scan}/>
         <Route path="transfer" component={Transfer}/>
-        <Route path="balance" component={Balance} />
+        <Route path="balance" component={BalanceWrapper} />
     </Route>
 );
 

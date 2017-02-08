@@ -59,7 +59,7 @@
     "immutable": "^3.8.1",
     "indexeddbshim": "^2.2.1",
     "intl": "^1.2.5",
-    "lodash": "^4.17.4",
+    "lodash": "^3.10.1",
     "lzma": "2.1.6",
     "numeral": "^2.0.4",
     "pica": "^2.0.8",

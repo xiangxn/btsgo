@@ -3,7 +3,7 @@ import {curry, flow, reject, clone, pairs, omit, get, pick} from "lodash";
 import {ChainStore} from "graphenejs-lib";
 import ChainTypes from "./ChainTypes";
 import utils from "../../../common/utils";
-import TextLoading from "../TextLoading";
+import Loading from "../Loading";
 
 /**
  * @brief provides automatic fetching and updating of chain data
@@ -338,7 +338,7 @@ function BindToChainState(Component, options = {}) {
             for (let prop of this.required_props)  {
                 if(!this.state[prop]) {
                     if (typeof options !== "undefined" && options.show_loader) {
-                        return <TextLoading />;
+                        return <Loading />;
                     } else {
                         // returning a temp component of the desired type prevents invariant violation errors, notably when rendering tr components
                         // to use, specicy a defaultProps field of tempComponent: "tr" (or "div", "td", etc as desired)
