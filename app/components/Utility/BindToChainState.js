@@ -6,7 +6,7 @@ import utils from "../../../common/utils";
 import Loading from "../Loading";
 
 /**
- * @brief provides automatic fetching and updating of chain data
+ * @brief 提供链数据的自动提取和更新
  *
  * After applying this decorator to component any property of a type from ChainTypes
  * specified in component's propTypes will be automatically converted from object or account id

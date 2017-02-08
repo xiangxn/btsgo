@@ -129,6 +129,7 @@ class SettingsStore extends BaseStore {
             }
         }
         this.marketDirections = Immutable.Map(ss.get("marketDirections"));
+        this.hiddenAssets = Immutable.List(ss.get("hiddenAssets", []));
     }
 
     getSetting(setting) {

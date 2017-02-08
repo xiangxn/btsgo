@@ -220,6 +220,8 @@ export const en_US = {
     account_num_witnesses: "Desired Witnesses",
     account_votes:"Votes",
     account_memoKey: "Memo Key",
+    account_no_price:"Unknown",
+    account_totalBalance:"Total Balance",
     //assets
     assets_issuer: "Issuer",
     assets_new_issuer: "New owner account",

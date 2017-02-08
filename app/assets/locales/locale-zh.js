@@ -218,6 +218,8 @@ export const zh_CN = {
     account_num_witnesses: "信任见证人",
     account_votes: "得票",
     account_memoKey: "备注公钥",
+    account_no_price:"无可用价格信息",
+    account_totalBalance:"总额",
     //assets
     assets_issuer: "发行人",
     assets_new_issuer: "新发行人",
