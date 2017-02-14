@@ -6,3 +6,6 @@ bitshares2网页钱包项目<br/>
 2.Git 用来下载github上的源码<br/>
 3.WebStorm 代码编辑IDE<br/>
 4.react+redux+webpack
+
+# 欢迎打赏BTS:xiangxn
+# 欢迎支持见证人：xn-delegate
