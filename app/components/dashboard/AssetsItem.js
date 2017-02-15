@@ -5,6 +5,7 @@ import React from "react";
 import BaseComponent from "../BaseComponent";
 import ChainTypes from "../Utility/ChainTypes";
 import utils from "../../../common/utils";
+import assetUtils from "../../../common/asset_utils";
 import BindToChainState from "../Utility/BindToChainState";
 import connectToStores from "alt-utils/lib/connectToStores";
 import AssetName from "../Utility/AssetName";
@@ -57,11 +58,12 @@ class AssetsItem extends BaseComponent {
 
         function getImageName(asset) {
             let symbol = asset.get("symbol");
-            if (symbol === "OPEN.BTC") return symbol;
+            if (symbol === "OPEN.BTC") return symbol.replace('.', '-');
             let imgName = asset.get("symbol").split(".");
             return imgName.length === 2 ? imgName[1] : imgName[0];
         }
 
+        let desc = assetUtils.parseDescription(base.getIn(["options", "description"]));
         let imgName = getImageName(base);
         let marketID = base.get("symbol") + "_" + quote.get("symbol");
         let stats = marketStats.get(marketID);
@@ -78,12 +80,15 @@ class AssetsItem extends BaseComponent {
         let gain = this.props.gain;
         return (
             <div className="assets-item" onClick={this.onClickHandler.bind(this)}>
-                <div><img ref={imgName.toLowerCase()} onError={() => {this.refs[imgName.toLowerCase()].src = "asset-symbols/bts.png";}}
-                          src={"asset-symbols/"+ imgName.toLowerCase() + ".png"}/></div>
+                <div className={imgName.toLowerCase()}></div>
                 <div>
-                    <label className="def-label"><AssetName name={base.get("symbol")} /> : <AssetName name={quote.get("symbol")} /></label>
-                    <label className="def-label">{unitPrice} {this.props.clearingUnit}</label>
-                    <label className={gainClass}>{gain} %</label>
+                    <label className="def-label">{desc.short_name ? desc.short_name :
+                        <AssetName noPrefix name={base.get("symbol")}/>}</label>
+                    <label className="def-label">
+                        {!stats ? null : utils.format_volume_s(stats.volumeBase, quote.get("precision"))} <AssetName
+                        name={quote.get("symbol")} noPrefix/>
+                    </label>
+                    <label className={gainClass}>{!stats ? null : stats.change} %</label>
                 </div>
             </div>
         );

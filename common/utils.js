@@ -83,11 +83,21 @@ var Utils = {
             return (Math.round(amount / 10000) / 100).toFixed(2) + "M";
         }
     },
+    format_volume_s(amount) {
+
+        if (amount < 1000) {
+            return this.format_number(amount, 3);
+        } else if (amount < 100000) {
+            return (Math.round(amount / 10) / 100).toFixed(2) + "k";
+        } else {
+            return (Math.round(amount / 10000) / 100).toFixed(2) + "M";
+        }
+    },
 
     format_number: (number, decimals, trailing_zeros = true) => {
         if(isNaN(number) || !isFinite(number) || number === undefined || number === null) return "";
         let zeros = ".";
-        for (var i = 0; i < decimals; i++) {
+        for (let i = 0; i < decimals; i++) {
             zeros += "0";
         }
         let num = numeral(number).format("0,0" + zeros);

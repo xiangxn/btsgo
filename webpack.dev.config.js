@@ -10,7 +10,7 @@ var root_dir = path.resolve(__dirname);
 module.exports = {
     entry: ['webpack/hot/dev-server', path.resolve(root_dir, './app/main.js')],
     output: {
-        path: path.resolve(root_dir, 'build'),
+        path: path.resolve(root_dir, 'build/assets'),
         filename: 'bundle.js',
     },
     devServer: {

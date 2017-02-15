@@ -496,8 +496,8 @@ input {
 }
 
 .assets-list {
-  padding-left: .2rem;
-  padding-right: .2rem;
+  //padding-left: .2rem;
+  //padding-right: .2rem;
   background-color: $whiteColor;
   display: flex;
 }
@@ -511,10 +511,9 @@ input {
   background-color: $whiteColor;
   align-items: center;
   > :nth-child(1) {
-    > img {
-      width: .8rem;
-      height: .8rem;
-    }
+    width: .8rem;
+    height: .8rem;
+    background-size: .8rem .8rem;
   }
   > :nth-child(2) {
     > .def-label {
