@@ -47,6 +47,10 @@ module.exports = {
             }]
     },
     plugins: [
+        new webpack.DefinePlugin({
+            APP_VERSION: JSON.stringify(git.tag()),
+            __BASE_URL__: JSON.stringify("/assets")
+        }),
         new webpack.HotModuleReplacementPlugin(),
         new ExtractTextPlugin('build/style.css', {allChunks: true})
     ],

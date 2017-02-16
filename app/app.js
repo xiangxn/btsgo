@@ -35,7 +35,7 @@ import Transaction from "./components/transaction/Transaction";
 import Pay from "./components/transaction/Pay";
 import Sell from "./components/transaction/Sell";
 import Orders from "./components/transaction/Orders";
-import LastOperation from "./components/LastOperation";
+import LastOperationContainer from "./components/LastOperation";
 import Scan from "./components/scanit/Scan";
 import Transfer from "./components/wallet/Transfer";
 import BalanceWrapper from "./components/dashboard/Balance";
@@ -125,7 +125,7 @@ let routes = (
             <Route path="sell" component={Sell}/>
             <Route path="orders" component={Orders}/>
         </Route>
-        <Route path="last-operate" component={LastOperation}/>
+        <Route path="last-operate" component={LastOperationContainer}/>
         <Route path="scan" component={Scan}/>
         <Route path="transfer" component={Transfer}/>
         <Route path="balance" component={BalanceWrapper} />

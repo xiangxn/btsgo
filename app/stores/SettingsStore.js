@@ -20,7 +20,7 @@ class SettingsStore extends BaseStore {
         this.defaultSettings = Immutable.Map({
             locale: "zh",
             apiServer: "wss://openledger.hk/ws",
-            faucet_address: "https://bitshares.openledger.info",
+            faucet_address: "https://bit.btsabc.org",//https://bitshares.openledger.info
             unit: CORE_ASSET,
             walletLockTimeout: 60 * 10,
             disableChat: true

@@ -47,7 +47,7 @@ module.exports = {
                 NODE_ENV: JSON.stringify('production')
             },
             APP_VERSION: JSON.stringify(git.tag()),
-            __BASE_URL__: JSON.stringify((argv.env && argv.env.baseUrl) || "")
+            __BASE_URL__: JSON.stringify("/assets")
         }),
         new webpack.optimize.UglifyJsPlugin(),
         new ExtractTextPlugin('style.css', {allChunks: true})

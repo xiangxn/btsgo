@@ -57,7 +57,8 @@ class OperationTable extends BaseComponent {
 class Transaction extends BaseComponent {
 
     linkToAccount(name_or_id) {
-        return name_or_id;
+        if (!name_or_id) return <span>-</span>;
+        return utils.is_object_id(name_or_id) ? <AccountName account={name_or_id}/> : name_or_id;
     }
 
     toggleLock(e) {
