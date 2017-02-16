@@ -5,6 +5,7 @@ import React from "react";
 import BaseComponent from "../BaseComponent";
 import Immutable from "immutable";
 import connectToStores from 'alt-utils/lib/connectToStores';
+import utils from "../../../common/utils";
 
 //组件
 import AssetsItem from "./AssetsItem";
