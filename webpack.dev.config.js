@@ -12,6 +12,7 @@ module.exports = {
     output: {
         path: path.resolve(root_dir, 'build/assets'),
         filename: 'bundle.js',
+        publicPath:'/assets/'
     },
     devServer: {
         port: 8080,
