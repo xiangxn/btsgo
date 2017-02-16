@@ -61,8 +61,7 @@ class Info extends BaseComponent {
                 <div>
                     <div>{this.props.info}</div>
                     <div>
-                        <BlockTime block_number={block}/>
-                        - <FormattedAsset amount={fee.amount} asset={fee.asset_id}/>
+                        <BlockTime block_number={block}/> - <FormattedAsset amount={fee.amount} asset={fee.asset_id}/>
                         {pending ? <span> - {pending}</span> : null}
                     </div>
                 </div>
