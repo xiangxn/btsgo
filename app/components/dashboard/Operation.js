@@ -55,7 +55,7 @@ class Info extends BaseComponent {
         let last_irreversible_block_num = this.props.dynGlobalObject.get("last_irreversible_block_num");
         let pending = null;
         if (block > last_irreversible_block_num) {
-            pending = <span>({this.formatMessage('operation_pending', block - last_irreversible_block_num)})</span>
+            pending = <span>({this.formatMessage('operation_pending', {blocks:block - last_irreversible_block_num})})</span>
         }
         fee.amount = parseInt(fee.amount, 10);
 

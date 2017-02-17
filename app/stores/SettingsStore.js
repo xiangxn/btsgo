@@ -44,6 +44,10 @@ class SettingsStore extends BaseStore {
         this.preferredBases.forEach(base => {
             addMarkets(defaultMarkets, base, topMarkets);
         });
+        let apiFaucets = [
+            {value: "https://bit.btsabc.org", text: "https://bit.btsabc.org"},
+            {value: "https://bitshares.openledger.info", text: "https://bitshares.openledger.info"}
+        ];
         let apiServer = [
             {value: "wss://bitshares.openledger.info/ws", text: "Nuremberg, Germany"},
             {value: "wss://bit.btsabc.org/ws", text: "Hong Kong"},
@@ -59,6 +63,7 @@ class SettingsStore extends BaseStore {
                 "en"
             ],
             apiServer: [],
+            apiFaucets: apiFaucets,
             unit: [
                 CORE_ASSET,
                 "USD",

@@ -261,7 +261,7 @@ export const en_US = {
     proposal_update_key_approvals_to_add: "Key approvals to add",
     proposal_update_key_approvals_to_remove: "Key approvals to remove",
     //operation
-    operation_pending: "pending %(blocks)s blocks",
+    operation_pending: "pending {blocks} blocks",
     operation_no_recent: "No recent transactions",
     operation_reg_account: "{registrar} registered the account {new_account}",
     operation_transfer: "{from} sent {amount} to {to}",

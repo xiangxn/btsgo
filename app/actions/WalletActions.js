@@ -41,10 +41,10 @@ class WalletActions {
     }
 
     createAccount(account_name, registrar, referrer, referrer_percent, refcode) {
-        if( WalletDb.isLocked()) {
+        if (WalletDb.isLocked()) {
             let error = "wallet locked";
             //this.actions.brainKeyAccountCreateError( error )
-            return Promise.reject( error );
+            return Promise.reject(error);
         }
         let owner_private = WalletDb.generateNextKey();
         let active_private = WalletDb.generateNextKey();
@@ -52,11 +52,11 @@ class WalletActions {
         let updateWallet = () => {
             let transaction = WalletDb.transaction_update_keys();
             let p = WalletDb.saveKeys(
-                [ owner_private, active_private],
+                [owner_private, active_private],
                 //[ owner_private, active_private, memo_private ],
                 transaction
             );
-            return p.catch( error => transaction.abort() );
+            return p.catch(error => transaction.abort());
         };
 
         let create_account = () => {
@@ -68,21 +68,21 @@ class WalletActions {
                 referrer, //referrer_id,
                 referrer_percent, //referrer_percent,
                 true //broadcast
-            ).then( () => updateWallet() );
+            ).then(() => updateWallet());
         };
 
-        if(registrar) {
+        if (registrar) {
             // using another user's account as registrar
             return create_account();
         } else {
             // using faucet
-
+            if (window && window.BTSW) BTSW.referrer === "" || BTSW.referrer == undefined ? "xiangxn" : BTSW.referrer;
             let faucetAddress = SettingsStore.getSetting("faucet_address");
             if (window && window.location && window.location.protocol === "https:") {
                 faucetAddress = faucetAddress.replace(/http:\/\//, "https://");
             }
 
-            let create_account_promise = fetch( faucetAddress + "/api/v1/accounts", {
+            let create_account_promise = fetch(faucetAddress + "/api/v1/accounts", {
                 method: "post",
                 mode: "cors",
                 headers: {
@@ -97,7 +97,7 @@ class WalletActions {
                         "memo_key": active_private.private_key.toPublicKey().toPublicKeyString(),
                         //"memo_key": memo_private.private_key.toPublicKey().toPublicKeyString(),
                         "refcode": refcode,
-                        "referrer": window && window.BTSW ? BTSW.referrer : ""
+                        "referrer": window && window.BTSW ? BTSW.referrer : "xiangxn"
                     }
                 })
             }).then(r => r.json());

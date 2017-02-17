@@ -34,8 +34,15 @@ class GlobalSetting extends BaseComponent {
         }, 250);
     }
 
+    /**
+     * 修改水龙头服务器地址
+     * @param d
+     */
     onFaucetChange(d) {
-        console.debug(d);
+        SettingsActions.changeSetting({setting: "faucet_address", value: d.value});
+        setTimeout(() => {
+            window.location.reload();
+        }, 250);
     }
 
     onUnitChange(d) {
@@ -63,7 +70,7 @@ class GlobalSetting extends BaseComponent {
     }
 
     render() {
-        console.debug(this.props);
+        //console.debug(this.props);
         let locales = [];
         this.props.defaults.locale.map((item) => {
             locales.push({value: item, text: this.formatMessage('languages_' + item)});
@@ -75,7 +82,7 @@ class GlobalSetting extends BaseComponent {
         });
 
         let faucet_address = this.props.settings.get('faucet_address');
-        let faucets = [{value: faucet_address, text: faucet_address}];
+        let faucets = this.props.defaults.apiFaucets;//[{value: faucet_address, text: faucet_address}];
 
         let units = [];
         let unit = this.props.settings.get('unit');

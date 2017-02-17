@@ -234,7 +234,7 @@ class WalletDb extends BaseStore {
                     this.setState({wallet})
                     if (unlock) aes_private = local_aes_private
                 })
-                console.debug('---------------------')
+                //console.debug('---------------------')
                 resolve(Promise.all([add, end]))
             })
         };

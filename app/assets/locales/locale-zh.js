@@ -259,7 +259,7 @@ export const zh_CN = {
     proposal_update_key_approvals_to_add: "要添加的公钥许可",
     proposal_update_key_approvals_to_remove: "要移除的公钥许可",
     //operation
-    operation_pending: " %(blocks)s 个区块待定",
+    operation_pending: " {blocks} 个区块待定",
     operation_no_recent: "近期无交易",
     operation_reg_account: "{registrar} 注册了账户 {new_account}",
     operation_transfer: "{from} 发送 {amount} 到 {to}",
