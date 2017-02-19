@@ -27,12 +27,12 @@ class Dashboard extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
-            mainMarkets:[
+            mainMarkets: [
                 ["BTS", "CNY"],
                 ["BTS", "USD"],
                 ["BTS", "EUR"]
-                ,["OPEN.BTC", "BTS", false],
-                ["BTS", "OPEN.ETH"],
+                , ["OPEN.BTC", "BTS", false],
+                ["OPEN.BTC", "CNY", false],
                 ["CNY", "USD"]
             ]
         };
@@ -50,19 +50,19 @@ class Dashboard extends BaseComponent {
         let {linkedAccounts} = this.props;
         let names = linkedAccounts.toArray().sort();
 
-        let markets=this.state.mainMarkets.map((item,index)=>{
-            if(index<3)
-            return (
-                <AssetsItem
-                    key={item[0] + "_" + item[1]}
-                    quote={item[0]}
-                    base={item[1]}
-                    invert={item[2]}
-                />
-            );
+        let markets = this.state.mainMarkets.map((item, index) => {
+            if (index < 3)
+                return (
+                    <AssetsItem
+                        key={item[0] + "_" + item[1]}
+                        quote={item[0]}
+                        base={item[1]}
+                        invert={item[2]}
+                    />
+                );
         });
-        let markets2=this.state.mainMarkets.map((item,index)=>{
-            if(index>2)
+        let markets2 = this.state.mainMarkets.map((item, index) => {
+            if (index > 2)
                 return (
                     <AssetsItem
                         key={item[0] + "_" + item[1]}
