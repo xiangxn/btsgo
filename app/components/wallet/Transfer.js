@@ -7,6 +7,7 @@ import AccountSelectInput from "../wallet/AccountSelectInput";
 
 //stores
 import AccountStore from "../../stores/AccountStore";
+import {ChainStore} from "graphenejs-lib";
 
 class Transfer extends BaseComponent {
     static getInitialState() {
@@ -44,30 +45,37 @@ class Transfer extends BaseComponent {
         this.setState({from_name, error: null, propose: false, propose_account: ""})
     }
 
+    onToAccChange(to_name){
+
+    }
+
+    onToChange(to_name){
+        this.setState({to_name, error: null});
+    }
+
     render() {
         let {
             from_account, to_account, asset, asset_id,
             amount, error, to_name, from_name, memo, feeAsset, fee_asset_id
         } = this.state;
+        let from_my_account = AccountStore.isMyAccount(from_account);
+
+
         return (
             <div className="content">
                 <AccountSelectInput
+                    lable={this.formatMessage('transfer_from')}
+                    placeholder={this.formatMessage('transfer_from_ph')}
                     account={from_name}
                     accountName={from_name}
                     onChange={this.onFromChange.bind(this)} onAccountChanged={this.onFromAccChange.bind(this)}/>
-                <div className="text-img-input">
-                    <div className="icon"><span>U</span>
-                        <canvas className="img"/>
-                    </div>
-                    <div className="placeholder"></div>
-                    <div className="text-box">
-                        <div className="label">
-                            <span>{this.formatMessage('transfer_to')}</span><span>{this.formatMessage('transfer_permanent', {id: 131086})}</span>
-                        </div>
-                        <div className="input"><input type="text" placeholder={this.formatMessage('transfer_to_ph')}/>
-                        </div>
-                    </div>
-                </div>
+                <AccountSelectInput
+                    lable={this.formatMessage('transfer_to')}
+                    placeholder={this.formatMessage('transfer_to_ph')}
+                    account={to_name}
+                    accountName={to_name}
+                    onChange={this.onToChange.bind(this)} onAccountChanged={this.onToAccChange.bind(this)}/>
+
                 <div className="text-img-input">
                     <div className="text-box clear-leftpadding">
                         <div className="label">

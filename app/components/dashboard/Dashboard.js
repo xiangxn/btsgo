@@ -33,7 +33,7 @@ class Dashboard extends BaseComponent {
                 ["BTS", "EUR"]
                 , ["OPEN.BTC", "BTS", false],
                 ["OPEN.BTC", "CNY", false],
-                ["CNY", "USD"]
+                ["OPEN.BTC", "USD", false]
             ]
         };
     }

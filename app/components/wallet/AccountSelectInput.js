@@ -15,6 +15,8 @@ class AccountSelectInput extends BaseComponent {
         onAccountChanged: React.PropTypes.func, // 账户选择变化时调用
         accountName: React.PropTypes.string, // 用户输入的当前账户名
         account: ChainTypes.ChainAccount, // 绑定的账户对象
+        lable: React.PropTypes.string,//显示标题
+        placeholder: React.PropTypes.string,//输入框提示内容
     }
 
     constructor(props) {
@@ -68,12 +70,12 @@ class AccountSelectInput extends BaseComponent {
                 <div className="placeholder"></div>
                 <div className="text-box">
                     <div className="label">
-                        <span>{this.formatMessage('transfer_from')}</span><span>{member_status} {lookup_display}</span>
+                        <span>{this.props.lable}</span><span>{member_status} {lookup_display}</span>
                     </div>
                     <div className="input">
                         <input type="text" onChange={this.onInputChange.bind(this)}
                                value={this.props.accountName || ""}
-                               placeholder={this.formatMessage('transfer_from_ph')}/>
+                               placeholder={this.props.placeholder}/>
                     </div>
                 </div>
             </div>
