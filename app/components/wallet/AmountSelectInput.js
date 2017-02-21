@@ -3,6 +3,8 @@ import BaseComponent from "../BaseComponent";
 import ChainTypes from "../Utility/ChainTypes";
 import BindToChainState from "../Utility/BindToChainState";
 import FormattedAsset from "../Utility/FormattedAsset";
+import {ChainStore} from "graphenejs-lib";
+
 
 class AssetOption extends React.Component {
 
@@ -52,7 +54,7 @@ class AssetSelector extends React.Component {
 
         } else {
             return (
-                <select value={this.state.selected} onChange={this.onChange.bind(this)}>
+                <select className="select" value={this.state.selected} onChange={this.onChange.bind(this)}>
                     {options}
                 </select>
             );
@@ -60,14 +62,15 @@ class AssetSelector extends React.Component {
     }
 }
 
-class AmountSelectInput extends BaseComponent {
+class AmountSelector extends BaseComponent {
     static propTypes = {
-        label: React.PropTypes.string, // 显示lable的locale属性id
+        label: React.PropTypes.string, // 显示lable
         asset: ChainTypes.ChainAsset.isRequired, // 默认选择的资产
         assets: React.PropTypes.array,
         amount: React.PropTypes.any,
         placeholder: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired
+        onChange: React.PropTypes.func.isRequired,
+        balance: React.PropTypes.object//余额对象不为空时显示
     };
 
     static defaultProps = {
@@ -113,7 +116,16 @@ class AmountSelectInput extends BaseComponent {
         this.props.onChange({amount: this.props.amount, asset: selected_asset})
     }
 
+    /**
+     * 点击余额
+     * @param e
+     */
+    onBalanceClick(e) {
+
+    }
+
     render() {
+        //console.debug('balance==',this.props.balance)
         let value = this.formatAmount(this.props.amount);
 
 
@@ -121,8 +133,13 @@ class AmountSelectInput extends BaseComponent {
             <div className="text-img-input">
                 <div className="text-box clear-leftpadding">
                     <div className="label">
-                        <span>{this.formatMessage('transfer_amount')}</span><span>{this.formatMessage('transfer_balance')}: </span><span
-                        className="orangeRed underline">66666.88888 BTS</span>
+                        <span>{this.props.label}</span>
+                        {!this.props.balance ? null :
+                            <span>{this.formatMessage('transfer_balance')}: </span>
+                        }
+                        {!this.props.balance ? null :
+                            this.props.balance
+                        }
                     </div>
                     <div className="input">
                         <input
@@ -145,3 +162,6 @@ class AmountSelectInput extends BaseComponent {
         );
     }
 }
+
+AmountSelector = BindToChainState(AmountSelector);
+export default AmountSelector;

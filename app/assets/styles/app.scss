@@ -443,6 +443,13 @@ input {
         > label {
           color: $grayColor;
         }
+        .select{
+          height: 100%;
+          border: none;
+          padding: 0;
+          margin: 0;
+          background: transparent;
+        }
       }
     }
   }
