@@ -111,7 +111,7 @@ class Transfer extends BaseComponent {
         //let feeAsset = ChainStore.getObject(fee_asset_id);
         if (balanceObject) {
             let amount = utils.get_asset_amount(balanceObject.get("balance"), transferAsset);
-            amount = (amount - (asset_id === fee_asset_id ? fee : 0)).toFixed(6);
+            amount = parseFloat((amount - (asset_id === fee_asset_id ? fee : 0)).toFixed(8));
             this.setState({amount});
         }
     }
