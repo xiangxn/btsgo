@@ -440,6 +440,9 @@ input {
           border: 0;
           flex: 1;
         }
+        >input[type='text']:disabled{
+          background-color: $whiteColor;
+        }
         > label {
           color: $grayColor;
         }

@@ -85,6 +85,18 @@ class Transfer extends BaseComponent {
         this.setState({amount, asset, asset_id: asset.get("id"), error: null});
     }
 
+    onMemoChanged(e) {
+        this.setState({memo: e.target.value});
+    }
+
+    onFeeChanged({asset}) {
+        this.setState({feeAsset: asset, error: null});
+    }
+
+    setNestedRef(ref) {
+        this.nestedRef = ref;
+    }
+
     /**
      * 点击余额
      * @param asset_id
@@ -96,9 +108,10 @@ class Transfer extends BaseComponent {
     onBalanceClick(asset_id, balance_id, fee, fee_asset_id, e) {
         let balanceObject = ChainStore.getObject(balance_id);
         let transferAsset = ChainStore.getObject(asset_id);
-        let feeAsset = ChainStore.getObject(fee_asset_id);
+        //let feeAsset = ChainStore.getObject(fee_asset_id);
         if (balanceObject) {
-            let amount = (utils.get_asset_amount(balanceObject.get("balance"), transferAsset) - (asset_id === fee_asset_id ? fee : 0)).toString();
+            let amount = utils.get_asset_amount(balanceObject.get("balance"), transferAsset);
+            amount = (amount - (asset_id === fee_asset_id ? fee : 0)).toFixed(6);
             this.setState({amount});
         }
     }
@@ -196,16 +209,20 @@ class Transfer extends BaseComponent {
                 <div className="text-img-input">
                     <div className="text-box clear-leftpadding">
                         <div className="label"><span>{this.formatMessage('transfer_memo')}</span></div>
-                        <div className="input"><input type="text" placeholder={this.formatMessage('transfer_memo_ph')}/>
+                        <div className="input">
+                            <input type="text" value={memo} placeholder={this.formatMessage('transfer_memo_ph')}
+                                   onChange={this.onMemoChanged.bind(this)}/>
                         </div>
                     </div>
                 </div>
-                <div className="text-img-input">
-                    <div className="text-box clear-leftpadding">
-                        <div className="label"><span>{this.formatMessage('transfer_chargefee')}</span></div>
-                        <div className="input"><input type="text" value={fee}/><label>BTS</label></div>
-                    </div>
-                </div>
+                <AmountSelector
+                    refCallback={this.setNestedRef.bind(this)}
+                    label={this.formatMessage('transfer_chargefee')} disabled={true}
+                    amount={fee}
+                    onChange={this.onFeeChanged.bind(this)}
+                    asset={fee_asset_types.length && feeAsset ? feeAsset.get("id") : ( fee_asset_types.length === 1 ? fee_asset_types[0] : fee_asset_id ? fee_asset_id : fee_asset_types[0])}
+                    assets={fee_asset_types}
+                />
 
                 <div className="operate">
                     <input className="green-btn" value={this.formatMessage('transfer_send')}/>
