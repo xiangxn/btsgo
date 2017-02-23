@@ -228,6 +228,7 @@ export const zh_CN = {
     account_no_price: "无可用价格信息",
     account_totalBalance: "总额",
     account_more: "查看更多",
+    account_not_yours: "不是你的账户",
     //assets
     assets_issuer: "发行人",
     assets_new_issuer: "新发行人",

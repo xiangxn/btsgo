@@ -230,6 +230,7 @@ export const en_US = {
     account_no_price: "Unknown",
     account_totalBalance: "Total Balance",
     account_more: "see more",
+    account_not_yours: "Not your account",
     //assets
     assets_issuer: "Issuer",
     assets_new_issuer: "New owner account",

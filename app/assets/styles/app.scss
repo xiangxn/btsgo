@@ -384,6 +384,7 @@ input {
 
   .text-img-input {
     display: flex;
+    position: relative;
     background-color: $whiteColor;
     color: $blackColor;
     margin-top: .02rem;
@@ -418,7 +419,6 @@ input {
       width: 1.2rem;
       height: 1.2rem;
     }
-
     .text-box {
       flex: 1;
       padding-left: .2rem;
@@ -440,13 +440,13 @@ input {
           border: 0;
           flex: 1;
         }
-        >input[type='text']:disabled{
+        > input[type='text']:disabled {
           background-color: $whiteColor;
         }
         > label {
           color: $grayColor;
         }
-        .select{
+        .select {
           height: 100%;
           border: none;
           padding: 0;
@@ -454,6 +454,15 @@ input {
           background: transparent;
         }
       }
+    }
+    .error {
+      position: absolute;
+      right: .2rem;
+      top: 1.2rem;
+      height: .4rem;
+      line-height: .4rem;
+      color: $orangeRedColor;
+      z-index: 50;
     }
   }
 
@@ -473,6 +482,14 @@ input {
 .orange-red-btn {
   @extend .green-btn;
   background-color: $orangeRedColor;
+}
+
+.disabled-btn {
+  @extend .green-btn;
+  background-color: $whiteColor;
+  border: solid 1px $blackColor;
+  color: $blackColor;
+  pointer-events: none;
 }
 
 .smallFontSize {

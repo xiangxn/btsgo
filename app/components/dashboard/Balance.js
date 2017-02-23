@@ -244,7 +244,7 @@ class BalancePageWrapper extends BaseComponent {
             settings: SettingsStore.getState().settings,
             hiddenAssets: SettingsStore.getState().hiddenAssets,
             wallet_locked: WalletUnlockStore.getState().locked,
-            myAccounts: AccountStore.getState().myAccounts
+            myAccounts: AccountStore.getMyAccounts()
         };
     }
 

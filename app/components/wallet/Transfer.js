@@ -13,6 +13,10 @@ import BalanceComponent from "../Utility/BalanceComponent";
 import AccountStore from "../../stores/AccountStore";
 import {ChainStore} from "graphenejs-lib";
 import AssetStore from "../../stores/AssetStore";
+import TransactionConfirmStore from "../../stores/TransactionConfirmStore";
+
+//actions
+import AccountActions from "../../actions/AccountActions";
 
 class Transfer extends BaseComponent {
     static getInitialState() {
@@ -54,6 +58,7 @@ class Transfer extends BaseComponent {
         if (query.memo) this.state.memo = query.memo;
         let currentAccount = AccountStore.getState().currentAccount;
         if (!this.state.from_name && query.to !== currentAccount) this.state.from_name = currentAccount;
+        this.onTrxIncluded = this.onTrxIncluded.bind(this);
     }
 
     componentWillMount() {
@@ -65,9 +70,9 @@ class Transfer extends BaseComponent {
     }
 
     onFromChange(from_name) {
-        let asset = undefined
-        let amount = undefined
-        this.setState({from_name, error: null, propose: false, propose_account: ""})
+        let asset = undefined;
+        let amount = undefined;
+        this.setState({from_name, error: null, propose: false, propose_account: ""});
     }
 
     onToAccChange(to_account) {
@@ -116,20 +121,61 @@ class Transfer extends BaseComponent {
         }
     }
 
+    onTrxIncluded(confirm_store_state) {
+        if (confirm_store_state.included && confirm_store_state.broadcasted_transaction) {
+            TransactionConfirmStore.unlisten(this.onTrxIncluded);
+            TransactionConfirmStore.reset();
+        } else if (confirm_store_state.closed) {
+            TransactionConfirmStore.unlisten(this.onTrxIncluded);
+            TransactionConfirmStore.reset();
+        }
+    }
+
+    onDoTransfer(e) {
+        e.preventDefault();
+        this.setState({error: null});
+        let asset = this.state.asset;
+        let precision = utils.get_asset_precision(asset.get("precision"));
+        let amount = this.state.amount.replace(/,/g, "");
+
+        AccountActions.transfer(
+            this.state.from_account.get("id"),
+            this.state.to_account.get("id"),
+            parseInt(amount * precision, 10),
+            asset.get("id"),
+            this.state.memo ? new Buffer(this.state.memo, "utf-8") : this.state.memo,
+            this.state.propose ? this.state.propose_account : null,
+            this.state.feeAsset ? this.state.feeAsset.get("id") : "1.3.0"
+        ).then(() => {
+            TransactionConfirmStore.unlisten(this.onTrxIncluded);
+            TransactionConfirmStore.listen(this.onTrxIncluded);
+        }).catch(e => {
+            let msg = e.message ? e.message.split('\n')[1] : null;
+            console.error("error: ", e, msg);
+            this.setState({error: msg});
+        });
+    }
+
     render() {
         //console.debug('props', this.props)
+        let from_error = null;
         let {
-            from_account, to_account, asset, asset_id,
+            from_account, to_account, asset, asset_id, propose,
             amount, error, to_name, from_name, memo, feeAsset, fee_asset_id
         } = this.state;
         //console.debug('state:', this.state)
         let from_my_account = AccountStore.isMyAccount(from_account);
+        if (from_account && !from_my_account && !propose) {
+            from_error = <span>
+                {this.formatMessage('account_not_yours')}
+            </span>;
+        }
         let asset_types = [], fee_asset_types = [];
         let balance = null;
         let globalObject = ChainStore.getObject("2.0.0");
         let fee = utils.estimateFee("transfer", null, globalObject);
 
-        if (from_account && from_account.get("balances")) {
+        if (from_account && from_account.get("balances") && !from_error) {
             let account_balances = from_account.get("balances").toJS();
             asset_types = Object.keys(account_balances).sort(utils.sortID);
             fee_asset_types = Object.keys(account_balances).sort(utils.sortID);
@@ -167,10 +213,12 @@ class Transfer extends BaseComponent {
             if (asset_types.length > 0) {
                 let current_asset_id = asset ? asset.get("id") : asset_types[0];
                 let feeID = feeAsset ? feeAsset.get("id") : "1.3.0";
+                let accBalance = account_balances[current_asset_id];
+                //console.debug('accBalance:',accBalance);
                 balance = (
                     <span className="orangeRed underline"
-                          onClick={this.onBalanceClick.bind(this, current_asset_id, account_balances[current_asset_id], fee, feeID)}>
-                                <BalanceComponent balance={account_balances[current_asset_id]}/>
+                          onClick={this.onBalanceClick.bind(this, current_asset_id, accBalance, fee, feeID)}>
+                                <BalanceComponent balance={accBalance}/>
                     </span>
                 );
             } else {
@@ -183,7 +231,9 @@ class Transfer extends BaseComponent {
                 fee = utils.limitByPrecision(utils.get_asset_amount(fee, feeAsset || core), feeAsset ? feeAsset.get("precision") : core.get("precision"));
             }
         }
-        //console.debug('balance',balance)
+        let submitButtonClass = "green-btn";
+        if (!from_account || !to_account || !amount || amount === "0" || !asset || from_error)
+            submitButtonClass = "disabled-btn";
         return (
             <div className="content">
                 <AccountSelectInput
@@ -191,6 +241,7 @@ class Transfer extends BaseComponent {
                     placeholder={this.formatMessage('transfer_from_ph')}
                     account={from_name}
                     accountName={from_name}
+                    error={from_error}
                     onChange={this.onFromChange.bind(this)} onAccountChanged={this.onFromAccChange.bind(this)}/>
                 <AccountSelectInput
                     lable={this.formatMessage('transfer_to')}
@@ -225,7 +276,8 @@ class Transfer extends BaseComponent {
                 />
 
                 <div className="operate">
-                    <input className="green-btn" value={this.formatMessage('transfer_send')}/>
+                    <input className={submitButtonClass} value={this.formatMessage('transfer_send')}
+                           onClick={this.onDoTransfer.bind(this)}/>
                 </div>
             </div>
         );
@@ -235,7 +287,7 @@ class TransferContainer extends React.Component {
     static getPropsFromStores() {
         return {
             cachedAccounts: AccountStore.getState().cachedAccounts,
-            myAccounts: AccountStore.getState().myAccounts,
+            myAccounts: AccountStore.getMyAccounts(),
             accountBalances: AccountStore.getState().balances,
             assets: AssetStore.getState().assets,
             account_name_to_id: AccountStore.getState().account_name_to_id,

@@ -18,7 +18,8 @@ class FormattedAsset extends React.Component {
         hide_asset: PropTypes.bool,                 //隐藏资产名
         hide_amount: PropTypes.bool,                //隐藏资产数量
         asPercentage: PropTypes.bool,               //作为百分比显示
-        assetInfo: PropTypes.node                    //资产信息
+        assetInfo: PropTypes.node,                   //资产信息
+        className: PropTypes.string                  //样式名
     }
     static defaultProps = {
         amount: 0,
@@ -27,6 +28,7 @@ class FormattedAsset extends React.Component {
         hide_amount: false,
         asPercentage: false,
         assetInfo: null,
+        className: ""
     }
 
     render() {
@@ -39,13 +41,13 @@ class FormattedAsset extends React.Component {
             let supply = parseInt(asset.dynamic.current_supply, 10);
             let percent = utils.format_number((amount / supply) * 100, 4);
             return (
-                <span>
+                <span className={this.props.className}>
                     {percent}%
                 </span>
             );
         }
         return (
-            <span>
+            <span className={this.props.className}>
                 {hide_amount ? null :
                     <FormattedNumber
                         value={this.props.exact_amount ? amount : amount / precision}

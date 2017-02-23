@@ -11,6 +11,7 @@ import {ChainStore, PublicKey, ChainValidation} from "graphenejs-lib";
 
 class AccountSelectInput extends BaseComponent {
     static propTypes = {
+        error: React.PropTypes.element,
         onChange: React.PropTypes.func, // 用户输入时调用
         onAccountChanged: React.PropTypes.func, // 账户选择变化时调用
         accountName: React.PropTypes.string, // 用户输入的当前账户名
@@ -78,6 +79,7 @@ class AccountSelectInput extends BaseComponent {
                                placeholder={this.props.placeholder}/>
                     </div>
                 </div>
+                <div className="error">{this.props.error}</div>
             </div>
         );
     }

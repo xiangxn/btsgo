@@ -6,8 +6,10 @@ import BaseComponent from "../BaseComponent";
 import {ChainTypes} from "graphenejs-lib";
 import {FormattedDate} from "react-intl";
 import account_constants from "../../../common/account_constants";
+import utils from "../../../common/utils";
 
 import FormattedAsset from "../Utility/FormattedAsset";
+import AccountName from "../Utility/AccountName";
 
 //stores
 import PrivateKeyStore from "../../stores/PrivateKeyStore";
@@ -42,7 +44,8 @@ class OperationTable extends BaseComponent {
         let fee_row = this.props.fee.amount > 0 ? (
                 <div className="row">
                     <span>{this.formatMessage('transfer_chargefee')}</span>
-                    <span className="orangeRed">14.82281 BTS</span></div>
+                    <FormattedAsset className="orangeRed" amount={this.props.fee.amount} asset={this.props.fee.asset_id}/>
+                </div>
             ) : null;
         return (
             <div className="list">
