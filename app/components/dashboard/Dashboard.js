@@ -28,12 +28,12 @@ class Dashboard extends BaseComponent {
         super(props);
         this.state = {
             mainMarkets: [
-                ["BTS", "CNY"],
-                ["BTS", "USD"],
-                ["BTS", "EUR"]
-                , ["OPEN.BTC", "BTS", false],
-                ["OPEN.BTC", "CNY", false],
-                ["OPEN.BTC", "USD", false]
+                ["BTS", "CNY",false],
+                ["BTS", "USD",false],
+                ["BTS", "EUR",false]
+                , ["OPEN.BTC", "BTS"],
+                ["OPEN.BTC", "CNY"],
+                ["OPEN.BTC", "USD"]
             ]
         };
     }

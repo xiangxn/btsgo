@@ -72,7 +72,7 @@ class AssetsItem extends BaseComponent {
             let change = parseFloat(stats.change);
             gainClass = change > 0 ? "green-label" : change < 0 ? "orange-label" : "def-label";
         }
-        if (imgName === "BTS") {
+        if (imgName === "BTS" || imgName === "CNY" || imgName === "USD" || imgName === "EUR") {
             imgName = getImageName(quote);
         }
 
@@ -84,6 +84,16 @@ class AssetsItem extends BaseComponent {
                 <div>
                     <label className="def-label">{desc.short_name ? desc.short_name :
                         <AssetName noPrefix name={base.get("symbol")}/>}</label>
+                    <label className="def-label">
+                        {(!stats || !stats.close) ? null : utils.format_price(
+                        stats.close.quote.amount,
+                        base,
+                        stats.close.base.amount,
+                        quote,
+                        true,
+                        this.props.invert
+                    )}
+                    </label>
                     <label className="def-label">
                         {!stats ? null : utils.format_volume_s(stats.volumeBase, quote.get("precision"))} <AssetName
                         name={quote.get("symbol")} noPrefix/>

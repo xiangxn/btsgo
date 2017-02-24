@@ -21,7 +21,7 @@ class SettingsStore extends BaseStore {
             locale: "zh",
             apiServer: "wss://openledger.hk/ws",
             faucet_address: "https://bit.btsabc.org",//https://bitshares.openledger.info
-            unit: CORE_ASSET,
+            unit: "CNY",// CORE_ASSET,
             walletLockTimeout: 60 * 10,
             disableChat: true
         });
