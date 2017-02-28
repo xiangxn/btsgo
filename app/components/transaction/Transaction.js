@@ -31,10 +31,8 @@ class Transaction extends BaseComponent {
 
     render() {
         let latestPrice = 0;
-        let aVolume = "29.13k";
-        let bVolume = "1.05M";
-        let aUnit = "bitCNY";
-        let bUint = "BTS";
+        let aVolume = 0;
+        let bVolume = 0;
         let tabData = [
             {name: this.formatMessage("transaction_pay"), url: "/transaction/pay"},
             {name: this.formatMessage("transaction_sell"), url: "/transaction/sell"},
