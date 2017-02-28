@@ -122,14 +122,17 @@ input {
 }
 
 .loading {
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-color: $whiteColor;
+  width: 100%;
+  background-color: $whiteTColor;
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
   box-flex: 1;
+  z-index: 11000;
   > div {
     font-family: 'WebSymbols-Regular';
     color: $whiteColor;
@@ -628,24 +631,8 @@ input {
   color: $blueColor;
   font-size: $fontSize;
   font-weight: bold;
-  line-height: .88rem;
+  line-height: .44rem;
   padding: 0 .2rem 0 .2rem;
-  :nth-child(1) {
-    float: left;
-  }
-  :nth-child(2) {
-    float: right;
-    > label {
-      margin-right: .1rem;
-    }
-    > div {
-      > div {
-        clear: both;
-        height: .44rem;
-        line-height: .44rem;
-      }
-    }
-  }
 }
 
 .tabpage {

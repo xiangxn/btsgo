@@ -31,7 +31,7 @@ import Backup from  "./components/wallet/Backup";
 import ChangePassword from  "./components/wallet/ChangePassword";
 import ImportBackup from  "./components/wallet/ImportBackup";
 import UnlockWallet from "./components/wallet/UnlockWallet";
-import Transaction from "./components/transaction/Transaction";
+import TransactionContainer from "./components/transaction/TransactionContainer";
 import Pay from "./components/transaction/Pay";
 import Sell from "./components/transaction/Sell";
 import Orders from "./components/transaction/Orders";
@@ -119,7 +119,7 @@ let routes = (
             <Route path="import-backup" component={ImportBackup}/>
         </Route>
         <Route path="unlock" component={UnlockWallet}/>
-        <Route path="transaction" component={Transaction}>
+        <Route path="transaction" component={TransactionContainer}>
             <IndexRoute component={Pay}/>
             <Route path="pay" component={Pay}/>
             <Route path="sell" component={Sell}/>

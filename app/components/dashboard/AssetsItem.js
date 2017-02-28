@@ -50,7 +50,11 @@ class AssetsItem extends BaseComponent {
 
     onClickHandler(e) {
         e.preventDefault();
-        this.context.router.push(`/transaction/${this.props.base.get("symbol")}_${this.props.quote.get("symbol")}`);
+        //this.context.router.push(`/transaction/${this.props.base.get("symbol")}_${this.props.quote.get("symbol")}`);
+        this.context.router.push({
+            pathname: '/transaction',
+            state: {baseAsset: this.props.base.get("symbol"), quoteAsset: this.props.quote.get("symbol")}
+        });
     }
 
     render() {
@@ -86,13 +90,13 @@ class AssetsItem extends BaseComponent {
                         <AssetName noPrefix name={base.get("symbol")}/>}</label>
                     <label className="def-label">
                         {(!stats || !stats.close) ? null : utils.format_price(
-                        stats.close.quote.amount,
-                        base,
-                        stats.close.base.amount,
-                        quote,
-                        true,
-                        this.props.invert
-                    )}
+                            stats.close.quote.amount,
+                            base,
+                            stats.close.base.amount,
+                            quote,
+                            true,
+                            this.props.invert
+                        )}
                     </label>
                     <label className="def-label">
                         {!stats ? null : utils.format_volume_s(stats.volumeBase, quote.get("precision"))} <AssetName
