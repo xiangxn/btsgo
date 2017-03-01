@@ -34,7 +34,7 @@ class Transaction extends BaseComponent {
         let aVolume = 0;
         let bVolume = 0;
         let tabData = [
-            {name: this.formatMessage("transaction_pay"), url: "/transaction/pay"},
+            {name: this.formatMessage("transaction_pay"), url: "/transaction/buy"},
             {name: this.formatMessage("transaction_sell"), url: "/transaction/sell"},
             {name: this.formatMessage("transaction_orders"), url: "/transaction/orders"}];
 

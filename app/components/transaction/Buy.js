@@ -6,7 +6,7 @@ import BaseComponent from "../BaseComponent";
 import TransactionOperation from "./TransactionOperation";
 import CurrentBalance from "./CurrentBalance";
 
-class Pay extends BaseComponent {
+class Buy extends BaseComponent {
     constructor(props) {
         super(props);
     }
@@ -94,4 +94,4 @@ class Pay extends BaseComponent {
     }
 }
 
-export default Pay;
+export default Buy;
