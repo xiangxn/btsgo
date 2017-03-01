@@ -4,6 +4,7 @@
 import React from "react";
 import BaseComponent from "../BaseComponent";
 import TransactionOperation from "./TransactionOperation";
+import CurrentBalance from "./CurrentBalance";
 
 class Sell extends BaseComponent {
     constructor(props) {
@@ -31,15 +32,7 @@ class Sell extends BaseComponent {
         let bSymbol = "BTS";
         return (
             <div className="vertical-flex vertical-box scroll">
-                <div className="current-balance">
-                    <div>
-                        <p>{this.formatMessage("transaction_currentBalance", {symbol: aSymbol})}: <label
-                            className="orangeRed">100.9999</label></p>
-                        <p>{this.formatMessage("transaction_canSell", {symbol: bSymbol})}: <label className="orangeRed">3662.26</label>
-                        </p>
-                    </div>
-                    <div></div>
-                </div>
+                <CurrentBalance {...this.props} isAsk={true} />
                 <div className="separate2"></div>
                 <div className="transaction-operate vertical-flex">
                     <TransactionOperation ref="operationCtrl" btnText={this.formatMessage("transaction_confirmSell")}

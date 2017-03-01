@@ -55,7 +55,7 @@ class FormattedAsset extends React.Component {
                         maximumFractionDigits={decimals}
                     />
                 }
-                <strong> </strong>
+                &nbsp;
                 {hide_asset ? null :
                     <AssetName noPrefix={this.props.noPrefix} name={asset.symbol}/>
                 }

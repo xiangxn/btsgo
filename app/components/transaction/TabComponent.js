@@ -17,11 +17,23 @@ class TabComponent extends React.Component {
         this.state = {currentIndex: 0};
     }
 
+    componentWillMount() {
+        //console.debug('location:', this.context.router.location)
+        let index = 0;
+        this.props.data.forEach((x, i) => {
+            if (x.url === this.context.router.location.pathname)
+                index = i;
+        });
+        this.setState({currentIndex: index});
+    }
+
     clickHandle(index, url) {
         //console.debug(this.context.router);
         this.setState({currentIndex: index});
         //let path = this.context.router.location.pathname + "/" + url;
-        this.context.router.push(url);
+        let s = this.context.router.location.state;
+        //this.context.router.push(url,s);
+        this.context.router.push({pathname: url, state: s});
     }
 
     render() {
@@ -37,7 +49,7 @@ class TabComponent extends React.Component {
                     <div className="tabpage-title-separate"></div>
                 </div>
                 <div className="tabpage-content vertical-flex vertical-box">
-                    {this.props.children}
+                    {React.cloneElement(this.props.children, {...this.props})}
                 </div>
             </div>
 

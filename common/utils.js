@@ -12,7 +12,7 @@ var Utils = {
     },
 
     is_object_id: (obj_id) => {
-        if( 'string' != typeof obj_id ) return false
+        if ('string' != typeof obj_id) return false
         let match = id_regex.exec(obj_id);
         return (match !== null && obj_id.split(".").length === 3);
     },
@@ -42,7 +42,8 @@ var Utils = {
                 if (decimalPosition > amount.length) {
                     amount += "0";
                 }
-            };
+            }
+            ;
 
             return parseInt(amount, 10);
         }
@@ -53,13 +54,13 @@ var Utils = {
         return Math.pow(10, precision);
     },
 
-    get_asset_amount: function(amount, asset) {
+    get_asset_amount: function (amount, asset) {
         if (amount === 0) return amount;
         if (!amount) return null;
         return amount / this.get_asset_precision(asset.toJS ? asset.get("precision") : asset.precision);
     },
 
-    get_asset_price: function(quoteAmount, quoteAsset, baseAmount, baseAsset, inverted = false) {
+    get_asset_price: function (quoteAmount, quoteAsset, baseAmount, baseAsset, inverted = false) {
         if (!quoteAsset || !baseAsset) {
             return 1;
         }
@@ -67,7 +68,7 @@ var Utils = {
         return inverted ? 1 / price : price;
     },
 
-    round_number: function(number, asset) {
+    round_number: function (number, asset) {
         let assetPrecision = asset.toJS ? asset.get("precision") : asset.precision;
         let precision = this.get_asset_precision(assetPrecision);
         return Math.round(number * precision) / precision;
@@ -95,33 +96,31 @@ var Utils = {
     },
 
     format_number: (number, decimals, trailing_zeros = true) => {
-        if(isNaN(number) || !isFinite(number) || number === undefined || number === null) return "";
+        if (isNaN(number) || !isFinite(number) || number === undefined || number === null) return "";
         let zeros = ".";
         for (let i = 0; i < decimals; i++) {
             zeros += "0";
         }
         let num = numeral(number).format("0,0" + zeros);
-        if( num.indexOf('.') > 0 && !trailing_zeros)
-           return num.replace(/0+$/,"").replace(/\.$/,"")
+        if (num.indexOf('.') > 0 && !trailing_zeros)
+            return num.replace(/0+$/, "").replace(/\.$/, "")
         return num
     },
 
-    format_asset: function(amount, asset, noSymbol, trailing_zeros=true) {
+    format_asset: function (amount, asset, noSymbol, trailing_zeros = true) {
         let symbol;
         let digits = 0
-        if( asset === undefined )
-           return undefined
-        if( 'symbol' in asset )
-        {
+        if (asset === undefined)
+            return undefined
+        if ('symbol' in asset) {
             // console.log( "asset: ", asset )
             symbol = asset.symbol
             digits = asset.precision
         }
-        else
-        {
-           // console.log( "asset: ", asset.toJS() )
-           symbol = asset.get('symbol')
-           digits = asset.get('precision')
+        else {
+            // console.log( "asset: ", asset.toJS() )
+            symbol = asset.get('symbol')
+            digits = asset.get('precision')
         }
         let precision = this.get_asset_precision(digits);
         // console.log( "precision: ", precision )
@@ -129,7 +128,7 @@ var Utils = {
         return `${this.format_number(amount / precision, digits, trailing_zeros)}${!noSymbol ? " " + symbol : ""}`;
     },
 
-    format_price: function(quoteAmount, quoteAsset, baseAmount, baseAsset, noSymbol,inverted = false, trailing_zeros = true) {
+    format_price: function (quoteAmount, quoteAsset, baseAmount, baseAsset, noSymbol, inverted = false, trailing_zeros = true) {
         if (quoteAsset.size) quoteAsset = quoteAsset.toJS();
         if (baseAsset.size) baseAsset = baseAsset.toJS();
 
@@ -138,26 +137,26 @@ var Utils = {
 
         if (inverted) {
             if (parseInt(quoteAsset.id.split(".")[2], 10) < parseInt(baseAsset.id.split(".")[2], 10)) {
-                return `${this.format_number((quoteAmount / precision) / (baseAmount / basePrecision), Math.max(5, quoteAsset.precision),trailing_zeros)}${!noSymbol ? "" + quoteAsset.symbol + "/" + baseAsset.symbol : ""}`;
+                return `${this.format_number((quoteAmount / precision) / (baseAmount / basePrecision), Math.max(5, quoteAsset.precision), trailing_zeros)}${!noSymbol ? "" + quoteAsset.symbol + "/" + baseAsset.symbol : ""}`;
             } else {
-                return `${this.format_number((baseAmount / basePrecision) / (quoteAmount / precision), Math.max(5, baseAsset.precision),trailing_zeros)}${!noSymbol ? "" + baseAsset.symbol + "/" + quoteAsset.symbol : ""}`;
+                return `${this.format_number((baseAmount / basePrecision) / (quoteAmount / precision), Math.max(5, baseAsset.precision), trailing_zeros)}${!noSymbol ? "" + baseAsset.symbol + "/" + quoteAsset.symbol : ""}`;
             }
         } else {
             if (parseInt(quoteAsset.id.split(".")[2], 10) > parseInt(baseAsset.id.split(".")[2], 10)) {
-                return `${this.format_number((quoteAmount / precision) / (baseAmount / basePrecision), Math.max(5, quoteAsset.precision),trailing_zeros)}${!noSymbol ? "" + quoteAsset.symbol + "/" + baseAsset.symbol : ""}`;
+                return `${this.format_number((quoteAmount / precision) / (baseAmount / basePrecision), Math.max(5, quoteAsset.precision), trailing_zeros)}${!noSymbol ? "" + quoteAsset.symbol + "/" + baseAsset.symbol : ""}`;
             } else {
-                return `${this.format_number((baseAmount / basePrecision) / (quoteAmount / precision), Math.max(5, baseAsset.precision),trailing_zeros)}${!noSymbol ? "" + baseAsset.symbol + "/" + quoteAsset.symbol : ""}`;
+                return `${this.format_number((baseAmount / basePrecision) / (quoteAmount / precision), Math.max(5, baseAsset.precision), trailing_zeros)}${!noSymbol ? "" + baseAsset.symbol + "/" + quoteAsset.symbol : ""}`;
             }
         }
     },
 
-    price_text: function(price, base, quote) {
+    price_text: function (price, base, quote) {
         let maxDecimals = 8;
         let priceText;
         let quoteID = quote.toJS ? quote.get("id") : quote.id;
-        let quotePrecision  = quote.toJS ? quote.get("precision") : quote.precision;
+        let quotePrecision = quote.toJS ? quote.get("precision") : quote.precision;
         let baseID = base.toJS ? base.get("id") : base.id;
-        let basePrecision  = base.toJS ? base.get("precision") : base.precision;
+        let basePrecision = base.toJS ? base.get("precision") : base.precision;
         if (quoteID === "1.3.0") {
             priceText = this.format_number(price, quotePrecision);
         } else if (baseID === "1.3.0") {
@@ -168,7 +167,7 @@ var Utils = {
         return priceText;
     },
 
-    price_to_text: function(price, base, quote, forcePrecision = null) {
+    price_to_text: function (price, base, quote, forcePrecision = null) {
         if (typeof price !== "number" || !base || !quote) {
             return;
         }
@@ -198,7 +197,8 @@ var Utils = {
                         break;
                     }
                     zeros++;
-                };
+                }
+                ;
             } else {
                 let l = dec.length;
                 for (i = 0; i < l; i++) {
@@ -207,16 +207,17 @@ var Utils = {
                         break;
                     }
                     zeros++;
-                };
+                }
+                ;
             }
         }
-        
+
         let trailing = zeros ? dec.substr(Math.max(0, i + 1), dec.length) : null;
 
         if (trailing) {
             if (trailing.length === dec.length) {
                 dec = null;
-            } else  if (trailing.length) {
+            } else if (trailing.length) {
                 dec = dec.substr(0, i + 1);
             }
         }
@@ -230,7 +231,7 @@ var Utils = {
         };
     },
 
-    get_op_type: function(object) {
+    get_op_type: function (object) {
         let type = parseInt(object.split(".")[1], 10);
 
         for (let id in object_type) {
@@ -240,72 +241,72 @@ var Utils = {
         }
     },
 
-    add_comma: function(value) {
+    add_comma: function (value) {
         if (typeof value === "number") {
             value = value.toString();
         }
         value = value.trim()
-        value = value.replace( /,/g, "" )
-        if( value == "." || value == "" ) {
-           return value;
+        value = value.replace(/,/g, "")
+        if (value == "." || value == "") {
+            return value;
         }
-        else if( value.length ) {
+        else if (value.length) {
             // console.log( "before: ",value )
             let n = Number(value)
-            if( isNaN( n ) )
+            if (isNaN(n))
                 return
             let parts = value.split('.')
             // console.log( "split: ", parts )
             n = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            if( parts.length > 1 )
+            if (parts.length > 1)
                 n += "." + parts[1]
             // console.log( "after: ",transfer.amount )
             return n;
-       }
+        }
     },
 
-    parse_float_with_comma: function(value) {
+    parse_float_with_comma: function (value) {
         // let value = new_state.transfer.amount
-        value = value.replace( /,/g, "" )
+        value = value.replace(/,/g, "")
         let fvalue = parseFloat(value)
-        if( value.length && isNaN(fvalue) && value != "." )
-           throw "parse_float_with_comma: must be a number"
-         else if( fvalue < 0 )
-           return 0;
+        if (value.length && isNaN(fvalue) && value != ".")
+            throw "parse_float_with_comma: must be a number"
+        else if (fvalue < 0)
+            return 0;
 
         return fvalue;
     },
 
-    are_equal_shallow: function(a, b) {
+    are_equal_shallow: function (a, b) {
         if (Array.isArray(a) && Array.isArray(a)) {
             if (a.length > b.length) {
                 return false;
             }
         }
-        for(var key in a) {
-            if(!(key in b) || a[key] !== b[key]) {
+        for (var key in a) {
+            if (!(key in b) || a[key] !== b[key]) {
                 return false;
             }
         }
-        for(var key in b) {
-            if(!(key in a) || a[key] !== b[key]) {
+        for (var key in b) {
+            if (!(key in a) || a[key] !== b[key]) {
                 return false;
             }
         }
         return true;
     },
 
-    format_date: function(date_str) {
+    format_date: function (date_str) {
         let date = new Date(date_str);
         return date.toLocaleDateString();
     },
 
-    format_time: function(time_str) {
+    format_time: function (time_str) {
         let date = new Date(time_str);
         return date.toLocaleString();
     },
 
-    limitByPrecision: function(value, assetPrecision) {
+    limitByPrecision: function (value, assetPrecision) {
         let valueString = value.toString();
         let splitString = valueString.split(".");
         if (splitString.length === 1 || splitString.length === 2 && splitString[1].length <= assetPrecision) {
@@ -321,7 +322,7 @@ var Utils = {
         // return value;
     },
 
-    estimateFee: function(op_type, options, globalObject) {
+    estimateFee: function (op_type, options, globalObject) {
         if (!globalObject) return 0;
         let op_code = operations[op_type];
         let currentFees = globalObject.getIn(["parameters", "current_fees", "parameters", op_code, 1]).toJS();
@@ -340,7 +341,7 @@ var Utils = {
         return fee * globalObject.getIn(["parameters", "current_fees", "scale"]) / 10000;
     },
 
-    convertPrice: function(fromRate, toRate, fromID, toID) {
+    convertPrice: function (fromRate, toRate, fromID, toID) {
 
         if (!fromRate || !toRate) {
             return null;
@@ -400,15 +401,15 @@ var Utils = {
         };
     },
 
-    convertValue: function(priceObject, amount, fromAsset, toAsset) {
-        priceObject = priceObject.toJS ?  priceObject.toJS() : priceObject;
+    convertValue: function (priceObject, amount, fromAsset, toAsset) {
+        priceObject = priceObject.toJS ? priceObject.toJS() : priceObject;
         let quotePrecision = this.get_asset_precision(fromAsset.get("precision"));
         let basePrecision = this.get_asset_precision(toAsset.get("precision"));
 
         let assetPrice = this.get_asset_price(priceObject.quote.amount, fromAsset, priceObject.base.amount, toAsset);
 
         let eqValue = fromAsset.get("id") !== toAsset.get("id") ?
-            basePrecision * (amount / quotePrecision) / assetPrice :
+        basePrecision * (amount / quotePrecision) / assetPrice :
             amount;
 
         if (isNaN(eqValue) || !isFinite(eqValue)) {
@@ -445,7 +446,7 @@ var Utils = {
         let intA = parseInt(a.split(".")[2], 10);
         let intB = parseInt(b.split(".")[2], 10);
 
-        return inverse ? (intB - intA) : (intA -intB);
+        return inverse ? (intB - intA) : (intA - intB);
     },
 
     calc_block_time(block_number, globalObject, dynGlobalObject) {
@@ -460,13 +461,13 @@ var Utils = {
     get_translation_parts(str) {
         let result = [];
         let toReplace = {};
-        let re = /{(.*?)}/g; 
+        let re = /{(.*?)}/g;
         let interpolators = str.split(re);
         // console.log("split:", str.split(re)); 
         return str.split(re);
         // var str = '{{azazdaz}} {{azdazd}}';
         // var m;
-         
+
         // while ((m = re.exec(str)) !== null) {
         //     if (m.index === re.lastIndex) {
         //         re.lastIndex++;
@@ -483,7 +484,7 @@ var Utils = {
     },
 
     get_percentage(a, b) {
-        return Math.round((a/b) * 100) + "%";
+        return Math.round((a / b) * 100) + "%";
     },
 
     replaceName(name, isBitAsset = false) {
@@ -501,6 +502,21 @@ var Utils = {
             name,
             prefix: isBitAsset ? "bit" : toReplace[i] ? toReplace[i].toLowerCase() : null
         };
+    },
+    getAssetName(asset, noPrefix = false, replace = true){
+        let name = asset.get("symbol");
+        let isBitAsset = asset.has("bitasset");
+        let isPredMarket = isBitAsset && asset.getIn(["bitasset", "is_prediction_market"]);
+        let {name: replacedName, prefix} = this.replaceName(name, isBitAsset && !isPredMarket && asset.get("issuer") === "1.2.0");
+        if (prefix == null) {
+            prefix = '';
+        }
+        if (replace && replacedName !== name) {
+
+            return `${!noPrefix ? prefix : ''}${replacedName}`;
+        } else {
+            return `${!noPrefix ? prefix : ''}${name}`;
+        }
     }
 };
 

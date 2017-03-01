@@ -41,7 +41,7 @@ class Transaction extends BaseComponent {
         let {currentAccount, marketReady, activeMarketHistory, quoteAsset, baseAsset, marketStats} = this.props;
         let base = null, quote = null, quoteBalance = null,
             baseBalance = null, coreBalance = null, quoteSymbol, baseSymbol, changeClass;
-        if (quoteAsset.size && baseAsset.size && currentAccount.size) {
+        if (quoteAsset.size && baseAsset.size) {
             base = baseAsset;
             quote = quoteAsset;
             baseSymbol = base.get("symbol");
@@ -107,7 +107,7 @@ class Transaction extends BaseComponent {
                         <span style={{float: 'right'}}>{bVolume} <AssetName name={quoteSymbol}/></span>
                     </div>
                 </div>
-                <TabComponent data={tabData} {...this.props}/>
+                <TabComponent data={tabData} {...this.props} latestPrice={latestPrice.full}/>
             </div>
         );
     }

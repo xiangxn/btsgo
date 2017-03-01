@@ -4,6 +4,7 @@
 import React from "react";
 import BaseComponent from "../BaseComponent";
 import TransactionOperation from "./TransactionOperation";
+import CurrentBalance from "./CurrentBalance";
 
 class Pay extends BaseComponent {
     constructor(props) {
@@ -29,17 +30,11 @@ class Pay extends BaseComponent {
     render() {
         let aSymbol = "bitCNY";
         let bSymbol = "BTS";
+        let {latestPrice}=this.props;
+        //console.debug('props:',this.props)
         return (
             <div className="vertical-flex vertical-box scroll">
-                <div className="current-balance">
-                    <div>
-                        <p>{this.formatMessage("transaction_currentBalance", {symbol: aSymbol})}: <label
-                            className="green">100.9999</label></p>
-                        <p>{this.formatMessage("transaction_canBuy", {symbol: bSymbol})}: <label className="green">3662.26</label>
-                        </p>
-                    </div>
-                    <div></div>
-                </div>
+                <CurrentBalance {...this.props} />
                 <div className="separate2"></div>
                 <div className="transaction-operate vertical-flex">
                     <TransactionOperation ref="operationCtrl" btnText={this.formatMessage("transaction_confirmPay")}
