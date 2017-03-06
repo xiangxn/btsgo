@@ -724,8 +724,8 @@ input {
       text-align: right;
     }
   }
-  .depth-list-pay {
-    .depth-list-pay-row {
+  .depth-list-buy {
+    .depth-list-row {
       display: flex;
       font-size: $smallFontSize;
       font-weight: bold;
@@ -742,8 +742,8 @@ input {
     }
   }
   .depth-list-sell {
-    @extend .depth-list-pay;
-    .depth-list-pay-row {
+    @extend .depth-list-buy;
+    .depth-list-row {
       > :nth-child(3) {
         color: $orangeRedColor;
       }
