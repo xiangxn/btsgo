@@ -4,8 +4,9 @@
 import React from "react";
 import BaseComponent from "../BaseComponent";
 import utils from "../../../common/utils";
+import market_utils from "../../../common/market_utils";
 import AssetName from "../Utility/AssetName";
-import PriceText from "../Utility/PriceText";
+//import PriceText from "../Utility/PriceText";
 
 class OrderBookRow extends BaseComponent {
     constructor(props) {
@@ -25,13 +26,14 @@ class OrderBookRow extends BaseComponent {
         const isBid = order.isBid();
         const isCall = order.isCall();
 
-        let price = <PriceText price={order.getPrice()} quote={quote} base={base}/>;
+        //let price = <PriceText price={order.getPrice()} quote={quote} base={base}/>;
+        let {price} = market_utils.parseOrder(order, base, quote);
 
         return (
             <div className="depth-list-row" onClick={this.props.onClick}>
                 <span>{utils.format_number(order[isBid ? "amountForSale" : "amountToReceive"]().getAmount({real: true}), 4)}</span>
                 <span>{utils.format_number(order[isBid ? "amountToReceive" : "amountForSale"]().getAmount({real: true}), 4)}</span>
-                <span>{price}</span>
+                <span>{utils.format_number(price.full, 4)}</span>
             </div>
         );
     }
@@ -60,9 +62,11 @@ class OrderBook extends BaseComponent {
             let tempBids = combinedBids.filter(a => {
                 return a.getPrice() >= highestBid.getPrice() / 5;
             });
-            // tempBids.sort((a, b) => {
-            //     return a.getPrice() - b.getPrice();
-            // });
+            if(isAsk) {
+                tempBids.sort((a, b) => {
+                    return a.getPrice() - b.getPrice();
+                });
+            }
             bidRows = tempBids.map((order, index) => {
                 return (
                     <OrderBookRow
@@ -80,9 +84,11 @@ class OrderBook extends BaseComponent {
                 .filter(a => {
                     return a.getPrice() <= lowestAsk.getPrice() * 5;
                 });
-            tempAsks.sort((a, b) => {
-                return b.getPrice() - a.getPrice();
-            });
+            if(!isAsk) {
+                tempAsks.sort((a, b) => {
+                    return b.getPrice() - a.getPrice();
+                });
+            }
             askRows = tempAsks.map((order, index) => {
                 return (
                     <OrderBookRow

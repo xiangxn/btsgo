@@ -9,6 +9,7 @@ import account_constants from "../../../common/account_constants";
 import utils from "../../../common/utils";
 
 import FormattedAsset from "../Utility/FormattedAsset";
+import FormattedPrice from "../Utility/FormattedPrice";
 import AccountName from "../Utility/AccountName";
 
 //stores
