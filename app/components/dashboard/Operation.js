@@ -55,7 +55,8 @@ class Info extends BaseComponent {
         let last_irreversible_block_num = this.props.dynGlobalObject.get("last_irreversible_block_num");
         let pending = null;
         if (block > last_irreversible_block_num) {
-            pending = <span>({this.formatMessage('operation_pending', {blocks:block - last_irreversible_block_num})})</span>
+            pending =
+                <span>({this.formatMessage('operation_pending', {blocks: block - last_irreversible_block_num})})</span>
         }
         fee.amount = parseInt(fee.amount, 10);
 
@@ -90,6 +91,7 @@ class Operation extends BaseComponent {
 
     constructor(props) {
         super(props);
+        this.getTranslateInfo = this.getTranslateInfo.bind(this);
     }
 
     shouldComponentUpdate(nextProps) {
@@ -232,9 +234,9 @@ class Operation extends BaseComponent {
                             this.getTranslateInfo(
                                 "operation_limit_order_cancel",
                                 [
-                                    {type: "account", value: op[1].fee_paying_account, arg: "account"}
-                                ],
-                                {order: op[1].order.substring(4)}
+                                    {type: "account", value: op[1].fee_paying_account, arg: "account"},
+                                    {type: "order", value: op[1].order.substring(4), arg: "order"}
+                                ]
                             )
                         }
                     </span>

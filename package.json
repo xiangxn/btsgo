@@ -69,6 +69,7 @@
     "qrcode-reader": "^0.2.2",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
+    "react-gestures": "^0.1.8",
     "react-intl": "^2.2.0",
     "react-notification-system": "^0.2.11",
     "react-redux": "^4.4.6",

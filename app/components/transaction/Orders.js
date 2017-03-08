@@ -8,11 +8,19 @@ import market_utils from "../../../common/market_utils";
 import AssetName from "../Utility/AssetName";
 import PriceText from "../Utility/PriceText";
 import {FormattedDate} from "react-intl";
+import Gestures from "react-gestures";
 
 //actions
 import MarketsActions from "../../actions/MarketsActions";
 
 class OrderRow extends BaseComponent {
+    static propTypes = {
+        onCancel: PropTypes.func
+    };
+    static defaultProps = {
+        onCancel: null
+    };
+
     constructor(props) {
         super(props);
     }
@@ -26,18 +34,26 @@ class OrderRow extends BaseComponent {
         );
     }
 
+    onSwipeLeft(orderID,e) {
+        if (e.gesture.duration > 400) {
+            if (this.props.onCancel) this.props.onCancel(orderID);
+        }
+    }
+
     render() {
         let {base, quote, order} = this.props;
         let {value, price, amount} = market_utils.parseOrder(order, base, quote);
         let isAskOrder = market_utils.isAsk(order, base);
 
         return (
-            <div key={order.id} className="order-list-row">
-                <span><PriceText preFormattedPrice={price}/></span>
-                <span>{utils.format_number(amount, 4)}</span>
-                <span>{utils.format_number(value, 4)}</span>
-                <span><FormattedDate value={order.expiration} format="short"/></span>
-            </div>
+            <Gestures onSwipeLeft={this.onSwipeLeft.bind(this,order.id)} swipeThreshold={2}>
+                <div key={order.id} className="order-list-row">
+                    <span className="orangeRed"><PriceText preFormattedPrice={price}/></span>
+                    <span>{utils.format_number(amount, 4)}</span>
+                    <span className="blue">{utils.format_number(value, 4)}</span>
+                    <span><FormattedDate value={order.expiration} format="short"/></span>
+                </div>
+            </Gestures>
         );
     }
 }
@@ -62,9 +78,10 @@ class Orders extends BaseComponent {
         super(props);
     }
 
-    cancelLimitOrder(orderID, e) {
-        e.preventDefault();
+    cancelLimitOrder(orderID) {
         let {currentAccount} = this.props;
+        console.debug('currentAccount:',currentAccount.get('id'))
+        console.debug('orderID:',orderID)
         MarketsActions.cancelLimitOrder(
             currentAccount.get("id"),
             orderID // 用订单id取消订单
@@ -75,7 +92,7 @@ class Orders extends BaseComponent {
         let {
             currentAccount, quoteAsset, baseAsset, marketLimitOrders
         } = this.props;
-        let orders = marketLimitOrders, base = null, quote = null, quoteSymbol, baseSymbol, bids = null, asks = null,account=null;
+        let orders = marketLimitOrders, base = null, quote = null, quoteSymbol, baseSymbol, bids = null, asks = null, account = null;
         if (quoteAsset.size && baseAsset.size && currentAccount.size) {
             base = baseAsset;
             quote = quoteAsset;
@@ -97,7 +114,7 @@ class Orders extends BaseComponent {
             }).map(order => {
                 let {price} = market_utils.parseOrder(order, base, quote);
                 return <OrderRow price={price.full} ref="orderRow" key={order.id} order={order} base={base}
-                                 quote={quote} onCancel={this.cancelLimitOrder.bind(this, order.id)}/>;
+                                 quote={quote} onCancel={this.cancelLimitOrder.bind(this)}/>;
             }).toArray();
 
             asks = orders.filter(a => {
@@ -110,7 +127,7 @@ class Orders extends BaseComponent {
             }).map(order => {
                 let {price} = market_utils.parseOrder(order, base, quote);
                 return <OrderRow price={price.full} key={order.id} order={order} base={base} quote={quote}
-                                 onCancel={this.cancelLimitOrder.bind(this, order.id)}/>;
+                                 onCancel={this.cancelLimitOrder.bind(this)}/>;
             }).toArray();
 
         } else {
