@@ -228,6 +228,7 @@ export const en_US = {
     account_votes: "Votes",
     account_memoKey: "Memo Key",
     account_no_price: "Unknown",
+    account_no_orders:"No open orders",
     account_totalBalance: "Total Balance",
     account_more: "see more",
     account_not_yours: "Not your account",

@@ -30,7 +30,7 @@ class BalanceComponent extends React.Component {
     render() {
         let amount = this.getBalance();
         let type = this.props.balance.get("asset_type");
-        return (<FormattedAsset hide_amount={this.props.hide_amount} hide_asset={this.props.hide_asset} amount={amount}
+        return (<FormattedAsset noPrefix={this.props.noPrefix} hide_amount={this.props.hide_amount} hide_asset={this.props.hide_asset} amount={amount}
                                 asset={type} asPercentage={this.props.asPercentage} assetInfo={this.props.assetInfo}/>);
     }
 }

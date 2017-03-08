@@ -141,7 +141,7 @@ class TotalValue extends React.Component {
     }
 
     render() {
-        let {fromAssets, toAsset, balances, marketStats, collateral, debt, openOrders, inHeader} = this.props;
+        let {fromAssets, toAsset, balances, marketStats, collateral, debt, openOrders, inHeader,noPrefix} = this.props;
         let coreAsset = ChainStore.getAsset("1.3.0");
 
         if (!coreAsset || !toAsset) {
@@ -242,11 +242,11 @@ class TotalValue extends React.Component {
 
 
         if (!inHeader) {
-            return <FormattedAsset amount={totalValue} asset={toAsset.get("id")}
+            return <FormattedAsset noPrefix={noPrefix} amount={totalValue} asset={toAsset.get("id")}
                                    decimalOffset={toAsset.get("symbol").indexOf("BTC") === -1 ? toAsset.get("precision") : 4}/>;
         } else {
             return (
-                <FormattedAsset amount={totalValue} asset={toAsset.get("id")}
+                <FormattedAsset noPrefix={noPrefix} amount={totalValue} asset={toAsset.get("id")}
                                 decimalOffset={toAsset.get("symbol").indexOf("BTC") === -1 ? toAsset.get("precision") : 4}/>
             );
         }
@@ -287,7 +287,7 @@ class TotalBalanceValue extends React.Component {
     };
 
     render() {
-        let {balances, toAsset, collateral, debt, openOrders, inHeader} = this.props;
+        let {balances, collateral, debt, openOrders, inHeader,noPrefix} = this.props;
         let assets = Immutable.List();
         let amounts = [];
 
@@ -310,8 +310,8 @@ class TotalBalanceValue extends React.Component {
             }
         }
 
-        return <ValueStoreWrapper inHeader={inHeader} balances={amounts} openOrders={openOrders} debt={debt}
-                                  collateral={collateral} fromAssets={assets}/>;
+        return <ValueStoreWrapper noPrefix={noPrefix} inHeader={inHeader} balances={amounts} openOrders={openOrders} debt={debt}
+                                  collateral={collateral} fromAssets={assets} />;
     }
 }
 TotalBalanceValue = BindToChainState(TotalBalanceValue, {keep_updating: true});

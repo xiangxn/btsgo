@@ -1,16 +1,17 @@
 import {ChainStore} from "graphenejs-lib";
 import utils from "./utils";
+import {Asset} from "./MarketClasses";
 
 export default class AccountUtils {
 
     /**
-    *  takes asset as immutable object or id, fee as integer amount
-    *  @return undefined if asset is undefined
-    *  @return false if fee pool has insufficient balance
-    *  @return true if the fee pool has sufficient balance
-    */
+     *  takes asset as immutable object or id, fee as integer amount
+     *  @return undefined if asset is undefined
+     *  @return false if fee pool has insufficient balance
+     *  @return true if the fee pool has sufficient balance
+     */
     static checkFeePool(asset, fee) {
-        asset =  asset.toJS ? asset : ChainStore.getAsset(asset);
+        asset = asset.toJS ? asset : ChainStore.getAsset(asset);
         if (!asset) {
             return undefined;
         }
@@ -19,7 +20,7 @@ export default class AccountUtils {
 
         return feePool >= fee;
     }
-    
+
     static getPossibleFees(account, operation) {
         let core = ChainStore.getAsset("1.3.0");
         account = !account || account.toJS ? account : ChainStore.getAccount(account);
@@ -61,7 +62,7 @@ export default class AccountUtils {
             if (hasBalance) {
                 assets.push(assetID);
                 fees[assetID] = eqFee ? eqFee : fee;
-            } 
+            }
         })
 
         return {assets, fees};
@@ -76,5 +77,19 @@ export default class AccountUtils {
         }
 
         return fee_asset_id;
+    }
+
+    static getBalanceById(balanceId) {
+        if (balanceId) {
+            let balance = ChainStore.getObject(balanceId);
+            if (balance) {
+                let asset = ChainStore.getObject(balance.get("asset_type"));
+                let amount = Number(balance.get("balance"));
+                //console.debug(balance.get("asset_type"))
+                //console.debug(asset.get('precision'))
+                return new Asset({asset_id: balance.get("asset_type"), amount: amount, precision: asset.get('precision')});
+            }
+        }
+        return 0;
     }
 }

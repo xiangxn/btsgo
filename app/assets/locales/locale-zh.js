@@ -226,6 +226,7 @@ export const zh_CN = {
     account_votes: "得票",
     account_memoKey: "备注公钥",
     account_no_price: "无可用价格信息",
+    account_no_orders:"暂无委单",
     account_totalBalance: "总额",
     account_more: "查看更多",
     account_not_yours: "不是你的账户",

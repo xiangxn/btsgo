@@ -11,15 +11,24 @@ import CanBuySell from "./CanBuySell";
 class CurrentBalance extends BaseComponent {
     static propTypes = {
         isAsk: React.PropTypes.bool,
-        latestPrice: React.PropTypes.object
+        latestPrice: React.PropTypes.object,
+        onBalanceClick: React.PropTypes.func
     };
 
     static defaultProps = {
-        isAsk: false
+        isAsk: false,
+        onBalanceClick: null
     };
 
     constructor(props) {
         super(props);
+    }
+
+    onBalanceClick(balance, e) {
+        e.d
+        if (balance != null && this.props.onBalanceClick) {
+            this.props.onBalanceClick(balance);
+        }
     }
 
     render() {
@@ -62,7 +71,7 @@ class CurrentBalance extends BaseComponent {
             <div className="current-balance">
                 <div>
                     <p>{this.formatMessage("transaction_currentBalance", {symbol: utils.getAssetName(aSymbol)})}:&nbsp;
-                        <label className="green">
+                        <label className="green" onClick={this.onBalanceClick.bind(this, balance)}>
                             {balance == null ?
                                 <FormattedAsset hide_asset={true} amount={0} asset={aSymbol.get('id')}/> :
                                 <BalanceComponent balance={balance} hide_asset={true}/>}

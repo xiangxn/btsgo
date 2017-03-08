@@ -8,6 +8,7 @@ import CurrentBalance from "./CurrentBalance";
 import OrderBook from "./OrderBook";
 import {Asset, Price, LimitOrderCreate} from "../../../common/MarketClasses";
 import utils from "../../../common/utils";
+import account_utils from "../../../common/account_utils";
 
 //actions
 import NotificationActions from "../../actions/NotificationActions";
@@ -22,6 +23,26 @@ class Buy extends BaseComponent {
         this.state = {
             buyFeeAssetIdx: 0
         };
+    }
+
+    onBalanceClick(balance) {
+
+        let operationCtrl = this.refs.operationCtrl;
+        let {amount, price}=operationCtrl.state;
+        balance = account_utils.getBalanceById(balance);
+        let p = price.toReal();
+        let t = balance.getAmount({real: true});
+        //console.debug('aaaaaaaa',p,t)
+        if (p > 0) {
+            let val = t / p;
+            amount.setAmount({real: val || 0});
+        }
+        operationCtrl.setState({
+            amount: amount,
+            amountText: amount.getAmount({real: true}),
+            turnover: balance,
+            turnoverText: balance.getAmount({real: true})
+        });
     }
 
     onSetPriceClick(order) {
@@ -249,7 +270,7 @@ class Buy extends BaseComponent {
         } = this.getFeeAssets(quote, base, coreAsset);
         return (
             <div className="vertical-flex vertical-box scroll">
-                <CurrentBalance {...this.props} />
+                <CurrentBalance {...this.props} onBalanceClick={this.onBalanceClick.bind(this)}/>
                 <div className="separate2"></div>
                 <div className="transaction-operate vertical-flex">
                     <TransactionOperation ref="operationCtrl" btnText={this.formatMessage("transaction_confirmPay")}

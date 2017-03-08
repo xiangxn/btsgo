@@ -96,14 +96,14 @@ class AccountList extends BaseComponent {
                             <label className={isLTM ? "orangeRed" : ""}>{accountName}</label>
                             <label><TotalBalanceValue balances={[]} openOrders={openOrders}/></label>
                             <label><TotalBalanceValue balances={[]} collateral={collateral}/></label>
-                            <label><TotalBalanceValue balances={balanceList} collateral={collateral} debt={debt}
+                            <label><TotalBalanceValue noPrefix balances={balanceList} collateral={collateral} debt={debt}
                                                       openOrders={openOrders}/></label>
                         </div>
                     );
                 }
             });
         return (
-            <div>
+            <div className="vertical-flex vertical-box">
                 <div className="search-bar">
                     <label>{this.formatMessage("index_account")}</label>
                     <input onChange={this.onFilter.bind(this)} type="text" placeholder={this.formatMessage("index_account_ph")}/>
@@ -115,7 +115,7 @@ class AccountList extends BaseComponent {
                     <label>{this.formatMessage("index_marketValue")}</label>
                 </div>
                 <div className="account-list-separate"></div>
-                <div className="account-list vertical-flex">
+                <div className="account-list vertical-flex scroll">
                     {accounts}
                 </div>
             </div>

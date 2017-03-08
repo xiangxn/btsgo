@@ -78,12 +78,14 @@ class Balance extends BaseComponent {
                 <div className="balance-row">
                     <span>
                         {hasBalance ? <BalanceComponent balance={balance} assetInfo={null}/> : null}
-                        {hasOnOrder ?<span>({onOrders})</span> : null}
+                        {hasOnOrder ? <span>({onOrders})</span> : null}
                     </span>
                     <div>
                         {hasBalance ? <BalanceValueComponent balance={balance} toAsset={preferredUnit}/> : null}
-                        {hasOnOrder ? <EquivalentValueComponent amount={orders[asset_type]} fromAsset={asset_type}
-                                                                noDecimals={true} toAsset={preferredUnit}/> : null}
+                        {hasOnOrder ?
+                            <span>
+                                (<EquivalentValueComponent amount={orders[asset_type]} fromAsset={asset_type}
+                                                           noDecimals={true} toAsset={preferredUnit}/>)</span> : null}
                     </div>
                 </div>
             );
@@ -152,6 +154,7 @@ class Balance extends BaseComponent {
                 openOrders={orders}
                 debt={debt}
                 collateral={collateral}
+                noPrefix
             /> : null;
         return (
             <div className="content vertical-flex vertical-box clear-toppadding">
