@@ -12,12 +12,12 @@ class SettingsActions {
 
     //添加api服务器
     addWS(ws) {
-        return {ws};
+        return ws;
     }
 
     //移除api服务器
     removeWS(index) {
-        return {index};
+        return index;
     }
 
     //修改语言

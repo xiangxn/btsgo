@@ -64,17 +64,17 @@ class XNSelect extends BaseComponent {
     }
 
     //删除行事件
-    onDelItemClick(item, e) {
+    onDelItemClick(item, index, e) {
         this.stopEvent(e);
-        console.debug('onDelItemClick', item);
-        this.props.onDeleteItem && this.props.onDeleteItem(item);
+        //console.debug('onDelItemClick', item);
+        this.props.onDeleteItem && this.props.onDeleteItem(item, index);
     }
 
     //添加事件
     onAddClick(e) {
         this.stopEvent(e);
         let newItem = this.refs.newItem.value;
-        console.debug('onAddClick', newItem);
+        //console.debug('onAddClick', newItem);
         this.props.onAddItem && this.props.onAddItem(newItem);
     }
 
@@ -91,7 +91,7 @@ class XNSelect extends BaseComponent {
                             <span onClick={this.onItemClick.bind(this, item)}>{item.text}</span>
                             {
                                 this.props.isDelete === false ? null : (
-                                    <span onClick={this.onDelItemClick.bind(this, item)}>'</span>
+                                    <span onClick={this.onDelItemClick.bind(this, item, i)}>'</span>
                                 )
                             }
                         </li> );

@@ -109,7 +109,9 @@ let routes = (
     <Route path='/' component={RootIntl} onEnter={willTransitionTo}>
         <IndexRoute component={Dashboard}/>
         <Route path="create-account" component={CreeateAccount}/>
-        <Route path="init-error" component={Settings}/>
+        <Route path="init-error" component={Settings}>
+            <IndexRoute component={GlobalSettingContainer}/>
+        </Route>
         <Route path="settings" component={Settings}>
             <IndexRoute component={GlobalSettingContainer}/>
             <Route path="wallet-manage" component={WalletManage}/>

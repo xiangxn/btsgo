@@ -7,6 +7,7 @@ import BaseComponent from "./BaseComponent";
 //actions
 import SettingsActions from "../actions/SettingsActions";
 import IntlActions from "../actions/IntlActions";
+import NotificationActions from "../actions/NotificationActions";
 
 import XNSelect from "./form/XNSelect";
 import XNSwitch from "./form/XNSwitch";
@@ -69,8 +70,35 @@ class GlobalSetting extends BaseComponent {
         SettingsActions.clearSettings();
     }
 
+    /**
+     * 添加api服务器地址
+     * @param item
+     */
+    onAddAPI(wsUrl) {
+        if (wsUrl && (wsUrl.startsWith("ws://") || wsUrl.startsWith("wss://"))) {
+            SettingsActions.addWS(wsUrl);
+        } else {
+            NotificationActions.addNotification({
+                message: "websoket地址不正确",
+                level: "error"
+            });
+        }
+    }
+
+    /**
+     * 删除api服务器地址
+     * @param item
+     */
+    onDelAPI(item, index) {
+        SettingsActions.removeWS(index);
+        if (item.value === this.props.settings.get('apiServer')) {
+            let api = this.props.defaults.apiServer[0];
+            this.onAPIChange.defer(api);
+        }
+    }
+
     render() {
-        //console.debug(this.props);
+        //console.debug(this.props.defaults.apiServer);
         let locales = [];
         this.props.defaults.locale.map((item) => {
             locales.push({value: item, text: this.formatMessage('languages_' + item)});
@@ -104,6 +132,8 @@ class GlobalSetting extends BaseComponent {
                 <XNSelect label={this.formatMessage('settings_labAPI')}
                           onChange={this.onAPIChange.bind(this)} isDelete={true} isAdd={true}
                           data={this.props.defaults.apiServer}
+                          onAddItem={this.onAddAPI.bind(this)}
+                          onDeleteItem={this.onDelAPI.bind(this)}
                           value={api.text}/>
                 <XNSelect label={this.formatMessage('settings_labFaucet')}
                           onChange={this.onFaucetChange.bind(this)} value={faucet_address}
