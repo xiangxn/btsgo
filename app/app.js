@@ -41,7 +41,7 @@ import TransferContainer from "./components/wallet/Transfer";
 import BalanceWrapper from "./components/dashboard/Balance";
 
 
-//let btsgoHistory = createBrowserHistory();
+let btsgoHistory = __HASHHISTORY__ ? hashHistory : browserHistory;
 ChainStore.setDispatchFrequency(20);
 
 
@@ -78,7 +78,7 @@ let willTransitionTo = (nextState, replaceState, callback) => {
         return Promise.all([db]).then(() => {
             console.log("db init done");
             return Promise.all([
-                PrivateKeyActions.loadDbData().then(()=>AccountRefsStore.loadDbData()),
+                PrivateKeyActions.loadDbData().then(() => AccountRefsStore.loadDbData()),
                 WalletDb.loadDbData().then(() => {
                     if (!WalletDb.getWallet() && nextState.location.pathname !== "/create-account") {
                         replaceState("/create-account");
@@ -130,8 +130,8 @@ let routes = (
         <Route path="last-operate" component={LastOperationContainer}/>
         <Route path="scan" component={Scan}/>
         <Route path="transfer" component={TransferContainer}/>
-        <Route path="balance" component={BalanceWrapper} />
+        <Route path="balance" component={BalanceWrapper}/>
     </Route>
 );
 
-render(<Router history={browserHistory} routes={routes}/>, document.getElementById('content'));
+render(<Router history={btsgoHistory} routes={routes}/>, document.getElementById('content'));
