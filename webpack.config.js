@@ -48,7 +48,7 @@ module.exports = {
             },
             APP_VERSION: JSON.stringify(git.tag()),
             __BASE_URL__: JSON.stringify("/assets"),
-            __HASHHISTORY__:true
+            __HASHHISTORY__:false
         }),
         new webpack.optimize.UglifyJsPlugin(),
         new ExtractTextPlugin('style.css', {allChunks: true})

@@ -577,7 +577,7 @@ input {
     font-weight: bold;
   }
   > input {
-    height: .55rem;
+    height: .5rem;
     border: none;
     flex: 1;
     color: $blackColor;
@@ -961,6 +961,7 @@ input {
         border: none;
         border-bottom: solid .02rem $grayColor;
         text-align: right;
+        padding: 0;
       }
     }
     .list {
