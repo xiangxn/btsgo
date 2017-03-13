@@ -124,7 +124,7 @@ class TransactionConfirm extends BaseComponent {
         }
         return (
             <div className="popup-window">
-                <Modal customStyles={{height:'auto'}} visible={this.state.visible} showCloseButton={!broadcasting}
+                <Modal visible={this.state.visible} showCloseButton={!broadcasting}
                        onClose={this.onCloseClick.bind(this)}>
                     {title}
                     <Transaction key={Date.now()} trx={this.props.transaction.serialize()}/>

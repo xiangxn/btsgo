@@ -14,6 +14,7 @@ import Immutable from "immutable";
 import FormattedAsset from "../Utility/FormattedAsset";
 import utils from "../../../common/utils";
 import asset_utils from "../../../common/asset_utils";
+import KeysView from "../wallet/KeysView";
 
 //actions
 import AccountActions from "../../actions/AccountActions";
@@ -161,7 +162,7 @@ class Balance extends BaseComponent {
                 <div className="balance vertical-flex vertical-box">
                     <div className="balance-account">
                         <label>{this.formatMessage('account_name')}：</label>
-                        <label>{account.get('name')}</label>
+                        <KeysView account={account}/>
                     </div>
                     <div className="separate2"></div>
                     <div className="balance-header">

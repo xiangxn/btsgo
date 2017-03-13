@@ -765,9 +765,7 @@ class RecentTransactions extends BaseComponent {
                 {display_history}
                 {historyCount > this.props.limit || 20 && limit < historyCount ? (
                     <div className="last-operation-row">
-                        <button className="green-btn" onClick={this.getMore.bind(this)} style={{flex: 1}}>
-                            {this.formatMessage('account_more')}
-                        </button>
+                        <input type="button" value={this.formatMessage('account_more')} className="green-btn" onClick={this.getMore.bind(this)} style={{flex: 1}} />
                     </div>
                 ) : null}
             </div>

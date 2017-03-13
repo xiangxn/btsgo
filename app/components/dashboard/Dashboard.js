@@ -75,10 +75,10 @@ class Dashboard extends BaseComponent {
 
         return (
             <div className="content clear-toppadding vertical-box vertical-flex">
-                <div className="assets-list">
+                <div className="assets-list" style={{paddingTop:'.1rem'}}>
                     {markets}
                 </div>
-                <div className="assets-list">
+                <div className="assets-list" style={{paddingBottom:'.1rem'}}>
                     {markets2}
                 </div>
                 <AccountList accounts={Immutable.List(names)}/>
