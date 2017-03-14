@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width"/>-->
+    <meta name="viewport"
+          content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
+    <meta name="format-detection" content="telephone=no">
+    <title>BTSGO.NET</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <script>
+        (function (doc, win) {
+            var docEl = doc.documentElement;
+            var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+            var recalc = function () {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                if (clientWidth > 640) clientWidth = 640;
+                docEl.style.fontSize = (clientWidth / 640 * 100).toFixed(1) + 'px';
+            };
+            recalc();
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+        })(document, window);
+    </script>
+    <style>
+        .defLoading {
+            position: absolute;background-color: #12b7f5;
+            border-radius: .1rem;
+            top: 50%;left: 50%;margin-left: -2rem;margin-top: -.5rem;
+            width: 4rem;height: 1rem;line-height: 1rem;text-align: center;
+            color: #ffffff;font-size: .4rem;font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div id="content">
+    <div class="defLoading">Loading...</div>
+</div>
+<script src="assets/bundle.js"></script>
+</body>
+</html>
