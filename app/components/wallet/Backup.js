@@ -29,6 +29,7 @@ class Backup extends BaseComponent {
 
     constructor(props) {
         super(props);
+        this.onDownload = this.onDownload.bind(this);
     }
 
     //生成文件名
@@ -82,9 +83,46 @@ class Backup extends BaseComponent {
             NotificationActions.error(this.formatMessage('wallet_backup_invalidBackup'));
             return;
         }
-        saveAs(blob, this.props.backup.name);
+        this.saveFile(blob, this.props.backup.name);
         WalletActions.setBackupDate();
     }
+
+    /**
+     * 兼容文件下载
+     * @param obj
+     * @param name
+     */
+    saveFile(obj, name) {
+        if (window.requestFileSystem !== undefined) {
+            console.debug('use window.requestFileSystem');
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
+                fileSystem.root.getFile(name, {create: true, exclusive: false}, function (entry) {
+                    let fileUrl = entry.toURL();
+                    entry.createWriter(function (writer) {
+                        writer.onwriteend = function (evt) {
+                            //console.debug("Successfully saved file to " + fileUrl);
+                            NotificationActions.success("Successfully saved file to " + fileUrl);
+                        };
+                        // Write to the file
+                        writer.write(obj);
+                    }, function (error) {
+                        //console.debug("Error: Could not create file writer, " + error.code);
+                        NotificationActions.error("Could not create file writer, " + error.code);
+                    });
+                }, function (error) {
+                    //console.debug("Error: Could not create file, " + error.code);
+                    NotificationActions.error("Could not create file, " + error.code);
+                });
+            }, function (evt) {
+                //console.debug("Error: Could not access file system, " + evt.target.error.code);
+                NotificationActions.error("Could not access file system, " + evt.target.error.code);
+            });
+        } else {
+            console.debug('not window.requestFileSystem');
+            saveAs(obj, name);
+        }
+    }
+
     render() {
         let msg = null;
         let btnValue = "";
