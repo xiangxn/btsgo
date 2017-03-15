@@ -44,7 +44,7 @@ import BalanceWrapper from "./components/dashboard/Balance";
 let btsgoHistory = __HASHHISTORY__ ? hashHistory : browserHistory;
 ChainStore.setDispatchFrequency(20);
 
-
+let connect = true;
 let willTransitionTo = (nextState, replaceState, callback) => {
 
     let connectionString = SettingsStore.getSetting("apiServer");
@@ -67,7 +67,7 @@ let willTransitionTo = (nextState, replaceState, callback) => {
 
     }
     //console.debug('Apis.instance');
-    Apis.instance(connectionString, true).init_promise.then(() => {
+    Apis.instance(connectionString, !!connect).init_promise.then(() => {
         var db;
         try {
             db = iDB.init_instance(window.openDatabase ? (shimIndexedDB || indexedDB) : indexedDB).init_promise;
@@ -103,6 +103,7 @@ let willTransitionTo = (nextState, replaceState, callback) => {
             callback();
         }
     });
+    connect = false;
 };
 
 let routes = (

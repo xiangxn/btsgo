@@ -110,19 +110,22 @@ class Balance extends BaseComponent {
 
         let includedBalancesList = Immutable.List(), hiddenBalancesList = Immutable.List();
 
-        account.get("call_orders").forEach((callID, key) => {
-            let position = ChainStore.getObject(callID);
-            if (position) {
-                collateral += parseInt(position.get("collateral"), 10);
+        let account_call_orders = account.get("call_orders");
+        if (account_call_orders) {
+            account_call_orders.forEach((callID, key) => {
+                let position = ChainStore.getObject(callID);
+                if (position) {
+                    collateral += parseInt(position.get("collateral"), 10);
 
-                let debtAsset = position.getIn(["call_price", "quote", "asset_id"]);
-                if (!debt[debtAsset]) {
-                    debt[debtAsset] = parseInt(position.get("debt"), 10);
-                } else {
-                    debt[debtAsset] += parseInt(position.get("debt"), 10);
+                    let debtAsset = position.getIn(["call_price", "quote", "asset_id"]);
+                    if (!debt[debtAsset]) {
+                        debt[debtAsset] = parseInt(position.get("debt"), 10);
+                    } else {
+                        debt[debtAsset] += parseInt(position.get("debt"), 10);
+                    }
                 }
-            }
-        });
+            });
+        }
 
         if (account_balances) {
             // 过滤掉余额为0和不在订单里的资产

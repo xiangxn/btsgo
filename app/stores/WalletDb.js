@@ -37,6 +37,20 @@ class WalletDb extends BaseStore {
         )
     }
 
+    fetchLocal(url) {
+    return new Promise(function(resolve, reject) {
+        let xhr = new XMLHttpRequest
+        xhr.onload = function() {
+            resolve(new Response(xhr.responseText, {status: xhr.status}))
+        }
+        xhr.onerror = function() {
+            reject(new TypeError('Local request failed'))
+        }
+        xhr.open('GET', url)
+        xhr.send(null)
+    })
+}
+
     /** Discover derived keys that are not in this wallet */
     checkNextGeneratedKey() {
         if (!this.state.wallet) return
@@ -239,7 +253,9 @@ class WalletDb extends BaseStore {
             })
         };
 
-        let dictionaryPromise = brainkey_plaintext ? null : fetch(`${__BASE_URL__}/dictionary.json`);
+        let dictionaryPromise = brainkey_plaintext ? null : this.fetchLocal(`${__BASE_URL__}/dictionary.json`);
+        //let dictionaryPromise = brainkey_plaintext ? null : fetch(`${__BASE_URL__}/dictionary.json`);
+        //let dictionaryPromise = brainkey_plaintext ? null : fetch('dictionary.json');
         return Promise.all([
             dictionaryPromise
         ]).then(res => {

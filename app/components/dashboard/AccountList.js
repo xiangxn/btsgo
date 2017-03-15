@@ -26,11 +26,13 @@ class AccountList extends BaseComponent {
         //let acc = e.target.parentNode.childNodes[0].innerHTML;
         this.context.router.push({pathname: '/balance', state: {account: name}});
     }
+
     onFilter(e) {
         this.setState({dashboardFilter: e.target.value.toLowerCase()});
     }
+
     setSort(field) {
-        let inverse =  !this.state.inverseSort;
+        let inverse = !this.state.inverseSort;
         this.setState({
             inverseSort: inverse
         });
@@ -51,8 +53,9 @@ class AccountList extends BaseComponent {
                     balanceList = balanceList.clear();
                     let accountName = account.get("name");
                     let isLTM = account.get("lifetime_referrer_name") === accountName;
-                    if (account.get("orders")) {
-                        account.get("orders").forEach((orderID, key) => {
+                    let account_orders=account.get("orders");
+                    if (account_orders) {
+                        account_orders.forEach((orderID, key) => {
                             let order = ChainStore.getObject(orderID);
                             if (order) {
                                 let orderAsset = order.getIn(["sell_price", "base", "asset_id"]);
@@ -64,8 +67,9 @@ class AccountList extends BaseComponent {
                             }
                         });
                     }
-                    if (account.get("call_orders")) {
-                        account.get("call_orders").forEach((callID, key) => {
+                    let account_call_orders = account.get("call_orders");
+                    if (account_call_orders) {
+                        account_call_orders.forEach((callID, key) => {
                             let position = ChainStore.getObject(callID);
                             if (position) {
                                 collateral += parseInt(position.get("collateral"), 10);
@@ -79,7 +83,7 @@ class AccountList extends BaseComponent {
                         });
                     }
                     let account_balances = account.get("balances");
-                    if (account.get("balances")) {
+                    if (account_balances) {
                         account_balances.forEach(balance => {
                             let balanceAmount = ChainStore.getObject(balance);
                             if (!balanceAmount || !balanceAmount.get("balance")) {
@@ -92,11 +96,13 @@ class AccountList extends BaseComponent {
                     let isMyAccount = AccountStore.isMyAccount(account);
 
                     return (
-                        <div key={accountName} className="account-list-row" onClick={this.onItemClick.bind(this,accountName)}>
+                        <div key={accountName} className="account-list-row"
+                             onClick={this.onItemClick.bind(this, accountName)}>
                             <label className={isLTM ? "orangeRed" : ""}>{accountName}</label>
                             <label><TotalBalanceValue balances={[]} openOrders={openOrders}/></label>
                             <label><TotalBalanceValue balances={[]} collateral={collateral}/></label>
-                            <label><TotalBalanceValue noPrefix balances={balanceList} collateral={collateral} debt={debt}
+                            <label><TotalBalanceValue noPrefix balances={balanceList} collateral={collateral}
+                                                      debt={debt}
                                                       openOrders={openOrders}/></label>
                         </div>
                     );
@@ -106,7 +112,8 @@ class AccountList extends BaseComponent {
             <div className="vertical-flex vertical-box">
                 <div className="search-bar">
                     <label>{this.formatMessage("index_account")}</label>
-                    <input onChange={this.onFilter.bind(this)} type="text" placeholder={this.formatMessage("index_account_ph")}/>
+                    <input onChange={this.onFilter.bind(this)} type="text"
+                           placeholder={this.formatMessage("index_account_ph")}/>
                 </div>
                 <div className="account-list-head">
                     <label onClick={this.setSort.bind(this)}>{this.formatMessage("index_account")}</label>
