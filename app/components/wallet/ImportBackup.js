@@ -28,7 +28,7 @@ class ImportBackup extends BaseComponent {
 
     constructor(props) {
         super(props);
-        this.state = {verified: false, accept: false, new_wallet: null};
+        this.state = {verified: false, accept: false, new_wallet: ''};
     }
 
     onSelectClick(e) {
@@ -38,6 +38,7 @@ class ImportBackup extends BaseComponent {
 
     onFileUpload(e) {
         let file = e.target.files[0];
+        console.debug('onFileUpload',file);
         BackupActions.incommingWebFile(file);
         this.forceUpdate();
     }
@@ -162,7 +163,7 @@ class ImportBackup extends BaseComponent {
                                value={this.formatMessage('wallet_selectFile')}
                                onClick={this.onSelectClick.bind(this)}
                         />
-                        <input ref="file" accept=".bin" type="file" style={{display: 'none'}}
+                        <input ref="file" type="file" style={{display: 'none'}}
                                onChange={this.onFileUpload.bind(this)}/>
                     </div>
                 }

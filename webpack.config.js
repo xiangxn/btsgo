@@ -1,20 +1,23 @@
 /**
- * Created by xiangxn on 2016/12/10.
+ * Created by xiangxn on 2016/12/11.
  */
 let path = require('path');
 let webpack = require('webpack');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 var git = require("git-rev-sync");
-var argv = require('yargs').argv;
 
 var root_dir = path.resolve(__dirname);
 
 module.exports = {
-    entry: path.resolve(root_dir, './app/main.js'),
+    entry: ['webpack/hot/dev-server', path.resolve(root_dir, './app/main.js')],
     output: {
         path: path.resolve(root_dir, 'build/assets'),
         filename: 'bundle.js',
-        publicPath: ''
+        publicPath:'/assets/'
+    },
+    devServer: {
+        port: 8080,
+        hot: true
     },
     module: {
         loaders: [
@@ -44,13 +47,13 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify('production')
+                NODE_ENV: JSON.stringify('development')
             },
             APP_VERSION: JSON.stringify(git.tag()),
             __BASE_URL__: JSON.stringify("assets"),
-            __HASHHISTORY__: true
+            __HASHHISTORY__:true
         }),
-        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
         new ExtractTextPlugin('style.css', {allChunks: true})
     ]
 };

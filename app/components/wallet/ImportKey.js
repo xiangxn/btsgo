@@ -5,6 +5,7 @@ import React from "react";
 import BaseComponent from '../BaseComponent';
 import connectToStores from 'alt-utils/lib/connectToStores';
 import TextLoading from "../TextLoading";
+import PasswordInput from "./PasswordInput";
 
 //stores
 import ImportKeysStore from "../../stores/ImportKeysStore";
@@ -15,6 +16,7 @@ import WalletDb from "../../stores/WalletDb";
 import NotificationActions from "../../actions/NotificationActions";
 import BalanceClaimActiveActions from "../../actions/BalanceClaimActiveActions";
 import WalletUnlockActions from "../../actions/WalletUnlockActions";
+import WalletActions from "../../actions/WalletActions";
 
 //graphene
 import {PrivateKey, Address, Aes, PublicKey, hash} from "graphenejs-lib";
@@ -47,7 +49,9 @@ class ImportKey extends BaseComponent {
             import_file_message: null,
             import_password_message: null,
             imported_keys_public: {},
-            key_text_message: null
+            key_text_message: null,
+            validPassword: false,
+            error_message: null
         };
     }
 
@@ -60,6 +64,14 @@ class ImportKey extends BaseComponent {
         BalanceClaimActiveActions.setPubkeys(Object.keys(this.state.imported_keys_public));
     }
 
+    onPasswordChange(e) {
+        if (e.error) {
+            this.setState({error_message: e.error, validPassword: e.valid});
+        } else {
+            this.setState({error_message: null, validPassword: e.valid});
+        }
+    }
+
     reset(e, keep_file_name) {
         if (e) e.preventDefault();
         let state = this.getInitialState(keep_file_name);
@@ -70,8 +82,32 @@ class ImportKey extends BaseComponent {
         let value = this.refs.wifInput.value;
         let count = this.addByPattern(value);
         if (count === 1) {
-            this.importWIFKey();
+            if (WalletDb.getWallet()) {
+                this.importWIFKey();
+            } else {
+                let password = this.refs.password.value();
+                this.createWallet(password).then(() => {
+                    this.importWIFKey();
+                });
+            }
         }
+    }
+
+    //创建钱包
+    createWallet(password) {
+        return WalletActions.setWallet(
+            "default", //wallet name
+            password
+        ).then(() => {
+            console.log("Congratulations, your wallet was successfully created.");
+        }).catch(err => {
+            console.error("CreateWallet failed:", err);
+            NotificationActions.addNotification({
+                message: this.formatMessage('wallet_createCatch', {err: err}),
+                level: "error",
+                autoDismiss: 10
+            })
+        });
     }
 
     importWIFKey() {
@@ -166,8 +202,17 @@ class ImportKey extends BaseComponent {
     }
 
     render() {
+        let hasWallet = (WalletDb.getWallet()) ? true : false;
+
         return (
             <div className="content">
+                {hasWallet ? null :
+                    <PasswordInput
+                        ref="password"
+                        confirmation={true}
+                        onChange={this.onPasswordChange.bind(this)}
+                    />
+                }
                 <div className="text-input">
                     <div className="text-label">{this.formatMessage('wallet_accountPrivateKey')}</div>
                     <input ref="wifInput" type="text" placeholder={this.formatMessage('wallet_accountPrivateKey_ph')}/>
@@ -181,6 +226,11 @@ class ImportKey extends BaseComponent {
                 {this.state.key_text_message === null ? null :
                     <div className="message-box">
                         {this.state.key_text_message}
+                    </div>
+                }
+                {this.state.error_message === null ? null :
+                    <div className="message-box">
+                        {this.state.error_message}
                     </div>
                 }
             </div>

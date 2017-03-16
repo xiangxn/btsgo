@@ -16,8 +16,8 @@ class NavigationBar extends BaseComponent {
     constructor(props) {
         super(props);
         this.state = {
-            menuTop: 0,
-            menuLeft: 0,
+            menuTop: '0',
+            menuLeft: '0',
             isShowMenu: false
         };
     }

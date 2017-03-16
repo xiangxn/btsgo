@@ -65,8 +65,8 @@ class PopupMenu extends React.Component {
     }
 }
 PopupMenu.propTypes = {
-    top: React.PropTypes.number,
-    left: React.PropTypes.number,
+    top: React.PropTypes.string,
+    left: React.PropTypes.string,
     onMenuItemClick: React.PropTypes.func
 };
 PopupMenu.contextTypes = {

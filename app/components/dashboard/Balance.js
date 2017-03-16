@@ -63,7 +63,7 @@ class Balance extends BaseComponent {
         let showAssetPercent = true;
 
         let balances = [];
-        balanceList.forEach(balance => {
+        balanceList.forEach((balance,i) => {
             let balanceObject = ChainStore.getObject(balance);
             let asset_type = balanceObject.get("asset_type");
             let asset = ChainStore.getObject(asset_type);
@@ -76,7 +76,7 @@ class Balance extends BaseComponent {
             let onOrders = hasOnOrder ? <FormattedAsset amount={orders[asset_type]} asset={asset_type}/> : null;
 
             balances.push(
-                <div className="balance-row">
+                <div className="balance-row" key={'balanceList'+i}>
                     <span>
                         {hasBalance ? <BalanceComponent balance={balance} assetInfo={null}/> : null}
                         {hasOnOrder ? <span>({onOrders})</span> : null}
