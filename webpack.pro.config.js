@@ -13,7 +13,7 @@ module.exports = {
     output: {
         path: path.resolve(root_dir, 'build/assets'),
         filename: 'bundle.js',
-        publicPath: ''
+        publicPath: '/assets/'
     },
     module: {
         loaders: [
