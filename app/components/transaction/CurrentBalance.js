@@ -11,7 +11,7 @@ import CanBuySell from "./CanBuySell";
 class CurrentBalance extends BaseComponent {
     static propTypes = {
         isAsk: React.PropTypes.bool,
-        latestPrice: React.PropTypes.object,
+        latestPrice: React.PropTypes.number,
         onBalanceClick: React.PropTypes.func
     };
 

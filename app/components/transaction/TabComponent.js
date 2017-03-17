@@ -42,7 +42,7 @@ class TabComponent extends React.Component {
                 <div className="tabpage-title">
                     <div className="tabpage-title-items">
                         {this.props.data.map((item, i) => {
-                            return (<div onClick={this.clickHandle.bind(this, i, item.url)}
+                            return (<div key={"tabc_"+i} onClick={this.clickHandle.bind(this, i, item.url)}
                                          className={this.state.currentIndex === i ? "active" : "normal"}>{item.name}</div>);
                         })}
                     </div>

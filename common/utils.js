@@ -461,7 +461,7 @@ var Utils = {
     get_translation_parts(str) {
         let result = [];
         let toReplace = {};
-        let re = /{(.*?)}/g;
+        let re = /\((.*?)\)/g;
         let interpolators = str.split(re);
         // console.log("split:", str.split(re)); 
         return str.split(re);

@@ -12,7 +12,8 @@ import WalletManagerStore from "../../stores/WalletManagerStore";
 
 //actions
 import WalletActions from "../../actions/WalletActions";
-import NotificationActions from "../../actions/NotificationActions";
+import ConfirmActions from "../../actions/layout/ConfirmActions";
+import WalletUnlockActions from "../../actions/WalletUnlockActions";
 
 class WalletManage extends BaseComponent {
     static getPropsFromStores() {
@@ -61,23 +62,29 @@ class WalletManage extends BaseComponent {
     onDeleteWallet(item) {
         let names = this.props.wallet_names;
         let size = names.size;
-
-        WalletManagerStore.onDeleteWallet(item.value);
-        if (this.props.current_wallet === item.value) {
-            if (size > 1) {
-                let wn = null;
-                names.forEach(name => {
-                    if (name !== item.value) {
-                        wn = name;
+        let current_wallet = this.props.current_wallet;
+        let title = this.formatMessage('message_title');
+        let msg = this.formatMessage('wallet_confirmDelete');
+        WalletUnlockActions.unlock().then(() => {
+            ConfirmActions.show(title, msg, () => {
+                WalletManagerStore.onDeleteWallet(item.value);
+                if (current_wallet === item.value) {
+                    if (size > 1) {
+                        let wn = null;
+                        names.forEach(name => {
+                            if (name !== item.value) {
+                                wn = name;
+                            }
+                        });
+                        if (wn) WalletActions.setWallet(wn);
+                    } else {
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 250);
                     }
-                });
-                if (wn) WalletActions.setWallet(wn);
-            } else {
-                setTimeout(() => {
-                    window.location.reload();
-                }, 250);
-            }
-        }
+                }
+            }, null, 3);
+        });
     }
 
     render() {

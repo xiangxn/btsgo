@@ -10,7 +10,7 @@ import {FormattedNumber} from "react-intl";
 class CanBuySell extends React.Component {
     static propTypes = {
         balance: ChainTypes.ChainObject.isRequired,
-        price: React.PropTypes.object,
+        price: React.PropTypes.number,
         fromAsset: ChainTypes.ChainAsset.isRequired,
         isAsk: React.PropTypes.bool
     };

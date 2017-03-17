@@ -118,7 +118,7 @@ class AccountList extends BaseComponent {
                 <div className="account-list-head">
                     <label onClick={this.setSort.bind(this)}>{this.formatMessage("index_account")}</label>
                     <label>{this.formatMessage("index_order")}</label>
-                    <label>{this.formatMessage("index_debt")}</label>
+                    <label>{this.formatMessage("index_collateral")}</label>
                     <label>{this.formatMessage("index_marketValue")}</label>
                 </div>
                 <div className="account-list-separate"></div>

@@ -19,7 +19,7 @@ class ChangePassword extends BaseComponent {
     }
 
     initState() {
-        return {error_message: null, oldPwd: null, newPwd: null, loading: false};
+        return {error_message: null, oldPwd: '', newPwd: '', loading: false};
     }
 
     onOldPwdChange(e) {

@@ -216,7 +216,6 @@ input {
     display: flex;
     align-items: center;
     > .text-label {
-      width: 1rem;
       text-align: justify;
       text-justify: distribute-all-lines;
       text-align-last: justify;
@@ -485,6 +484,12 @@ input {
 .orange-red-btn {
   @extend .green-btn;
   background-color: $orangeRedColor;
+}
+.white-btn{
+  @extend .green-btn;
+  background-color: $whiteColor;
+  color: $blackColor;
+  border: solid 1px $blackColor;
 }
 
 .disabled-btn {

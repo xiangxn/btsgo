@@ -15,7 +15,7 @@ import NotificationSystem from "react-notification-system";
 import TransactionConfirm from "./TransactionConfirm";
 import UnlockWallet from "./wallet/UnlockWallet";
 import Settings from './Settings';
-import {injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import Confirm from './layout/Confirm';
 
 class Root extends React.Component {
     constructor(props) {
@@ -94,6 +94,7 @@ class Root extends React.Component {
                     <NotificationSystem ref="notificationSystem" allowHTML={true}/>
                     <TransactionConfirm/>
                     <UnlockWallet/>
+                    <Confirm/>
                 </div>
             );
         }

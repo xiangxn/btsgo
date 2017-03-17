@@ -164,7 +164,7 @@ class TransactionOperation extends BaseComponent {
                 }
                 < p >
                     {this.formatMessage("transaction_chargefee", {symbol: utils.getAssetName(feeAsset)})}<br/>
-                    <input ref="chargefee" type="number" value={fee.getAmount({real: true})} autoComplete="off"/>
+                    <input ref="chargefee" type="number" value={fee.getAmount({real: true})} autoComplete="off" readOnly="readOnly"/>
                 </p>
                 <p>
                     <input type="button" className={this.props.btnClass}

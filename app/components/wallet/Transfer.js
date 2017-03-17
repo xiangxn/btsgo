@@ -276,7 +276,7 @@ class Transfer extends BaseComponent {
                 />
 
                 <div className="operate">
-                    <input className={submitButtonClass} value={this.formatMessage('transfer_send')}
+                    <input type="button" className={submitButtonClass} value={this.formatMessage('transfer_send')}
                            onClick={this.onDoTransfer.bind(this)}/>
                 </div>
             </div>
