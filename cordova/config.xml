@@ -22,7 +22,6 @@
     <icon density="mdpi" src="res/icon/android/drawable-mdpi/icon.png" />
     <icon density="hdpi" src="res/icon/android/drawable-hdpi/icon.png" />
     <icon density="xhdpi" src="res/icon/android/drawable-xhdpi/icon.png" />
-    <!-- 以下是欢迎页面，可根据需要进行添加 -->
     <splash density="land-hdpi" src="res/screen/android/splash-land-hdpi.png" />
     <splash density="land-ldpi" src="res/screen/android/splash-land-ldpi.png" />
     <splash density="land-mdpi" src="res/screen/android/splash-land-mdpi.png" />
@@ -38,4 +37,7 @@
     <allow-intent href="itms-apps:*" />
     <preference name="iosPersistentFileLocation" value="Compatibility" />
   </platform>
+  <plugin name="cordova-plugin-file" spec="~4.3.2" />
+  <plugin name="cordova-plugin-splashscreen" spec="~4.0.2" />
+  <plugin name="cordova-plugin-inappbrowser" spec="~1.7.0" />
 </widget>
