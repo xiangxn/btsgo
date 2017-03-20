@@ -19,7 +19,7 @@ class SettingsStore extends BaseStore {
         this.exportPublicMethods({getSetting: this.getSetting.bind(this)});
         this.defaultSettings = Immutable.Map({
             locale: "zh",
-            apiServer: "wss://openledger.hk/ws",
+            apiServer: "wss://bts.transwiser.com/ws",
             faucet_address: "https://bit.btsabc.org",//https://bitshares.openledger.info
             unit: "CNY",// CORE_ASSET,
             walletLockTimeout: 60 * 10,

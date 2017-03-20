@@ -236,7 +236,7 @@ class Operation extends BaseComponent {
                                 [
                                     {type: "account", value: op[1].fee_paying_account, arg: "account"},
                                 ],
-                                {order:op[1].order.substring(4)}
+                                {order: op[1].order.substring(4)}
                             )
                         }
                     </span>
@@ -765,7 +765,8 @@ class RecentTransactions extends BaseComponent {
                 {display_history}
                 {historyCount > this.props.limit || 20 && limit < historyCount ? (
                     <div className="last-operation-row">
-                        <input type="button" value={this.formatMessage('account_more')} className="green-btn" onClick={this.getMore.bind(this)} style={{flex: 1}} />
+                        <input type="button" value={this.formatMessage('account_more')} className="green-btn"
+                               onClick={this.getMore.bind(this)} style={{flex: 1}}/>
                     </div>
                 ) : null}
             </div>

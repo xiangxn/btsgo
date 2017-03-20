@@ -9,7 +9,7 @@ var git = require("git-rev-sync");
 var root_dir = path.resolve(__dirname);
 
 module.exports = {
-    entry: ['babel-polyfill', path.resolve(root_dir, './app/main.js')],
+    entry: [path.resolve(root_dir, './app/main.js')],//'babel-polyfill'
     output: {
         path: path.resolve(root_dir, 'build/assets'),
         filename: 'bundle.js',
