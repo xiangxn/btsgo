@@ -54,11 +54,20 @@ class KeysView extends BaseComponent {
         let newState = this.getInitState();
         newState.visible = true;
         newState.ownerPublicKey = (owner.keys && active.keys.size > 0) ? owner.keys.get(0) : '';
-        newState.ownerPrivateKey = (newState.ownerPublicKey !== '') ? WalletDb.getPrivateKey(newState.ownerPublicKey).toWif() : '';
+        console.debug('newState.ownerPublicKey:', newState.ownerPublicKey)
+        newState.ownerPrivateKey = (newState.ownerPublicKey !== '') ? this.toWif(newState.ownerPublicKey) : '';
         newState.activePublicKey = (active.keys && active.keys.size > 0) ? active.keys.get(0) : '';
-        newState.activePrivateKey = (newState.activePublicKey !== '') ? WalletDb.getPrivateKey(newState.ownerPublicKey).toWif() : '';
+        newState.activePrivateKey = (newState.activePublicKey !== '') ? this.toWif(newState.activePublicKey) : '';
         newState.memoPublicKey = memo_key;
         this.setState(newState);
+    }
+
+    toWif(publicKey) {
+        let privateKeyObj = WalletDb.getPrivateKey(publicKey);
+        if (privateKeyObj && (privateKeyObj.toWif !== undefined && privateKeyObj.toWif !== null)) {
+            return privateKeyObj.toWif();
+        }
+        return "";
     }
 
     permissionsFromImmutable(auths) {
@@ -97,7 +106,7 @@ class KeysView extends BaseComponent {
             <span>
                 <label onClick={this.onNameClick.bind(this)}>{account.get('name')}</label>
                 <div className="popup-window">
-                    <Modal visible={visible} onClose={this.onHide.bind(this)} customStyles={{height: 'auto'}}>
+                    <Modal visible={visible} onClose={this.onHide.bind(this)} customStyles={{height: 'auto',margin: '10px auto 10px auto'}}>
                         <div className="title">{this.formatMessage('account_keysview')}</div>
                         <div className="body scroll">
                             <div className="input-row">

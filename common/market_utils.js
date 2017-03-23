@@ -13,7 +13,8 @@ const MarketUtils = {
     },
 
     isAsk(order, base) {
-        let baseId = base.toJS ? base.get("id") : base.id;;
+        let baseId = base.toJS ? base.get("id") : base.id;
+        ;
 
         if (order.sell_price) {
             return order.sell_price.quote.asset_id === baseId;
@@ -171,13 +172,13 @@ const MarketUtils = {
             if (parseInt(hourString, 10) < 10) {
                 hourString = "0" + hourString;
             }
-            time = date[0] + "/" + date[1] + " " + time.replace(hour, hourString);
+            time = date[0] + "/" + date[1] + "/" + date[2] + " " + time.replace(hour, hourString);
         }
         return {
             receives: isAsk ? receives : pays,
-            pays : isAsk ? pays : receives,
+            pays: isAsk ? pays : receives,
             full: price_full,
-            int : int,
+            int: int,
             dec: dec,
             trailing: trailing,
             className: className,
@@ -313,15 +314,21 @@ const MarketUtils = {
 
     priceToObject(x, type) {
         let tolerance = 1.0E-8;
-        let h1=1; let h2=0;
-        let k1=0; let k2=1;
+        let h1 = 1;
+        let h2 = 0;
+        let k1 = 0;
+        let k2 = 1;
         let b = x;
         do {
             let a = Math.floor(b);
-            let aux = h1; h1 = a*h1+h2; h2 = aux;
-            aux = k1; k1 = a*k1+k2; k2 = aux;
-            b = 1/(b-a);
-        } while (Math.abs(x-h1/k1) > x*tolerance);
+            let aux = h1;
+            h1 = a * h1 + h2;
+            h2 = aux;
+            aux = k1;
+            k1 = a * k1 + k2;
+            k2 = aux;
+            b = 1 / (b - a);
+        } while (Math.abs(x - h1 / k1) > x * tolerance);
 
         if (type === "ask") {
             return {base: h1, quote: k1};

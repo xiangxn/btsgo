@@ -235,6 +235,7 @@ class Operation extends BaseComponent {
                                 "operation_limit_order_cancel",
                                 [
                                     {type: "account", value: op[1].fee_paying_account, arg: "account"},
+                                    //{type:'order',value:op[1].order.substring(4),arg:'order'}
                                 ],
                                 {order: op[1].order.substring(4)}
                             )

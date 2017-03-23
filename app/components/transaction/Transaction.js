@@ -36,7 +36,9 @@ class Transaction extends BaseComponent {
         let tabData = [
             {name: this.formatMessage("transaction_pay"), url: "/transaction/buy"},
             {name: this.formatMessage("transaction_sell"), url: "/transaction/sell"},
-            {name: this.formatMessage("transaction_orders"), url: "/transaction/orders"}];
+            {name: this.formatMessage("transaction_orders"), url: "/transaction/orders"},
+            {name:this.formatMessage("transaction_history"),url:"/transaction/history"}
+            ];
 
         let {currentAccount, marketReady, activeMarketHistory, quoteAsset, baseAsset, marketStats} = this.props;
         let base = null, quote = null, quoteBalance = null,

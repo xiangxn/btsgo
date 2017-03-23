@@ -58,7 +58,7 @@ class TransactionConfirm extends BaseComponent {
     }
 
     onCloseClick(e) {
-        e.preventDefault();
+        e.preventDefault && e.preventDefault();
         TransactionConfirmActions.close();
     }
 
@@ -125,6 +125,7 @@ class TransactionConfirm extends BaseComponent {
         return (
             <div className="popup-window">
                 <Modal visible={this.state.visible} showCloseButton={!broadcasting}
+                       customStyles={{height: 'auto', margin: '10px auto 10px auto'}}
                        onClose={this.onCloseClick.bind(this)}>
                     {title}
                     <Transaction key={Date.now()} trx={this.props.transaction.serialize()}/>

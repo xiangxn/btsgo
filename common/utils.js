@@ -106,6 +106,18 @@ var Utils = {
             return num.replace(/0+$/, "").replace(/\.$/, "")
         return num
     },
+    formatNumber: function (num, s, z = false) {
+        num = num.replace(',', "");
+        if (isNaN(num))return num;
+        let zeros = ".";
+        for (let i = 0; i < s; i++) {
+            zeros += "0";
+        }
+        let x = parseFloat(num);
+        let m = numeral(x.toFixed(s)).format("0,0" + zeros);
+        if (m.indexOf('.') > 0 && !z) m = m.replace(/0+$/, "").replace(/\.$/, "");
+        return m;
+    },
 
     format_asset: function (amount, asset, noSymbol, trailing_zeros = true) {
         let symbol;

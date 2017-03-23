@@ -106,7 +106,7 @@ class TransactionSubscriber extends BaseComponent {
         let content = null;
         if (!this.props.marketReady) content = <Loading/>;
         return (
-            <div>
+            <div className="vertical-box vertical-flex">
                 {content}
                 <Transaction {...this.props} sub={this.state.sub} subToMarket={this.subToMarket}/>
             </div>

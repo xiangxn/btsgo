@@ -8,6 +8,7 @@ import IntlStore from '../stores/IntlStore';
 import IntlActions from '../actions/IntlActions';
 import {IntlProvider} from 'react-intl';
 import Root from './Root';
+import intlData from "./Utility/intlData";
 
 class RootIntl extends React.Component {
     static getStores() {
@@ -31,6 +32,7 @@ class RootIntl extends React.Component {
         return (
             <IntlProvider
                 locale={this.props.locale}
+                formats={intlData.formats}
                 messages={this.props.localeObj}
             >
                 <Root {...this.props}/>

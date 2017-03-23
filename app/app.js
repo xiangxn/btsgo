@@ -35,6 +35,7 @@ import TransactionContainer from "./components/transaction/TransactionContainer"
 import Buy from "./components/transaction/Buy";
 import Sell from "./components/transaction/Sell";
 import Orders from "./components/transaction/Orders";
+import History from "./components/transaction/History";
 import LastOperationContainer from "./components/LastOperation";
 import Scan from "./components/scanit/Scan";
 import TransferContainer from "./components/wallet/Transfer";
@@ -127,6 +128,7 @@ let routes = (
             <Route path="buy" component={Buy}/>
             <Route path="sell" component={Sell}/>
             <Route path="orders" component={Orders}/>
+            <Route path="history" component={History}/>
         </Route>
         <Route path="last-operate" component={LastOperationContainer}/>
         <Route path="scan" component={Scan}/>
