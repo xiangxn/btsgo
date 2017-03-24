@@ -38,7 +38,7 @@ class OrderRow extends BaseComponent {
         let x = e.gesture.absX;
         let row = document.getElementById("row_" + orderID);
         row.style.marginLeft = -x + "px";
-        if(e.gesture.done)row.style.marginLeft = "";
+        if (e.gesture.done) row.style.marginLeft = "";
         if (x >= 120) {
             row.style.marginLeft = "";
             if (this.props.onCancel) this.props.onCancel(orderID);
@@ -52,7 +52,7 @@ class OrderRow extends BaseComponent {
 
         return (
             <Gestures onSwipeLeft={this.onSwipeLeft.bind(this, order.id)} swipeThreshold={2}>
-                <div id={"row_" + order.id} key={order.id} className="order-list-row">
+                <div id={"row_" + order.id} key={order.id} className="order-list-row" style={{touchAction: 'none'}}>
                     <span className={isAsk ? "orangeRed" : "green"}><PriceText preFormattedPrice={price}/></span>
                     <span>{utils.format_number(amount, 4)}</span>
                     <span className="blue">{utils.format_number(value, 4)}</span>
@@ -85,8 +85,8 @@ class Orders extends BaseComponent {
 
     cancelLimitOrder(orderID) {
         let {currentAccount} = this.props;
-        console.debug('currentAccount:', currentAccount.get('id'))
-        console.debug('orderID:', orderID)
+        //console.debug('currentAccount:', currentAccount.get('id'))
+        //console.debug('orderID:', orderID)
         MarketsActions.cancelLimitOrder(
             currentAccount.get("id"),
             orderID // 用订单id取消订单
