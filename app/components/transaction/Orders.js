@@ -36,10 +36,10 @@ class OrderRow extends BaseComponent {
 
     onSwipeLeft(orderID, e) {
         let x = e.gesture.absX;
-        if (x > 300) x = 300;
         let row = document.getElementById("row_" + orderID);
         row.style.marginLeft = -x + "px";
-        if (e.gesture.duration > 400) {
+        if(e.gesture.done)row.style.marginLeft = "";
+        if (x >= 120) {
             row.style.marginLeft = "";
             if (this.props.onCancel) this.props.onCancel(orderID);
         }
