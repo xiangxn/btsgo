@@ -48,7 +48,7 @@ class OrderRow extends BaseComponent {
         return (
             <Gestures onSwipeLeft={this.onSwipeLeft.bind(this,order.id)} swipeThreshold={2}>
                 <div key={order.id} className="order-list-row">
-                    <span className={!isAsk ? "orangeRed" : "green"}><PriceText preFormattedPrice={price}/></span>
+                    <span className={isAsk ? "orangeRed" : "green"}><PriceText preFormattedPrice={price}/></span>
                     <span>{utils.format_number(amount, 4)}</span>
                     <span className="blue">{utils.format_number(value, 4)}</span>
                     <span><FormattedDate value={order.expiration} format="short"/></span>
