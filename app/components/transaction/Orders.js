@@ -43,7 +43,7 @@ class OrderRow extends BaseComponent {
     render() {
         let {base, quote, order} = this.props;
         let {value, price, amount} = market_utils.parseOrder(order, base, quote);
-        let isAskOrder = market_utils.isAsk(order, base);
+        let isAsk = market_utils.isAsk(order, base);
 
         return (
             <Gestures onSwipeLeft={this.onSwipeLeft.bind(this,order.id)} swipeThreshold={2}>
