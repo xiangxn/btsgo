@@ -188,8 +188,7 @@ class Operation extends BaseComponent {
                                     {type: "account", value: op[1].to, arg: "to"}
                                 ]
                             )
-                        }
-                        {memoComponent}
+                        } {memoComponent}
                     </span>
                 );
 
