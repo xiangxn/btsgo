@@ -24,7 +24,6 @@ class History extends BaseComponent {
     }
 
 
-
     render() {
         let {currentAccount, activeMarketHistory, quoteAsset, baseAsset}=this.props;
         let base = null, quote = null, quoteSymbol, baseSymbol, historyRows = null;
@@ -77,7 +76,9 @@ class History extends BaseComponent {
                     const block_num = trx.get("block_num");
                     return (
                         <div key={"my_history_" + keyIndex} className="order-list-row">
-                            <span className="orangeRed"><PriceText preFormattedPrice={parsed_order}/></span>
+                            <span className={isAsk ? "orangeRed" : "green"}>
+                                <PriceText preFormattedPrice={parsed_order}/>
+                            </span>
                             <span>{utils.formatNumber(parsed_order.receives, 4)}</span>
                             <span className="blue">{utils.formatNumber(parsed_order.pays, 4)}</span>
                             <span>#{utils.format_number(block_num, 0)}</span>
@@ -116,7 +117,9 @@ class History extends BaseComponent {
                     //console.debug('parsed_order:',parsed_order)
                     return (
                         <div key={"history_" + keyIndex} className="order-list-row">
-                            <span className="orangeRed"><PriceText preFormattedPrice={parsed_order}/></span>
+                            <span className={isAsk ? "orangeRed" : "green"}>
+                                <PriceText preFormattedPrice={parsed_order}/>
+                            </span>
                             <span>{utils.formatNumber(parsed_order.receives, 4)}</span>
                             <span className="blue">{utils.formatNumber(parsed_order.pays, 4)}</span>
                             <span className="smallFontSize">{time}</span>
