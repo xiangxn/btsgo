@@ -71,7 +71,8 @@ class CurrentBalance extends BaseComponent {
             <div className="current-balance">
                 <div>
                     <p>{this.formatMessage("transaction_currentBalance", {symbol: utils.getAssetName(aSymbol)})}:&nbsp;
-                        <label className="green" onClick={this.onBalanceClick.bind(this, balance)}>
+                        <label className={isAsk ? "orangeRed" : "green"}
+                               onClick={this.onBalanceClick.bind(this, balance)}>
                             {balance == null ?
                                 <FormattedAsset hide_asset={true} amount={0} asset={aSymbol.get('id')}/> :
                                 <BalanceComponent balance={balance} hide_asset={true}/>}

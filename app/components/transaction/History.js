@@ -76,7 +76,7 @@ class History extends BaseComponent {
                     const block_num = trx.get("block_num");
                     return (
                         <div key={"my_history_" + keyIndex} className="order-list-row">
-                            <span className={isAsk ? "orangeRed" : "green"}>
+                            <span className={!isAsk ? "orangeRed" : "green"}>
                                 <PriceText preFormattedPrice={parsed_order}/>
                             </span>
                             <span>{utils.formatNumber(parsed_order.receives, 4)}</span>
@@ -117,7 +117,7 @@ class History extends BaseComponent {
                     //console.debug('parsed_order:',parsed_order)
                     return (
                         <div key={"history_" + keyIndex} className="order-list-row">
-                            <span className={isAsk ? "orangeRed" : "green"}>
+                            <span className={!isAsk ? "orangeRed" : "green"}>
                                 <PriceText preFormattedPrice={parsed_order}/>
                             </span>
                             <span>{utils.formatNumber(parsed_order.receives, 4)}</span>
