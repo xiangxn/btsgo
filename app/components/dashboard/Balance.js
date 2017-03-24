@@ -206,7 +206,7 @@ class BalanceWrapper extends BaseComponent {
         }).filter(b => !!b);
 
         let ordersByAsset = this.props.orders.reduce((orders, o) => {
-            if (o.getIn !== null && o.getIn !== undefined) {
+            if (o.getIn !== undefined && o.getIn !== null) {
                 let asset_id = o.getIn(["sell_price", "base", "asset_id"]);
                 if (!orders[asset_id]) orders[asset_id] = 0;
                 orders[asset_id] += parseInt(o.get("for_sale"), 10);
