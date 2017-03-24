@@ -63,7 +63,7 @@ class Balance extends BaseComponent {
         let showAssetPercent = true;
 
         let balances = [];
-        balanceList.forEach((balance,i) => {
+        balanceList.forEach((balance, i) => {
             let balanceObject = ChainStore.getObject(balance);
             let asset_type = balanceObject.get("asset_type");
             let asset = ChainStore.getObject(asset_type);
@@ -76,7 +76,7 @@ class Balance extends BaseComponent {
             let onOrders = hasOnOrder ? <FormattedAsset amount={orders[asset_type]} asset={asset_type}/> : null;
 
             balances.push(
-                <div className="balance-row" key={'balanceList'+i}>
+                <div className="balance-row" key={'balanceList' + i}>
                     <span>
                         {hasBalance ? <BalanceComponent balance={balance} assetInfo={null}/> : null}
                         {hasOnOrder ? <span>({onOrders})</span> : null}
@@ -206,10 +206,12 @@ class BalanceWrapper extends BaseComponent {
         }).filter(b => !!b);
 
         let ordersByAsset = this.props.orders.reduce((orders, o) => {
-            let asset_id = o.getIn(["sell_price", "base", "asset_id"]);
-            if (!orders[asset_id]) orders[asset_id] = 0;
-            orders[asset_id] += parseInt(o.get("for_sale"), 10);
-            return orders;
+            if (o.getIn !== null && o.getIn !== undefined) {
+                let asset_id = o.getIn(["sell_price", "base", "asset_id"]);
+                if (!orders[asset_id]) orders[asset_id] = 0;
+                orders[asset_id] += parseInt(o.get("for_sale"), 10);
+                return orders;
+            }
         }, {});
 
         for (let id in ordersByAsset) {
