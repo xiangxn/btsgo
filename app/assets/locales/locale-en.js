@@ -254,6 +254,9 @@ export const en_US = {
     assets_asset_issue: "Amount to issue",
     //markets
     markets_core_rate: "Core rate",
+    markets_asset_filter:"Filter",
+    markets_asset_filter_ph:"Place enter asset symbol",
+    markets_change:"Change",
     //explorer
     explorer_accounts_title: "Accounts",
     explorer_accounts_filter: "Filter accounts",

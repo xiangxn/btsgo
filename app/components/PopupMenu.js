@@ -6,7 +6,7 @@ import {injectIntl, intlShape, FormattedMessage} from 'react-intl';
 
 export const menuItems = [
     {name: 'menu_index', url: '/'},
-    {name: 'menu_transaction', url: '/transaction'},
+    {name: 'menu_transaction', url: '/markets'},//transaction
     {name: 'menu_transfer', url: '/transfer'},
     {name: 'menu_lastOperate', url: '/last-operate'},
     {name: 'menu_scan', url: '/scan'},

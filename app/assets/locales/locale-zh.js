@@ -252,6 +252,9 @@ export const zh_CN = {
     assets_asset_issue: "发行数量",
     //markets
     markets_core_rate: "CORE 汇率",
+    markets_asset_filter:"过滤",
+    markets_asset_filter_ph:"请输入资产符号",
+    markets_change:"涨幅",
     //explorer
     explorer_accounts_title: "账户",
     explorer_accounts_filter: "过滤账户",

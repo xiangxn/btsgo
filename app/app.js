@@ -40,6 +40,7 @@ import LastOperationContainer from "./components/LastOperation";
 import Scan from "./components/scanit/Scan";
 import TransferContainer from "./components/wallet/Transfer";
 import BalanceWrapper from "./components/dashboard/Balance";
+import MarketListContainer from "./components/transaction/MarketList";
 
 
 let btsgoHistory = __HASHHISTORY__ ? hashHistory : browserHistory;
@@ -134,6 +135,7 @@ let routes = (
         <Route path="scan" component={Scan}/>
         <Route path="transfer" component={TransferContainer}/>
         <Route path="balance" component={BalanceWrapper}/>
+        <Route path="markets" components={MarketListContainer}/>
     </Route>
 );
 

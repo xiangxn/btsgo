@@ -31,7 +31,7 @@ class SettingsStore extends BaseStore {
             "OPEN.DGD", "EUR", "TRADE.BTC", "CASH.BTC", "GOLD", "SILVER",
             "OPEN.USDT", "OPEN.EURT", "OPEN.BTC", "CADASTRAL", "BLOCKPAY"
         ];
-        this.preferredBases = Immutable.List([CORE_ASSET, "OPEN.BTC", "USD", "CNY", "BTC"]);
+        this.preferredBases = Immutable.List(["CNY", "USD", "BTC","OPEN.BTC", CORE_ASSET]);
         function addMarkets(target, base, markets) {
             markets.filter(a => {
                 return a !== base;

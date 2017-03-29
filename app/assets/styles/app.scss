@@ -485,7 +485,8 @@ input {
   @extend .green-btn;
   background-color: $orangeRedColor;
 }
-.white-btn{
+
+.white-btn {
   @extend .green-btn;
   background-color: $whiteColor;
   color: $blackColor;
@@ -773,6 +774,13 @@ input {
   }
 }
 
+.check-btn-box-full {
+  @extend .check-btn-box;
+  height: .6rem;
+  line-height: .6rem;
+  border: none;
+}
+
 .order-list {
   .order-list-header {
     display: flex;
@@ -834,6 +842,17 @@ input {
         flex: 1;
       }
     }
+  }
+}
+
+.full-page {
+  background-color: $whiteColor;
+  font-size: $fontSize;
+  color: $blackColor;
+  .full-page-header {
+    height: .6rem;
+    line-height: .6rem;
+    display: flex;
   }
 }
 
