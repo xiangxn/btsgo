@@ -26,17 +26,18 @@ class SettingsStore extends BaseStore {
             disableChat: true
         });
         let topMarkets = [
-            "MKR", "OPEN.MKR", "BTS", "OPEN.ETH", "ICOO", "BTC", "OPEN.LISK",
-            "OPEN.STEEM", "OPEN.DAO", "PEERPLAYS", "USD", "CNY", "BTSR", "OBITS",
-            "OPEN.DGD", "EUR", "TRADE.BTC", "CASH.BTC", "GOLD", "SILVER",
-            "OPEN.USDT", "OPEN.EURT", "OPEN.BTC", "CADASTRAL", "BLOCKPAY"
+            "OPEN.MKR", "BTS", "OPEN.ETH", "ICOO", "BTC", "OPEN.LISK", "BKT",
+            "OPEN.STEEM", "OPEN.GAME", "PEERPLAYS", "USD", "CNY", "BTSR", "OBITS",
+            "OPEN.DGD", "EUR", "GOLD", "SILVER", "IOU.CNY", "OPEN.DASH",
+            "OPEN.USDT", "OPEN.EURT", "OPEN.BTC", "CADASTRAL", "BLOCKPAY", "BTWTY",
+            "OPEN.INCNT", "KAPITAL","YOYOW"
         ];
-        this.preferredBases = Immutable.List(["CNY", "USD", "BTC","OPEN.BTC", CORE_ASSET]);
+        this.preferredBases = Immutable.List(["CNY", "USD", "BTC", "OPEN.BTC", CORE_ASSET]);
         function addMarkets(target, base, markets) {
             markets.filter(a => {
                 return a !== base;
             }).forEach(market => {
-                target.push([`${market}_${base}`, {"quote": market, "base": base}]);
+                target.push([`${market}_${base}`, {"id": market + '_' + base, "quote": market, "base": base}]);
             });
         }
 

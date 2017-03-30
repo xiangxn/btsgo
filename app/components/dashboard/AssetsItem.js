@@ -39,7 +39,7 @@ class AssetsItem extends BaseComponent {
     }
 
     componentWillMount() {
-        MarketsActions.getMarketStats.defer(this.props.quote, this.props.base);
+        MarketsActions.getMarketStats.defer(this.props.base, this.props.quote);
         this.statsChecked = new Date();
         this.statsInterval = setInterval(MarketsActions.getMarketStats.bind(this, this.props.quote, this.props.base), 35 * 1000);
     }
@@ -68,20 +68,37 @@ class AssetsItem extends BaseComponent {
         }
 
         let desc = assetUtils.parseDescription(base.getIn(["options", "description"]));
-        let imgName = getImageName(base);
-        let marketID = base.get("symbol") + "_" + quote.get("symbol");
+        let imgName = getImageName(quote);
+        let marketID = quote.get("symbol") + "_" + base.get("symbol");
         let stats = marketStats.get(marketID);
         let gainClass = "def-label";
         if (stats) {
             let change = parseFloat(stats.change);
             gainClass = change > 0 ? "green-label" : change < 0 ? "orange-label" : "def-label";
         }
-        if (imgName === "BTS" || imgName === "CNY" || imgName === "USD" || imgName === "EUR") {
-            imgName = getImageName(quote);
-        }
+        /*
+         if (imgName === "BTS" || imgName === "CNY" || imgName === "USD" || imgName === "EUR") {
+         imgName = getImageName(quote);
+         }
+         */
 
-        let unitPrice = this.props.unitPrice;
-        let gain = this.props.gain;
+        let unitPrice = (!stats || !stats.close) ? null : utils.format_price(
+            stats.close.quote.amount,
+            quote,
+            stats.close.base.amount,
+            base,
+            true,
+            this.props.invert
+        );
+        //处理价格小数
+        let precision = 6;
+        if (["BTC", "OPEN.BTC", "TRADE.BTC", "GOLD", "SILVER"].indexOf(base.get("symbol")) !== -1) {
+            precision = 8;
+        }
+        let ups = (unitPrice) ? unitPrice.replace(',', '') : '';
+        if (!isNaN(ups)) {
+            unitPrice = utils.format_number(ups, ups > 1000 ? 0 : ups > 10 ? 2 : precision, false);
+        }
         return (
             <div className="assets-item" onClick={this.onClickHandler.bind(this)}>
                 <div className={imgName.toLowerCase()}></div>
@@ -89,20 +106,13 @@ class AssetsItem extends BaseComponent {
                     <label className="def-label">{desc.short_name ? desc.short_name :
                         <AssetName noPrefix name={base.get("symbol")}/>}</label>
                     <label className="def-label">
-                        {(!stats || !stats.close) ? null : utils.format_price(
-                            stats.close.quote.amount,
-                            base,
-                            stats.close.base.amount,
-                            quote,
-                            true,
-                            this.props.invert
-                        )}
+                        {unitPrice}
                     </label>
                     <label className="def-label">
-                        {!stats ? null : utils.format_volume_s(stats.volumeBase, quote.get("precision"))} <AssetName
+                        {!stats ? null : utils.format_volume_s(stats.volumeQuote, quote.get("precision"))} <AssetName
                         name={quote.get("symbol")} noPrefix/>
                     </label>
-                    <label className={gainClass}>{!stats ? null : stats.change} %</label>
+                    <label className={gainClass}>{!stats ? '0' : stats.change} %</label>
                 </div>
             </div>
         );

@@ -290,7 +290,7 @@ var Utils = {
     },
 
     are_equal_shallow: function (a, b) {
-        if (Array.isArray(a) && Array.isArray(a)) {
+        if (Array.isArray(a) && Array.isArray(b)) {
             if (a.length > b.length) {
                 return false;
             }
