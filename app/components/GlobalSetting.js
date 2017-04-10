@@ -143,8 +143,7 @@ class GlobalSetting extends BaseComponent {
                           onChange={this.onUnitChange.bind(this)} value={unit} data={units}/>
                 <XNFullText label={this.formatMessage('settings_labLockTime')} type="number"
                             onChange={this.onLockTimeChange.bind(this)} value={walletLockTimeout}/>
-                <XNSwitch label={this.formatMessage('settings_labDisableChat')}
-                          onChange={this.onSwitchIMChange.bind(this)} value={disableChat}/>
+
                 <XNFullButton label={this.formatMessage('settings_labShowWalletManage')}
                               onClick={this.onShowWalletManageClick.bind(this)}/>
                 <XNFullButton isShowIcon={false}
@@ -156,3 +155,8 @@ class GlobalSetting extends BaseComponent {
 }
 
 export default GlobalSetting;
+
+/*
+ <XNSwitch label={this.formatMessage('settings_labDisableChat')}
+ onChange={this.onSwitchIMChange.bind(this)} value={disableChat}/>
+ */

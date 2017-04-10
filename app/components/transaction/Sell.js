@@ -25,11 +25,18 @@ class Sell extends BaseComponent {
         };
     }
 
-    onBalanceClick(balance) {
+    onBalanceClick(sellFeeAsset, sellFee, balance) {
+
         let operationCtrl = this.refs.operationCtrl;
         balance = account_utils.getBalanceById(balance);
+        //console.debug('onBalanceClick', sellFeeAsset.get('id'), sellFee.getAmount({real: true}), balance);
         let {price, turnover}=operationCtrl.state;
-        let a = balance.getAmount({real: true})
+        let a = balance.getAmount({real: true});
+        if (sellFeeAsset.get('id') === balance.asset_id) {
+            //console.debug('----------------------')
+            a = a - sellFee.getAmount({real: true});
+            balance.setAmount({real: a || 0});
+        }
         let val = price.toReal() * a;
         turnover.setAmount({real: val || 0});
 
@@ -309,7 +316,8 @@ class Sell extends BaseComponent {
         } = this.getFeeAssets(quote, base, coreAsset);
         return (
             <div className="vertical-flex vertical-box scroll">
-                <CurrentBalance {...this.props} isAsk={true} onBalanceClick={this.onBalanceClick.bind(this)}/>
+                <CurrentBalance {...this.props} isAsk={true}
+                                onBalanceClick={this.onBalanceClick.bind(this, sellFeeAsset, sellFee)}/>
                 <div className="separate2"></div>
                 <div className="transaction-operate vertical-flex">
                     <TransactionOperation ref="operationCtrl" btnText={this.formatMessage("transaction_confirmSell")}

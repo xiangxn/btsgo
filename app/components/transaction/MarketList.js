@@ -239,7 +239,7 @@ class MarketList extends BaseComponent {
                         <input onChange={this.onFilterChange.bind(this)} value={filterValue} type="text"
                                placeholder={this.formatMessage('markets_asset_filter_ph')}/>
                     </div>
-                    <div className="separate2"></div>
+
                     <div className="order-list vertical-flex vertical-box">
                         <div className="order-list-header">
                             <span onClick={this.onSort.bind(this, 'name')}>{this.formatMessage('balance_assets')}</span>
