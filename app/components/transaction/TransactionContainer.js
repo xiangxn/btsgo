@@ -58,7 +58,7 @@ class TransactionSubscriber extends BaseComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        /* 控制预测试场方向 */
+        /* 控制预测市场方向 */
         if (nextProps.baseAsset && nextProps.baseAsset.getIn(["bitasset", "is_prediction_market"])) {
             this.context.router.push({
                 pathname: '/transaction',
@@ -118,13 +118,20 @@ TransactionSubscriber = BindToChainState(TransactionSubscriber, {keep_updating: 
 class TransactionContainer extends BaseComponent {
 
     render() {
+        console.log(this.props.params);
         let symbols = ["BTS", "CNY"];
+        if(this.props.params.marketID){
+            symbols.splice(0,symbols.length);
+            symbols = this.props.params.marketID.split("_");
+        }
+        /*
         if (this.context.router.location && this.context.router.location.state) {
             symbols.splice(0,symbols.length);
             let s = this.context.router.location.state;
             symbols.push(s.quoteAsset);
             symbols.push(s.baseAsset);
         }
+        */
 
         return (
             <AltContainer

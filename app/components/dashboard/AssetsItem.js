@@ -50,11 +50,13 @@ class AssetsItem extends BaseComponent {
 
     onClickHandler(e) {
         e.preventDefault();
-        //this.context.router.push(`/transaction/${this.props.base.get("symbol")}_${this.props.quote.get("symbol")}`);
+        this.context.router.push(`/transaction/${this.props.quote.get("symbol")}_${this.props.base.get("symbol")}`);
+        /*
         this.context.router.push({
             pathname: '/transaction',
             state: {baseAsset: this.props.base.get("symbol"), quoteAsset: this.props.quote.get("symbol")}
         });
+        */
     }
 
     render() {

@@ -16,6 +16,7 @@ import TransactionConfirm from "./TransactionConfirm";
 import UnlockWallet from "./wallet/UnlockWallet";
 import Settings from './Settings';
 import Confirm from './layout/Confirm';
+import GlobalSettingContainer from './containers/GlobalSettingContainer';
 
 class Root extends React.Component {
     constructor(props) {
@@ -82,7 +83,9 @@ class Root extends React.Component {
         let content = null;
         if (syncFail) {
             content = (
-                <Settings />
+                <Settings >
+                    <GlobalSettingContainer />
+                </Settings>
             );
         } else if (loading) {
             content = <Loading />;

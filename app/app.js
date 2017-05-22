@@ -124,12 +124,12 @@ let routes = (
             <Route path="import-backup" component={ImportBackup}/>
         </Route>
         <Route path="unlock" component={UnlockWallet}/>
-        <Route path="transaction" component={TransactionContainer}>
+        <Route path="transaction/:marketID" component={TransactionContainer}>
             <IndexRoute component={Buy}/>
-            <Route path="buy" component={Buy}/>
-            <Route path="sell" component={Sell}/>
-            <Route path="orders" component={Orders}/>
-            <Route path="history" component={History}/>
+            <Route path="/transaction/:marketID/buy" component={Buy}/>
+            <Route path="/transaction/:marketID/sell" component={Sell}/>
+            <Route path="/transaction/:marketID/orders" component={Orders}/>
+            <Route path="/transaction/:marketID/history" component={History}/>
         </Route>
         <Route path="last-operate" component={LastOperationContainer}/>
         <Route path="scan" component={Scan}/>
