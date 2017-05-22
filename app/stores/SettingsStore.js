@@ -50,7 +50,7 @@ class SettingsStore extends BaseStore {
             {value: "https://bitshares.openledger.info", text: "https://bitshares.openledger.info"}
         ];
         let apiServer = [
-            {value: "wss://bitshares.openledger.info/ws", text: "openledger.info(Nuremberg, Germany)"},
+            {value: "wss://bitshares.openledger.info/ws", text: "openledger(Nuremberg, Germany)"},
             {value: "wss://bit.btsabc.org/ws", text: "btsabc.org(Hong Kong)"},
             {value: "wss://bts.transwiser.com/ws", text: "transwiser.com(Hangzhou, China)"},
             {value: "wss://openledger.hk/ws", text: "openledger.hk(Hong Kong)"},
