@@ -49,10 +49,13 @@ class MarketRow extends BaseComponent {
 
     onGoMarket(quoteSymbol, baseSymbol, e) {
         MarketsActions.switchMarket();
+        /*
         this.context.router.push({
             pathname: '/transaction',
             state: {baseAsset: baseSymbol, quoteAsset: quoteSymbol}
         });
+        */
+        this.context.router.push(`/transaction/${quoteSymbol}_${baseSymbol}`);
     }
 
     render() {
