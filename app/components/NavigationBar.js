@@ -45,7 +45,9 @@ class NavigationBar extends BaseComponent {
 
     onMenuItemClick(data) {
         //console.debug(data);
-
+        if (data.url === 'reload') {
+            window.location.reload();
+        }
     }
 
     onBackClick() {

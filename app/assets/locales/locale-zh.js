@@ -12,6 +12,7 @@ export const zh_CN = {
     menu_scan: "扫一扫",
     menu_createAccount: "创建账户",
     menu_settings: "设置",
+    menu_reload:"刷新",
     settings_labLanguage: "语言选择",
     settings_labAPI: "API服务器",
     settings_labFaucet: "水龙头地址",

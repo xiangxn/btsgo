@@ -11,7 +11,8 @@ export const menuItems = [
     {name: 'menu_lastOperate', url: '/last-operate'},
     {name: 'menu_scan', url: '/scan'},
     {name: 'menu_createAccount', url: '/create-account'},
-    {name: 'menu_settings', url: '/settings'}
+    {name: 'menu_settings', url: '/settings'},
+    {name: "menu_reload", url: 'reload'}
 ];
 
 class PopupMenu extends React.Component {
@@ -33,8 +34,12 @@ class PopupMenu extends React.Component {
         e.nativeEvent.stopImmediatePropagation();
         this.setState({isShow: false});
         //browserHistory.push(data.url);
-        this.context.router.push(data.url);
-        this.props.onMenuItemClick && this.props.onMenuItemClick(data);
+        if (data.url.startsWith('/')) {
+            this.context.router.push(data.url);
+        }
+        else {
+            this.props.onMenuItemClick && this.props.onMenuItemClick(data);
+        }
     }
 
     onDocumentClick(e) {

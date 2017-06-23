@@ -7,6 +7,7 @@ import ChainTypes from "./ChainTypes";
 import utils from "../../../common/utils";
 import BindToChainState from "./BindToChainState";
 import FormattedAsset from "../Utility/FormattedAsset";
+import connectToStores from 'alt-utils/lib/connectToStores';
 
 //actions
 import MarketsActions from "../../actions/MarketsActions";
@@ -83,6 +84,7 @@ class ValueComponent extends BaseComponent {
         let coreAsset = ChainStore.getAsset(CORE_ASSET_ID);
         let toStats, fromStats;
 
+
         let toID = toAsset.get("id");
         let toSymbol = toAsset.get("symbol");
         let fromID = fromAsset.get("id");
@@ -106,7 +108,6 @@ class ValueComponent extends BaseComponent {
             toID);
 
         let eqValue = price ? utils.convertValue(price, amount, fromAsset, toAsset) : null;
-
         if (!eqValue) {
             return <span>{this.formatMessage('account_no_price')}</span>;
         }
@@ -130,6 +131,7 @@ class EquivalentValueComponent extends React.Component {
         return <ValueComponent {...this.props} />;
     }
 }
+EquivalentValueComponent = connectToStores(EquivalentValueComponent);
 
 class BalanceValueComponent extends React.Component {
 
