@@ -7,5 +7,7 @@ bitshares2网页钱包项目<br/>
 3.WebStorm 代码编辑IDE<br/>
 4.react+webpack
 
+## Web版本地址：https://btsgo.net
+
 # 欢迎打赏BTS：xiangxn
 # 欢迎支持见证人：xn-delegate
