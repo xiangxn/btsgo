@@ -15,7 +15,7 @@ import NotificationActions from "../../actions/NotificationActions";
 import MarketsActions from "../../actions/MarketsActions";
 
 //stores
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 
 class Sell extends BaseComponent {
     constructor(props) {

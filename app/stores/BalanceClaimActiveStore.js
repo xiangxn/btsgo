@@ -1,8 +1,8 @@
 import alt from "../../common/altObj"
 import Immutable from "immutable"
 import BaseStore from "./BaseStore"
-import {Address, PublicKey, key, ChainStore} from "graphenejs-lib";
-import {Apis} from "graphenejs-ws";
+import {Address, PublicKey, key, ChainStore} from "bitsharesjs";
+import {Apis} from "bitsharesjs-ws";
 import iDB from "../idb-instance"
 import BalanceClaimActiveActions from "../actions/BalanceClaimActiveActions"
 import TransactionConfirmActions from "../actions/TransactionConfirmActions"

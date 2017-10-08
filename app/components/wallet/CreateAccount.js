@@ -10,7 +10,7 @@ import AccountNameInput from "./AccountNameInput";
 import PasswordInput from "./PasswordInput";
 import TextLoading from "../TextLoading";
 
-import {ChainValidation, FetchChain, ChainStore} from "graphenejs-lib";
+import {ChainValidation, FetchChain, ChainStore} from "bitsharesjs";
 
 //stores
 import WalletDb from "../../stores/WalletDb";
@@ -154,7 +154,7 @@ class CreeateAccount extends BaseComponent {
                     this.setState({loading: false});
                     TransactionConfirmStore.listen(this.onFinishConfirm);
                 } else { // Account registered by the faucet
-                    FetchChain("getAccount", name).then(() => {
+                    FetchChain("getAccount", name, 9000).then(() => {
                         this.props.router.push("/settings/backup");
                     });
                 }

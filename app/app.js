@@ -3,8 +3,8 @@
  */
 
 //graphene类库
-import {ChainStore} from "graphenejs-lib";
-import {Apis} from "graphenejs-ws";
+import {ChainStore} from "bitsharesjs";
+import {Apis} from "bitsharesjs-ws";
 //react类
 import React from 'react';
 import {render} from 'react-dom';

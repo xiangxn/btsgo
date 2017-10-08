@@ -1,4 +1,4 @@
-import {key} from "graphenejs-lib";
+import {key} from "bitsharesjs";
 
 onmessage = function(event) {
     try {

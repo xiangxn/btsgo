@@ -1,5 +1,5 @@
 import alt from "../../common/altObj";
-import {ChainConfig} from "graphenejs-ws";
+import {ChainConfig} from "bitsharesjs-ws";
 
 class TransactionConfirmActions {
 

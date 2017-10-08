@@ -6,7 +6,7 @@ import BalanceClaimActiveStore from "./BalanceClaimActiveStore"
 import CachedPropertyStore from "./CachedPropertyStore"
 import PrivateKeyActions from "../actions/PrivateKeyActions"
 import WalletActions from "../actions/WalletActions"
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 import BaseStore from "./BaseStore"
 import iDB from "../idb-instance"
 import Immutable from "immutable"

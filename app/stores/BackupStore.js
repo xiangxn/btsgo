@@ -1,7 +1,7 @@
 import alt from "../../common/altObj";
 import BackupActions from "../actions/BackupActions";
 import BaseStore from "./BaseStore";
-import {hash, PublicKey} from "graphenejs-lib";
+import {hash, PublicKey} from "bitsharesjs";
 
 class BackupStore extends BaseStore {
 

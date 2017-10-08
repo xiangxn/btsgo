@@ -19,7 +19,7 @@ import WalletUnlockActions from "../../actions/WalletUnlockActions";
 import WalletActions from "../../actions/WalletActions";
 
 //graphene
-import {PrivateKey, Address, Aes, PublicKey, hash} from "graphenejs-lib";
+import {PrivateKey, Address, Aes, PublicKey, hash} from "bitsharesjs";
 
 class ImportKey extends BaseComponent {
     static getPropsFromStores() {

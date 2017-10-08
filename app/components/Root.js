@@ -5,8 +5,8 @@ import AccountStore from "../stores/AccountStore";
 import SettingsStore from '../stores/SettingsStore';
 import NotificationStore from "../stores/NotificationStore";
 
-import {ChainStore} from "graphenejs-lib";
-import {Apis} from "graphenejs-ws";
+import {ChainStore} from "bitsharesjs";
+import {Apis} from "bitsharesjs-ws";
 
 //组件
 import Loading from './Loading';

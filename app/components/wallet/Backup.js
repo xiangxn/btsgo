@@ -5,7 +5,7 @@
 import React from "react";
 import BaseComponent from "../BaseComponent";
 import connectToStores from 'alt-utils/lib/connectToStores';
-import {ChainConfig} from "graphenejs-ws";
+import {ChainConfig} from "bitsharesjs-ws";
 import {saveAs} from "file-saver";
 
 //stores

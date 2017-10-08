@@ -5,7 +5,7 @@ import React from "react";
 import BaseComponent from "../BaseComponent";
 import ChainTypes from "../Utility/ChainTypes";
 import BindToChainState from "../Utility/BindToChainState";
-import {ChainStore, ChainTypes as grapheneChainTypes} from "graphenejs-lib";
+import {ChainStore, ChainTypes as grapheneChainTypes} from "bitsharesjs";
 import account_constants from "../../../common/account_constants";
 import BlockTime from "../Blockchain/BlockTime";
 import FormattedAsset from "../Utility/FormattedAsset";

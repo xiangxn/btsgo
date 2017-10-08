@@ -14,7 +14,7 @@ import MarketsActions from "../../actions/MarketsActions";
 
 //stores
 import MarketsStore from "../../stores/MarketsStore";
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 
 class ValueComponent extends BaseComponent {
     static propTypes = {

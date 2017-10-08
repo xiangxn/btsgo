@@ -1,6 +1,6 @@
 import WalletUnlockActions from "../actions/WalletUnlockActions"
 import WalletDb from "../stores/WalletDb"
-import {Aes, ChainValidation, key, TransactionBuilder, TransactionHelper, FetchChain} from "graphenejs-lib";
+import {Aes, ChainValidation, key, TransactionBuilder, TransactionHelper, FetchChain} from "bitsharesjs";
 
 class ApplicationApi {
 

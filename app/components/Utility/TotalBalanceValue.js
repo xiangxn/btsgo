@@ -9,7 +9,7 @@ import connectToStores from 'alt-utils/lib/connectToStores';
 //stores
 import MarketsStore from "../../stores/MarketsStore";
 import SettingsStore from "../../stores/SettingsStore";
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 
 //actions
 import MarketsActions from "../../actions/MarketsActions";

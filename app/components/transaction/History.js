@@ -8,7 +8,7 @@ import AssetName from "../Utility/AssetName";
 import PriceText from "../Utility/PriceText";
 import market_utils from "../../../common/market_utils";
 import utils from "../../../common/utils";
-import {ChainTypes} from "graphenejs-lib";
+import {ChainTypes} from "bitsharesjs";
 
 const {operations} = ChainTypes;
 const TARGET_MY = "my";

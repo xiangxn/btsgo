@@ -5,7 +5,7 @@
 import React, {PropTypes} from "react";
 import BaseComponent from "../BaseComponent";
 
-import {ChainValidation} from "graphenejs-lib"
+import {ChainValidation} from "bitsharesjs"
 import AltContainer from "alt-container";
 
 //stores

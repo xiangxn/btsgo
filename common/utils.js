@@ -2,7 +2,7 @@ import numeral from "numeral";
 
 let id_regex = /\b\d+\.\d+\.(\d+)\b/;
 
-import {ChainTypes} from "graphenejs-lib";
+import {ChainTypes} from "bitsharesjs";
 var {object_type, operations} = ChainTypes;
 
 var Utils = {

@@ -8,7 +8,7 @@ import {PrivateKeyTcomb} from "./tcomb_structs";
 import PrivateKeyActions from "../actions/PrivateKeyActions"
 import CachedPropertyActions from "../actions/CachedPropertyActions"
 import AddressIndex from "./AddressIndex"
-import {PublicKey, Address, ChainStore, hash, Aes} from "graphenejs-lib";
+import {PublicKey, Address, ChainStore, hash, Aes} from "bitsharesjs";
 
 /** No need to wait on the promises returned by this store as long as
  this.state.privateKeyStorage_error == false and

@@ -3,7 +3,7 @@ import BaseComponent from "../BaseComponent";
 import ChainTypes from "../Utility/ChainTypes";
 import BindToChainState from "../Utility/BindToChainState";
 import FormattedAsset from "../Utility/FormattedAsset";
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 
 
 class AssetOption extends React.Component {

@@ -1,4 +1,4 @@
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 import utils from "./utils";
 import {Asset} from "./MarketClasses";
 

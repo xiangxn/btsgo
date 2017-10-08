@@ -3,7 +3,7 @@
  */
 import React from "react";
 import BaseComponent from "./BaseComponent";
-import {ChainTypes as grapheneChainTypes} from "graphenejs-lib";
+import {ChainTypes as grapheneChainTypes} from "bitsharesjs";
 import AltContainer from "alt-container";
 import {RecentTransactions} from "./dashboard/Operation";
 

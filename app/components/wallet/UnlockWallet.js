@@ -6,7 +6,7 @@ import React from "react";
 import BaseComponent from "../BaseComponent";
 import Modal from "../layout/Modal";
 
-import {Apis} from "graphenejs-ws";
+import {Apis} from "bitsharesjs-ws";
 import AltContainer from "alt-container";
 
 //stores

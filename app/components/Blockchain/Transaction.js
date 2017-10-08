@@ -3,7 +3,7 @@
  */
 import React from "react";
 import BaseComponent from "../BaseComponent";
-import {ChainTypes} from "graphenejs-lib";
+import {ChainTypes} from "bitsharesjs";
 import {FormattedDate} from "react-intl";
 import account_constants from "../../../common/account_constants";
 import utils from "../../../common/utils";

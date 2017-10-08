@@ -1,10 +1,10 @@
 import alt from "../../common/altObj";
-import {Apis} from "graphenejs-ws";
+import {Apis} from "bitsharesjs-ws";
 import utils from "../../common/utils";
 import WalletApi from "../api/WalletApi";
 import ApplicationApi from "../api/ApplicationApi";
 import WalletDb from "../stores/WalletDb";
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 import big from "bignumber.js";
 
 let wallet_api = new WalletApi();

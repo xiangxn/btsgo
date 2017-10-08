@@ -9,7 +9,7 @@ import ChainTypes from "../Utility/ChainTypes";
 import Immutable from "immutable";
 import TotalBalanceValue from "../Utility/TotalBalanceValue";
 import AccountStore from "../../stores/AccountStore";
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 
 
 class AccountList extends BaseComponent {

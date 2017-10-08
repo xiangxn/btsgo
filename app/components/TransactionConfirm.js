@@ -8,7 +8,7 @@ import Transaction from "./Blockchain/Transaction";
 import TextLoading from "./TextLoading";
 import AltContainer from "alt-container";
 
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 
 //actions
 import TransactionConfirmActions from "../actions/TransactionConfirmActions";

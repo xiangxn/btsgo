@@ -1,5 +1,5 @@
-import {ChainTypes} from "graphenejs-lib";
-import {Apis} from "graphenejs-ws";
+import {ChainTypes} from "bitsharesjs";
+import {Apis} from "bitsharesjs-ws";
 
 let op_history = parseInt(ChainTypes.operation_history, 10);
 

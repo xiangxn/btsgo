@@ -10,8 +10,8 @@ import {WalletTcomb, PrivateKeyTcomb} from "./tcomb_structs";
 import TransactionConfirmActions from "../actions/TransactionConfirmActions"
 import WalletUnlockActions from "../actions/WalletUnlockActions"
 import PrivateKeyActions from "../actions/PrivateKeyActions"
-import {ChainStore, PrivateKey, key, Aes} from "graphenejs-lib";
-import {Apis, ChainConfig} from "graphenejs-ws";
+import {ChainStore, PrivateKey, key, Aes} from "bitsharesjs";
+import {Apis, ChainConfig} from "bitsharesjs-ws";
 import AddressIndex from "./AddressIndex"
 
 var aes_private

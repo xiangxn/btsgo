@@ -2,7 +2,7 @@ import alt from "../../common/altObj";
 import iDB from "../idb-instance";
 import Immutable from "immutable";
 import BaseStore from "./BaseStore";
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 import PrivateKeyStore from "./PrivateKeyStore"
 import PrivateKeyActions from "../actions/PrivateKeyActions"
 

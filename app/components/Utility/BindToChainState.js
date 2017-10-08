@@ -1,6 +1,6 @@
 import React from "react";
 import {curry, flow, reject, clone, pairs, omit, get, pick} from "lodash";
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 import ChainTypes from "./ChainTypes";
 import utils from "../../../common/utils";
 import Loading from "../Loading";

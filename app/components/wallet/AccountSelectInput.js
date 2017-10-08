@@ -7,7 +7,7 @@ import utils from "../../../common/utils";
 import BindToChainState from "../Utility/BindToChainState";
 import AccountImage from "../Utility/AccountImage";
 import ChainTypes from "../Utility/ChainTypes";
-import {ChainStore, PublicKey, ChainValidation} from "graphenejs-lib";
+import {ChainStore, PublicKey, ChainValidation} from "bitsharesjs";
 
 class AccountSelectInput extends BaseComponent {
     static propTypes = {

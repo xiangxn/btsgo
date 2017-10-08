@@ -1,5 +1,5 @@
 import "babel-polyfill";
-import {key, Aes} from "graphenejs-lib";
+import {key, Aes} from "bitsharesjs";
 
 onmessage = function(event) { try {
     console.log("AesWorker start");

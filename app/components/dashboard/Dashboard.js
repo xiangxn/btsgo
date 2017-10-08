@@ -12,7 +12,7 @@ import AssetsItem from "./AssetsItem";
 import AccountList from "./AccountList";
 
 //strores
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 import AccountStore from "../../stores/AccountStore";
 
 class Dashboard extends BaseComponent {

@@ -23,7 +23,7 @@ import AccountActions from "../../actions/AccountActions";
 import AccountStore from "../../stores/AccountStore";
 import SettingsStore from "../../stores/SettingsStore";
 import WalletUnlockStore from "../../stores/WalletUnlockStore";
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 
 class Balance extends BaseComponent {
     static propTypes = {

@@ -11,7 +11,7 @@ import BalanceComponent from "../Utility/BalanceComponent";
 
 //stores
 import AccountStore from "../../stores/AccountStore";
-import {ChainStore} from "graphenejs-lib";
+import {ChainStore} from "bitsharesjs";
 import AssetStore from "../../stores/AssetStore";
 import TransactionConfirmStore from "../../stores/TransactionConfirmStore";
 

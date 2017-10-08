@@ -4,7 +4,7 @@
 import React from "react";
 import BaseComponent from "../BaseComponent";
 import connectToStores from 'alt-utils/lib/connectToStores';
-import {PrivateKey} from "graphenejs-lib";
+import {PrivateKey} from "bitsharesjs";
 
 //stores
 import WalletManagerStore from "../../stores/WalletManagerStore";

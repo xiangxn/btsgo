@@ -2,8 +2,8 @@ import WalletDb from "../stores/WalletDb"
 import WalletUnlockActions from "./WalletUnlockActions"
 import CachedPropertyActions from "./CachedPropertyActions"
 import ApplicationApi from "../api/ApplicationApi"
-import {TransactionBuilder, PublicKey, FetchChain} from "graphenejs-lib"
-import {Apis} from "graphenejs-ws";
+import {TransactionBuilder, PublicKey, FetchChain} from "bitsharesjs"
+import {Apis} from "bitsharesjs-ws";
 import alt from "../../common/altObj"
 import SettingsStore from "../stores/SettingsStore"
 

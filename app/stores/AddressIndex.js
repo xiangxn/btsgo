@@ -1,7 +1,7 @@
 import alt from "../../common/altObj";
 import iDB from "../idb-instance";
-import {key} from "graphenejs-lib";
-import {ChainConfig} from "graphenejs-ws";
+import {key} from "bitsharesjs";
+import {ChainConfig} from "bitsharesjs-ws";
 import Immutable from "immutable"
 import BaseStore from "./BaseStore"
 

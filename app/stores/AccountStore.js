@@ -4,8 +4,8 @@ import alt from "../../common/altObj";
 import AccountActions from "../actions/AccountActions";
 import iDB from "../idb-instance";
 import PrivateKeyStore from "./PrivateKeyStore"
-import {ChainStore, ChainValidation, FetchChain} from "graphenejs-lib";
-import {Apis} from "graphenejs-ws";
+import {ChainStore, ChainValidation, FetchChain} from "bitsharesjs";
+import {Apis} from "bitsharesjs-ws";
 import AccountRefsStore from "./AccountRefsStore"
 import AddressIndex from "./AddressIndex"
 import SettingsStore from "./SettingsStore"

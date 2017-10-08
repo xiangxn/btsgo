@@ -5,7 +5,7 @@ import React from "react";
 import ChainTypes from "../Utility/ChainTypes";
 import BaseComponent from "../BaseComponent";
 import BindToChainState from "../Utility/BindToChainState";
-import {EmitterInstance} from "graphenejs-lib";
+import {EmitterInstance} from "bitsharesjs";
 import AltContainer from "alt-container";
 
 //stores
@@ -19,7 +19,7 @@ import MarketsActions from "../../actions/MarketsActions";
 import Loading from "../Loading";
 import Transaction from "./Transaction";
 
-let emitter = EmitterInstance.emitter();
+let emitter = EmitterInstance();
 let callListener, limitListener, newCallListener, feedUpdateListener, settleOrderListener;
 class TransactionSubscriber extends BaseComponent {
     static propTypes = {
