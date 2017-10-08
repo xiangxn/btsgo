@@ -19,7 +19,7 @@ class SettingsStore extends BaseStore {
         this.exportPublicMethods({getSetting: this.getSetting.bind(this)});
         this.defaultSettings = Immutable.Map({
             locale: "zh",
-            apiServer: "wss://bit.btsabc.org/ws",
+            apiServer: "wss://openledger.hk/ws",
             faucet_address: "https://bit.btsabc.org",//https://bitshares.openledger.info
             unit: "CNY",// CORE_ASSET,
             walletLockTimeout: 60 * 10,
@@ -51,10 +51,12 @@ class SettingsStore extends BaseStore {
         ];
         let apiServer = [
             {value: "wss://bitshares.openledger.info/ws", text: "openledger(Nuremberg, Germany)"},
+            {value: "wss://bitshares-api.wancloud.io/ws", text: "wancloud.io(China)"},
             {value: "wss://bit.btsabc.org/ws", text: "btsabc.org(Hong Kong)"},
-            {value: "wss://bts.transwiser.com/ws", text: "transwiser.com(Hangzhou, China)"},
             {value: "wss://openledger.hk/ws", text: "openledger.hk(Hong Kong)"},
-            {value: "wss://secure.freedomledger.com/ws", text: "freedomledger.com(Toronto, Canada)"}
+            {value: "wss://bts.ai.la/ws", text: "bts.ai.la(Hong Kong)"},
+            {value: "wss://dexnode.net/ws", text: "dexnode.net(Dallas, USA)"},
+            {value: "wss://eu.openledger.info/ws", text: "openledger(Berlin, Germany)"}
             //{value: "wss://testnet.bitshares.eu/ws", text: "Public Testnet Server (Frankfurt, Germany)"}
         ];
         let defaults = {
