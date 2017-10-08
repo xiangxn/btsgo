@@ -732,6 +732,7 @@ input {
     }
   }
   .depth-list-buy {
+    max-height: 2.4rem;
     .depth-list-row {
       display: flex;
       font-size: $smallFontSize;

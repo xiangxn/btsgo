@@ -68,15 +68,15 @@ class WalletDb extends BaseStore {
     }
 
     getWallet() {
-        return this.state.wallet
+        return this.state.wallet;
     }
 
     onLock() {
-        aes_private = null
+        aes_private = null;
     }
 
     isLocked() {
-        return aes_private ? false : true
+        return aes_private ? false : true;
     }
 
     decryptTcomb_PrivateKey(private_key_tcomb) {

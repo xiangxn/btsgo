@@ -24,7 +24,8 @@ class AccountList extends BaseComponent {
 
     onItemClick(name) {
         //let acc = e.target.parentNode.childNodes[0].innerHTML;
-        this.context.router.push({pathname: '/balance', state: {account: name}});
+        //this.context.router.push({pathname: '/balance', state: {account: name}});
+        this.context.router.push(`/balance/${name}`);
     }
 
     onFilter(e) {

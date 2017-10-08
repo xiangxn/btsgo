@@ -41,7 +41,7 @@ class Transaction extends BaseComponent {
             {name: this.formatMessage("transaction_history"), url: `/transaction/${marketID}/history`}
         ];
 
-        let {currentAccount, marketReady, activeMarketHistory, quoteAsset, baseAsset, marketStats} = this.props;
+        let {activeMarketHistory, quoteAsset, baseAsset, marketStats} = this.props;
         let base = null, quote = null, quoteBalance = null,
             baseBalance = null, coreBalance = null, quoteSymbol, baseSymbol, changeClass;
         if (quoteAsset.size && baseAsset.size) {

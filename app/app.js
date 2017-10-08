@@ -134,7 +134,7 @@ let routes = (
         <Route path="last-operate" component={LastOperationContainer}/>
         <Route path="scan" component={Scan}/>
         <Route path="transfer" component={TransferContainer}/>
-        <Route path="balance" component={BalanceWrapper}/>
+        <Route path="balance/:account" component={BalanceWrapper}/>
         <Route path="markets" components={MarketListContainer}/>
     </Route>
 );

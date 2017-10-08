@@ -188,6 +188,7 @@ class Balance extends BaseComponent {
         );
     }
 }
+
 //Balance = BindToChainState(Balance);
 class BalanceWrapper extends BaseComponent {
     static propTypes = {
@@ -224,6 +225,7 @@ class BalanceWrapper extends BaseComponent {
                         balanceAssets={Immutable.List(balanceAssets)}/>;
     }
 }
+
 BalanceWrapper = BindToChainState(BalanceWrapper);
 
 class BalancePage extends React.Component {
@@ -238,11 +240,12 @@ class BalancePage extends React.Component {
     render() {
         let account = this.props.account;
         return (
-            <BalanceWrapper {...this.props} balances={ account.get("balances", null)}
+            <BalanceWrapper {...this.props} balances={account.get("balances", null)}
                             orders={account.get("orders", null)}/>
         );
     }
 }
+
 BalancePage = BindToChainState(BalancePage, {keep_updating: true, show_loader: true});
 
 class BalancePageWrapper extends BaseComponent {
@@ -262,10 +265,12 @@ class BalancePageWrapper extends BaseComponent {
     }
 
     render() {
-        let account_name = this.context.router.location.state.account;
+        //let account_name = this.context.router.location.state.account;
+        let account_name = this.props.params.account;
         return (
             <BalancePage {...this.props} account_name={account_name}/>
         );
     }
 }
+
 export default connectToStores(BalancePageWrapper);

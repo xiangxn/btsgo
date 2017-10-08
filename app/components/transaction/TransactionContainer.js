@@ -118,7 +118,7 @@ TransactionSubscriber = BindToChainState(TransactionSubscriber, {keep_updating: 
 class TransactionContainer extends BaseComponent {
 
     render() {
-        console.log(this.props.params);
+        //console.log(this.props.params);
         let symbols = ["BTS", "CNY"];
         if(this.props.params.marketID){
             symbols.splice(0,symbols.length);

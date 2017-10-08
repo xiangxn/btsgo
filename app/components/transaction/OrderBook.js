@@ -6,6 +6,7 @@ import BaseComponent from "../BaseComponent";
 import utils from "../../../common/utils";
 import market_utils from "../../../common/market_utils";
 import AssetName from "../Utility/AssetName";
+
 //import PriceText from "../Utility/PriceText";
 
 class OrderBookRow extends BaseComponent {
@@ -51,6 +52,13 @@ class OrderBook extends BaseComponent {
         super(props);
     }
 
+    componentDidMount() {
+        let uplist = this.refs.uplist;
+        setTimeout(() => {
+            uplist.scrollTop = uplist.scrollHeight;
+        }, 200);
+    }
+
     render() {
         let {
             combinedBids, combinedAsks, highestBid, lowestAsk, quote, base,
@@ -62,7 +70,7 @@ class OrderBook extends BaseComponent {
             let tempBids = combinedBids.filter(a => {
                 return a.getPrice() >= highestBid.getPrice() / 5;
             });
-            if(isAsk) {
+            if (isAsk) {
                 tempBids.sort((a, b) => {
                     return a.getPrice() - b.getPrice();
                 });
@@ -84,7 +92,7 @@ class OrderBook extends BaseComponent {
                 .filter(a => {
                     return a.getPrice() <= lowestAsk.getPrice() * 5;
                 });
-            if(!isAsk) {
+            if (!isAsk) {
                 tempAsks.sort((a, b) => {
                     return b.getPrice() - a.getPrice();
                 });
@@ -106,16 +114,17 @@ class OrderBook extends BaseComponent {
 
         let cnbid, cnask;
         if (!isAsk) {
-            cnbid = 'depth-list-buy';
-            cnask = 'depth-list-sell';
-            askRows.splice(0, askRows.length - 6);
-            bidRows.splice(6, bidRows.length);
+            cnbid = 'depth-list-buy scroll';
+            cnask = 'depth-list-sell scroll';
+            askRows.splice(0, askRows.length - 50);
+            bidRows.splice(50, bidRows.length);
         } else {
-            cnbid = 'depth-list-sell';
-            cnask = 'depth-list-buy';
-            bidRows.splice(0, bidRows.length - 6);
-            askRows.splice(6, askRows.length);
+            cnbid = 'depth-list-sell scroll';
+            cnask = 'depth-list-buy scroll';
+            bidRows.splice(0, bidRows.length - 50);
+            askRows.splice(50, askRows.length);
         }
+
 
         return (
             <div className="depth-list">
@@ -124,7 +133,7 @@ class OrderBook extends BaseComponent {
                     <div><AssetName name={quoteSymbol}/></div>
                     <div>{this.formatMessage("transaction_depthPrice")}</div>
                 </div>
-                <div className={cnask}>
+                <div ref="uplist" className={cnask}>
                     {(!isAsk) ? askRows : bidRows}
                 </div>
                 <div className="separate2"></div>
@@ -135,4 +144,5 @@ class OrderBook extends BaseComponent {
         );
     }
 }
+
 export default OrderBook;
