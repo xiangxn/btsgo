@@ -12,7 +12,7 @@ class TransactionConfirmActions {
             dispatch({broadcasting: true});
 
             let broadcast_timeout = setTimeout(() => {
-                this.actions.error("Your transaction has expired without being confirmed, please try again later.");
+                this.error("Your transaction has expired without being confirmed, please try again later.");
             }, ChainConfig.expire_in_secs * 2000);
 
             transaction.broadcast(() => {
