@@ -52,21 +52,7 @@ let willTransitionTo = (nextState, replaceState, callback) => {
     let connectionString = SettingsStore.getSetting("apiServer");
 
     if (nextState.location.pathname === "/init-error") {
-
-        return Apis.reset(connectionString, true).init_promise
-            .then(() => {
-                var db = iDB.init_instance(window.openDatabase ? (shimIndexedDB || indexedDB) : indexedDB).init_promise;
-                return db.then(() => {
-                    return callback();
-                }).catch((err) => {
-                    console.log("err:", err);
-                    return callback();
-                });
-            }).catch((err) => {
-                console.log("err:", err);
-                return callback();
-            });
-
+        return callback();
     }
     //console.debug('Apis.instance');
     Apis.instance(connectionString, !!connect).init_promise.then(() => {

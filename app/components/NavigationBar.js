@@ -10,6 +10,7 @@ import WalletDb from "../stores/WalletDb";
 //actions
 import WalletUnlockActions from "../actions/WalletUnlockActions";
 import PopupMenu, {menuItems} from './PopupMenu';
+import ScanActions from "../actions/ScanActions";
 
 class NavigationBar extends BaseComponent {
 
@@ -47,6 +48,9 @@ class NavigationBar extends BaseComponent {
         //console.debug(data);
         if (data.url === 'reload') {
             window.location.reload();
+        } else if (data.url === 'scan') {
+            ScanActions.scan(this.context.router.location);
+            this.context.router.push('/' + data.url);
         }
     }
 
@@ -70,9 +74,12 @@ class NavigationBar extends BaseComponent {
         if (url === "/") {
             return this.context.intl.formatMessage({id: "menu_index"});
         }
+        if(url==="/init-error"){
+            return this.context.intl.formatMessage({id:"menu_settings"});
+        }
         url = url.substring(1);
         let menu = menuItems.find((item) => {
-            if (item.url === "/")return false;
+            if (item.url === "/") return false;
             return url.startsWith(item.url.substring(1));
         });
         if (menu !== undefined) {
@@ -86,10 +93,17 @@ class NavigationBar extends BaseComponent {
     //()=>SettingsActions.changeSetting({setting: "locale", value: "cn"})
 
     render() {
+        let titleClass = "top-title";
+        if (this.context.router.location.pathname == "/init-error") {
+            return (
+                <div className="header">
+                    <div className={titleClass}>{this.getTitle()}</div>
+                </div>
+            );
+        }
         let props = this.props;
         //console.debug(this.context.router);
         let backBtn = null;
-        let titleClass = "top-title";
         if (this.context.router.location.pathname !== "/") {
             backBtn = (<div className="top-back" onClick={this.onBackClick.bind(this)}>&lt;</div>);
         } else {
@@ -122,4 +136,5 @@ class NavigationBarContainer extends React.Component {
         )
     }
 }
+
 export default NavigationBarContainer

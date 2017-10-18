@@ -68,7 +68,7 @@ class UnlockWallet extends BaseComponent {
         this.setState({password_error: null});
         WalletDb.validatePassword(password || "", true);
         if (WalletDb.isLocked()) {
-            this.setState({password_error: this.formatMessage("wallet_passworkErrMsg")});
+            this.setState({password_error: this.formatMessage("wallet_passwordErrMsg")});
             return false;
         }
         else {

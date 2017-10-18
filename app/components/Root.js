@@ -78,17 +78,16 @@ class Root extends React.Component {
     }
 
     render() {
-        //console.debug(this.props);
         let {disableChat, syncFail, loading} = this.state;
         let content = null;
         if (syncFail) {
             content = (
-                <Settings >
-                    <GlobalSettingContainer />
+                <Settings>
+                    <GlobalSettingContainer/>
                 </Settings>
             );
         } else if (loading) {
-            content = <Loading />;
+            content = <Loading/>;
         } else {
             content = (
                 <div className="full vertical-box">

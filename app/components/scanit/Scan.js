@@ -6,11 +6,23 @@ import ReactDOM from "react-dom";
 import BaseComonent from "../BaseComponent";
 import QrCode from "qrcode-reader";
 import pica from "pica/dist/pica";
+import connectToStores from 'alt-utils/lib/connectToStores';
+import ScanStore from "../../stores/ScanStore";
+
+import ScanActions from "../../actions/ScanActions";
 
 //import EXIF from "exif-js";
 
 
 class Scan extends BaseComonent {
+    static getPropsFromStores() {
+        return ScanStore.getState();
+    }
+
+    static getStores() {
+        return [ScanStore];
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -25,7 +37,7 @@ class Scan extends BaseComonent {
 
     userBrowser() {
         let browserName = navigator.userAgent.toLowerCase();
-        if (/msie/i.test(browserName) && !/opera/.test(browserName)) {
+        if (/msie/i.test(browserName) && !/opera/i.test(browserName)) {
             return "IE";
         } else if (/firefox/i.test(browserName)) {
             return "Firefox";
@@ -76,13 +88,16 @@ class Scan extends BaseComonent {
                 clearInterval(this.timer);
                 this.timer = null;
             }
-            //TODO:完成后续的数据传递逻辑
-            let sUrl = (this.context.router.location && this.context.router.location.state) ? this.context.router.location.state.url : null;
-            if (sUrl) {
-                //sUrl += "?qrcode=" + data;
-                this.context.router.push({pathname: sUrl, state: {cqcode: data}});
+            let routerState = this.props.routerState;
+            if (routerState != null) {//处理有路由状态的扫描
+                ScanActions.setScanResult(data);
+                this.context.router.push(routerState.pathname);
+            } else if (data.startsWith("T:")) {//根据扫描数据处理为转账
+                ScanActions.setScanResult(data);
+                this.context.router.push("/transfer");
             } else {
                 alert(data);
+                ScanActions.reset();
             }
         }
     }
@@ -320,4 +335,4 @@ class Scan extends BaseComonent {
     }
 }
 
-export default Scan;
+export default connectToStores(Scan);

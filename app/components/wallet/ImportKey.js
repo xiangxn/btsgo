@@ -6,17 +6,20 @@ import BaseComponent from '../BaseComponent';
 import connectToStores from 'alt-utils/lib/connectToStores';
 import TextLoading from "../TextLoading";
 import PasswordInput from "./PasswordInput";
+import Modal from "../layout/Modal";
 
 //stores
 import ImportKeysStore from "../../stores/ImportKeysStore";
 import PrivateKeyStore from "../../stores/PrivateKeyStore";
 import WalletDb from "../../stores/WalletDb";
+import ScanStore from "../../stores/ScanStore";
 
 //actions
 import NotificationActions from "../../actions/NotificationActions";
 import BalanceClaimActiveActions from "../../actions/BalanceClaimActiveActions";
 import WalletUnlockActions from "../../actions/WalletUnlockActions";
 import WalletActions from "../../actions/WalletActions";
+import ScanActions from "../../actions/ScanActions";
 
 //graphene
 import {PrivateKey, Address, Aes, PublicKey, hash} from "bitsharesjs";
@@ -24,12 +27,13 @@ import {PrivateKey, Address, Aes, PublicKey, hash} from "bitsharesjs";
 class ImportKey extends BaseComponent {
     static getPropsFromStores() {
         return {
-            importing: ImportKeysStore.getState().importing
+            importing: ImportKeysStore.getState().importing,
+            qrcode: ScanStore.getState().qrStr
         }
     }
 
     static getStores() {
-        return [ImportKeysStore];
+        return [ImportKeysStore, ScanStore];
     }
 
     constructor(props) {
@@ -51,8 +55,22 @@ class ImportKey extends BaseComponent {
             imported_keys_public: {},
             key_text_message: null,
             validPassword: false,
-            error_message: null
+            error_message: null,
+            wif: "",
+            encrypt_wif: false,
+            qrcode_password_error: null
         };
+    }
+
+    componentWillMount() {
+        let {qrcode} = this.props;
+        if (qrcode != null) {
+            if (qrcode.length == 51) {
+                this.setState({wif: qrcode});
+            } else {
+                this.setState({encrypt_wif: true});
+            }
+        }
     }
 
     onCancel(e) {
@@ -201,7 +219,51 @@ class ImportKey extends BaseComponent {
         BalanceClaimActiveActions.setPubkeys(Object.keys(this.state.imported_keys_public))
     }
 
+    onQrcodePasswordEnter(e) {
+        e.preventDefault();
+        let pwd = this.refs.qrcode_pwd_input.value;
+        let pwd_aes = Aes.fromSeed(pwd);
+        let wif = pwd_aes.decryptHexToText(this.props.qrcode);
+        if (wif == null || wif.length != 51) {
+            this.setState({qrcode_password_error: this.formatMessage("wallet_passwordErrMsg")});
+        } else {
+            this.setState({wif: wif, encrypt_wif: false, qrcode_password_error: null});
+            ScanActions.reset();
+        }
+    }
+
+    onWifChange(e) {
+        this.setState({wif: e.target.value});
+    }
+
+    hideQrcodeModal() {
+        this.setState({wif: "", encrypt_wif: false, qrcode_password_error: null});
+        ScanActions.reset();
+    }
+
     render() {
+        let qrcode_pwd = (
+            <div className="popup-window">
+                <Modal visible={this.state.encrypt_wif} onClose={this.hideQrcodeModal.bind(this)} height={3.2}>
+                    <div className="title">{this.formatMessage('wallet_importKey_decryption')}</div>
+                    <div className="message-box"></div>
+                    <div className="body">
+                        <div className="input-row">
+                            <div className="label">{this.formatMessage('wallet_importKey_qrcode_pwd')}</div>
+                            <input ref="qrcode_pwd_input" className="input" type="password"
+                                   placeholder={this.formatMessage('wallet_importKey_qrcode_pwd_ph')}/>
+                        </div>
+                    </div>
+                    <div className="message-box">
+                        {this.state.qrcode_password_error}
+                    </div>
+                    <div className="buttons">
+                        <input onClick={this.onQrcodePasswordEnter} className="green-btn" type="button"
+                               value={this.formatMessage('btn_ok')}/>
+                    </div>
+                </Modal>
+            </div>
+        );
         let hasWallet = (WalletDb.getWallet()) ? true : false;
 
         return (
@@ -215,7 +277,9 @@ class ImportKey extends BaseComponent {
                 }
                 <div className="text-input">
                     <div className="text-label">{this.formatMessage('wallet_accountPrivateKey')}</div>
-                    <input ref="wifInput" type="text" placeholder={this.formatMessage('wallet_accountPrivateKey_ph')}/>
+                    <input value={this.state.wif}
+                           onChange={this.onWifChange.bind(this)} type="text"
+                           placeholder={this.formatMessage('wallet_accountPrivateKey_ph')}/>
                 </div>
                 <div className="operate">
                     {this.props.importing ? <TextLoading/> :
@@ -233,6 +297,7 @@ class ImportKey extends BaseComponent {
                         {this.state.error_message}
                     </div>
                 }
+                {qrcode_pwd}
             </div>
         );
     }

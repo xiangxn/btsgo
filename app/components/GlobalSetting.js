@@ -31,7 +31,7 @@ class GlobalSetting extends BaseComponent {
     onAPIChange(d) {
         SettingsActions.changeSetting({setting: "apiServer", value: d.value});
         setTimeout(() => {
-            window.location.reload();
+            window.location = window.location.href.split('#')[0];
         }, 250);
     }
 
@@ -42,7 +42,7 @@ class GlobalSetting extends BaseComponent {
     onFaucetChange(d) {
         SettingsActions.changeSetting({setting: "faucet_address", value: d.value});
         setTimeout(() => {
-            window.location.reload();
+            window.location = window.location.href.split('#')[0];
         }, 250);
     }
 
@@ -106,7 +106,7 @@ class GlobalSetting extends BaseComponent {
 
         let saveApi = this.props.settings.get('apiServer');
         let api = this.props.defaults.apiServer.find((a) => {
-            if (a.value === saveApi)return a;
+            if (a.value === saveApi) return a;
         });
 
         let faucet_address = this.props.settings.get('faucet_address');
@@ -122,6 +122,7 @@ class GlobalSetting extends BaseComponent {
 
         let disableChat = this.props.settings.get("disableChat");
 
+        let isInitError = (this.context.router.location.pathname == "/init-error");
         return (
             <div className="vertical-flex scroll">
                 <XNSelect label={this.formatMessage('settings_labLanguage')}
@@ -138,17 +139,19 @@ class GlobalSetting extends BaseComponent {
                 <XNSelect label={this.formatMessage('settings_labFaucet')}
                           onChange={this.onFaucetChange.bind(this)} value={faucet_address}
                           data={faucets}/>
-                <div className="separate"></div>
-                <XNSelect label={this.formatMessage('settings_labShowUnit')}
-                          onChange={this.onUnitChange.bind(this)} value={unit} data={units}/>
-                <XNFullText label={this.formatMessage('settings_labLockTime')} type="number"
-                            onChange={this.onLockTimeChange.bind(this)} value={walletLockTimeout}/>
+                {isInitError ? null : (<div>
+                    <div className="separate"></div>
+                    <XNSelect label={this.formatMessage('settings_labShowUnit')}
+                              onChange={this.onUnitChange.bind(this)} value={unit} data={units}/>
+                    <XNFullText label={this.formatMessage('settings_labLockTime')} type="number"
+                                onChange={this.onLockTimeChange.bind(this)} value={walletLockTimeout}/>
 
-                <XNFullButton label={this.formatMessage('settings_labShowWalletManage')}
-                              onClick={this.onShowWalletManageClick.bind(this)}/>
-                <XNFullButton isShowIcon={false}
-                              label={this.formatMessage('settings_labDefaultSetting')}
-                              onClick={this.onSetDefaultClick.bind(this)}/>
+                    <XNFullButton label={this.formatMessage('settings_labShowWalletManage')}
+                                  onClick={this.onShowWalletManageClick.bind(this)}/>
+                    <XNFullButton isShowIcon={false}
+                                  label={this.formatMessage('settings_labDefaultSetting')}
+                                  onClick={this.onSetDefaultClick.bind(this)}/>
+                </div>)}
             </div>
         );
     }

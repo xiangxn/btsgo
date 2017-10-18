@@ -9,7 +9,7 @@ export const menuItems = [
     {name: 'menu_transaction', url: '/markets'},//transaction
     {name: 'menu_transfer', url: '/transfer'},
     {name: 'menu_lastOperate', url: '/last-operate'},
-    {name: 'menu_scan', url: '/scan'},
+    {name: 'menu_scan', url: 'scan'},
     {name: 'menu_createAccount', url: '/create-account'},
     {name: 'menu_settings', url: '/settings'},
     {name: "menu_reload", url: 'reload'}
