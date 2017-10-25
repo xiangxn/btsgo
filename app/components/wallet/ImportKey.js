@@ -97,7 +97,7 @@ class ImportKey extends BaseComponent {
     }
 
     onImportClick(e) {
-        let value = this.refs.wifInput.value;
+        let value = this.state.wif;
         let count = this.addByPattern(value);
         if (count === 1) {
             if (WalletDb.getWallet()) {
@@ -224,6 +224,8 @@ class ImportKey extends BaseComponent {
         let pwd = this.refs.qrcode_pwd_input.value;
         let pwd_aes = Aes.fromSeed(pwd);
         let wif = pwd_aes.decryptHexToText(this.props.qrcode);
+        //let w2 = pwd_aes.decryptHex(this.props.qrcode);
+        //console.log("dec qr:", this.props.qrcode, wif, w2);
         if (wif == null || wif.length != 51) {
             this.setState({qrcode_password_error: this.formatMessage("wallet_passwordErrMsg")});
         } else {
@@ -258,7 +260,7 @@ class ImportKey extends BaseComponent {
                         {this.state.qrcode_password_error}
                     </div>
                     <div className="buttons">
-                        <input onClick={this.onQrcodePasswordEnter} className="green-btn" type="button"
+                        <input onClick={this.onQrcodePasswordEnter.bind(this)} className="green-btn" type="button"
                                value={this.formatMessage('btn_ok')}/>
                     </div>
                 </Modal>

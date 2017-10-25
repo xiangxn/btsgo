@@ -49,7 +49,10 @@ module.exports = {
             __BASE_URL__: JSON.stringify("assets"),
             __HASHHISTORY__: true
         }),
-        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            output: {comments: false},
+            compress: {warnings: false}
+        }),
         new ExtractTextPlugin('style.css', {allChunks: true})
     ]
 };

@@ -908,7 +908,7 @@ input {
   position: relative;
   text-align: center;
   > video {
-    width: 6.4rem;
+    width: 100%;
   }
   > .video {
     width: 6.4rem;
@@ -919,7 +919,7 @@ input {
     }
   }
   > .picture-frame {
-    border: dashed .04rem $orangeRedColor;
+    border: dashed 2px $orangeRedColor;
     width: 3.2rem;
     height: 3.2rem;
     position: absolute;

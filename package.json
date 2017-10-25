@@ -30,7 +30,7 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --history-api-fallback --devtool eval --progress --colors --content-base build",
-    "release": "webpack --config webpack.pro.config.js -p"
+    "release": "webpack --config webpack.pro.config.js -p --progress --display-error-details --colors"
   },
   "repository": {
     "type": "git",

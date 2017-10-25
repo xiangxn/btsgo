@@ -13,9 +13,10 @@ module.exports = {
     output: {
         path: path.resolve(root_dir, 'build/assets'),
         filename: 'bundle.js',
-        publicPath:'/assets/'
+        publicPath: '/assets/'
     },
     devServer: {
+        host: "0.0.0.0",
         port: 8080,
         hot: true
     },
@@ -50,7 +51,7 @@ module.exports = {
             },
             APP_VERSION: JSON.stringify(git.tag()),
             __BASE_URL__: JSON.stringify("assets"),
-            __HASHHISTORY__:true
+            __HASHHISTORY__: true
         }),
         new webpack.HotModuleReplacementPlugin(),
         new ExtractTextPlugin('style.css', {allChunks: true})
