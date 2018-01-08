@@ -1,14 +1,15 @@
 /**
  * Created by necklace on 2017/1/14.
  */
-import React, {PropTypes} from "react";
+import React, { PropTypes } from "react";
 import BaseComponent from "../BaseComponent";
 import utils from "../../../common/utils";
 import market_utils from "../../../common/market_utils";
 import AssetName from "../Utility/AssetName";
 import PriceText from "../Utility/PriceText";
-import {FormattedDate} from "react-intl";
+import { FormattedDate } from "react-intl";
 import Gestures from "react-gestures";
+import { ChainStore } from "bitsharesjs";
 
 //actions
 import MarketsActions from "../../actions/MarketsActions";
@@ -46,17 +47,17 @@ class OrderRow extends BaseComponent {
     }
 
     render() {
-        let {base, quote, order} = this.props;
-        let {value, price, amount} = market_utils.parseOrder(order, base, quote);
+        let { base, quote, order } = this.props;
+        let { value, price, amount } = market_utils.parseOrder(order, base, quote);
         let isAsk = market_utils.isAsk(order, base);
 
         return (
             <Gestures onSwipeLeft={this.onSwipeLeft.bind(this, order.id)} swipeThreshold={2}>
-                <div id={"row_" + order.id} key={order.id} className="order-list-row" style={{touchAction: 'none'}}>
-                    <span className={isAsk ? "orangeRed" : "green"}><PriceText preFormattedPrice={price}/></span>
+                <div id={"row_" + order.id} key={order.id} className="order-list-row" style={{ touchAction: 'none' }}>
+                    <span className={isAsk ? "orangeRed" : "green"}><PriceText preFormattedPrice={price} /></span>
                     <span>{utils.format_number(amount, 4)}</span>
                     <span className="blue">{utils.format_number(value, 4)}</span>
-                    <span><FormattedDate value={order.expiration} format="short"/></span>
+                    <span><FormattedDate value={order.expiration} format="short" /></span>
                 </div>
             </Gestures>
         );
@@ -84,7 +85,7 @@ class Orders extends BaseComponent {
     }
 
     cancelLimitOrder(orderID) {
-        let {currentAccount} = this.props;
+        let { currentAccount } = this.props;
         //console.debug('currentAccount:', currentAccount.get('id'))
         //console.debug('orderID:', orderID)
         MarketsActions.cancelLimitOrder(
@@ -95,9 +96,9 @@ class Orders extends BaseComponent {
 
     render() {
         let {
-            currentAccount, quoteAsset, baseAsset, marketLimitOrders
+            currentAccount, quoteAsset, baseAsset
         } = this.props;
-        let orders = marketLimitOrders, base = null, quote = null, quoteSymbol, baseSymbol, bids = null, asks = null, account = null;
+        let orders = [], base = null, quote = null, quoteSymbol, baseSymbol, bids = null, asks = null, account = null;
         if (quoteAsset.size && baseAsset.size && currentAccount.size) {
             base = baseAsset;
             quote = quoteAsset;
@@ -106,42 +107,27 @@ class Orders extends BaseComponent {
             account = currentAccount.get("id");
         }
 
+        orders = currentAccount.get("orders");
+
         let emptyRow = (<div className="order-list-row"><span>{this.formatMessage('account_no_orders')}</span></div>);
-
-        if (orders.size > 0 && base && quote) {
-            bids = orders.filter(a => {
-                return (a.seller === account && a.sell_price.quote.asset_id !== base.get("id"));
-            }).sort((a, b) => {
-                let {price: a_price} = market_utils.parseOrder(a, base, quote);
-                let {price: b_price} = market_utils.parseOrder(b, base, quote);
-
-                return b_price.full - a_price.full;
-            }).map(order => {
-                let {price} = market_utils.parseOrder(order, base, quote);
-                return <OrderRow price={price.full} ref="orderRow" key={order.id} order={order} base={base}
-                                 quote={quote} onCancel={this.cancelLimitOrder.bind(this)}/>;
-            }).toArray();
-
-            asks = orders.filter(a => {
-                return (a.seller === account && a.sell_price.quote.asset_id === base.get("id"));
-            }).sort((a, b) => {
-                let {price: a_price} = market_utils.parseOrder(a, base, quote);
-                let {price: b_price} = market_utils.parseOrder(b, base, quote);
-
-                return a_price.full - b_price.full;
-            }).map(order => {
-                let {price} = market_utils.parseOrder(order, base, quote);
-                return <OrderRow price={price.full} key={order.id} order={order} base={base} quote={quote}
-                                 onCancel={this.cancelLimitOrder.bind(this)}/>;
-            }).toArray();
-
-        } else {
-            return (
+        let rows = [];
+        orders.forEach(orderID => {
+            let order = ChainStore.getObject(orderID).toJS();
+            let orderbase = ChainStore.getAsset(order.sell_price.base.asset_id);
+            let orderquote = ChainStore.getAsset(order.sell_price.quote.asset_id);
+            let { price } = market_utils.parseOrder(order, orderbase, orderquote);
+            rows.push(
+                <OrderRow price={price.full} key={orderID} order={order} base={orderbase}
+                    quote={orderquote} onCancel={this.cancelLimitOrder.bind(this)} />
+            );
+        });
+        if (rows.size < 0) {
+            rows.push(
                 <div className="order-list vertical-flex vertical-box">
                     <div className="order-list-header">
                         <span>{this.formatMessage('transaction_depthPrice')}</span>
-                        <AssetName name={quoteSymbol}/>
-                        <AssetName name={baseSymbol}/>
+                        <AssetName name={quoteSymbol} />
+                        <AssetName name={baseSymbol} />
                         <span>{this.formatMessage('transaction_expiration')}</span>
                     </div>
                     <div className="separate2"></div>
@@ -150,26 +136,15 @@ class Orders extends BaseComponent {
                     </div>
                 </div>
             );
-        }
 
-        let rows = [];
-
-        if (asks.length) {
-            rows = rows.concat(asks);
-        }
-        if (bids.length) {
-            rows = rows.concat(bids);
-        }
-        rows.sort((a, b) => {
-            return a.props.price - b.props.price;
-        });
+        } 
 
         return (
             <div className="order-list vertical-flex vertical-box">
                 <div className="order-list-header">
                     <span>{this.formatMessage('transaction_depthPrice')}</span>
-                    <AssetName name={quoteSymbol}/>
-                    <AssetName name={baseSymbol}/>
+                    <AssetName name={quoteSymbol} />
+                    <AssetName name={baseSymbol} />
                     <span>{this.formatMessage('transaction_expiration')}</span>
                 </div>
                 <div className="separate2"></div>
