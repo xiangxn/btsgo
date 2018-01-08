@@ -2,8 +2,9 @@ import numeral from "numeral";
 
 let id_regex = /\b\d+\.\d+\.(\d+)\b/;
 
-import {ChainTypes} from "bitsharesjs";
-var {object_type, operations} = ChainTypes;
+import { ChainTypes } from "bitsharesjs";
+import { isString } from "util";
+var { object_type, operations } = ChainTypes;
 
 var Utils = {
     get_object_id: (obj_id) => {
@@ -107,8 +108,9 @@ var Utils = {
         return num
     },
     formatNumber: function (num, s, z = false) {
-        num = num.replace(',', "");
-        if (isNaN(num))return num;
+        if (isString(num))
+            num = num.replace(',', "");
+        if (isNaN(num)) return num;
         let zeros = ".";
         for (let i = 0; i < s; i++) {
             zeros += "0";
@@ -209,8 +211,7 @@ var Utils = {
                         break;
                     }
                     zeros++;
-                }
-                ;
+                };
             } else {
                 let l = dec.length;
                 for (i = 0; i < l; i++) {
@@ -219,8 +220,7 @@ var Utils = {
                         break;
                     }
                     zeros++;
-                }
-                ;
+                };
             }
         }
 
@@ -421,7 +421,7 @@ var Utils = {
         let assetPrice = this.get_asset_price(priceObject.quote.amount, fromAsset, priceObject.base.amount, toAsset);
 
         let eqValue = fromAsset.get("id") !== toAsset.get("id") ?
-        basePrecision * (amount / quotePrecision) / assetPrice :
+            basePrecision * (amount / quotePrecision) / assetPrice :
             amount;
 
         if (isNaN(eqValue) || !isFinite(eqValue)) {
@@ -515,11 +515,11 @@ var Utils = {
             prefix: isBitAsset ? "bit" : toReplace[i] ? toReplace[i].toLowerCase() : null
         };
     },
-    getAssetName(asset, noPrefix = false, replace = true){
+    getAssetName(asset, noPrefix = false, replace = true) {
         let name = asset.get("symbol");
         let isBitAsset = asset.has("bitasset");
         let isPredMarket = isBitAsset && asset.getIn(["bitasset", "is_prediction_market"]);
-        let {name: replacedName, prefix} = this.replaceName(name, isBitAsset && !isPredMarket && asset.get("issuer") === "1.2.0");
+        let { name: replacedName, prefix } = this.replaceName(name, isBitAsset && !isPredMarket && asset.get("issuer") === "1.2.0");
         if (prefix == null) {
             prefix = '';
         }

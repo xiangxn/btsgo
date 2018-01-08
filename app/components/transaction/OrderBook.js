@@ -32,9 +32,9 @@ class OrderBookRow extends BaseComponent {
 
         return (
             <div className="depth-list-row" onClick={this.props.onClick}>
-                <span>{utils.format_number(order[isBid ? "amountForSale" : "amountToReceive"]().getAmount({real: true}), 4)}</span>
-                <span>{utils.format_number(order[isBid ? "amountToReceive" : "amountForSale"]().getAmount({real: true}), 4)}</span>
-                <span>{utils.format_number(price.full, 4)}</span>
+                <span>{utils.formatNumber(order[isBid ? "amountForSale" : "amountToReceive"]().getAmount({real: true}), 4)}</span>
+                <span>{utils.formatNumber(order[isBid ? "amountToReceive" : "amountForSale"]().getAmount({real: true}), 4)}</span>
+                <span>{utils.formatNumber(price.full, 4)}</span>
             </div>
         );
     }
