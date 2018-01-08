@@ -149,7 +149,7 @@ class Orders extends BaseComponent {
                 </div>
                 <div className="separate2"></div>
                 <div className="order-list-rows vertical-flex scroll">
-                    {rows.length ? rows : emptyRow}
+                    {rows}
                 </div>
             </div>
         );
