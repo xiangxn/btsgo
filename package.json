@@ -62,7 +62,7 @@
     "intl": "^1.2.5",
     "jdenticon": "git+https://github.com/cryptonomex/jdenticon.git",
     "js-sha256": "^0.2.3",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.11",
     "lzma": "2.1.6",
     "numeral": "^2.0.4",
     "pica": "^2.0.8",
