@@ -24,7 +24,7 @@
     "url-loader": "^0.5.7",
     "autoprefixer": "^6.5.4",
     "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2",
+    "webpack-dev-server": "^3.1.11",
     "worker-loader": "^0.7.1"
   },
   "scripts": {
